@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
-
+import Firebase
 @main
 struct VideoGameCatalogAppApp: App {
+    @StateObject var userData = UserData()
+    init(){
+        FirebaseApp.configure()
+        print("Configured FireBase!")
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(userData)
         }
     }
 }
