@@ -51,7 +51,6 @@ struct HomeMainView: View {
             }
             
             Text("Number in Catalog: ").font(.largeTitle).frame(maxWidth: .infinity, alignment: .leading).padding()
-            Text(userData.userId ?? "Not value")
             Text("Gaming News: ").font(.largeTitle).frame(maxWidth: .infinity, alignment: .leading).padding()
             
             ScrollView(.horizontal) {

@@ -10,7 +10,15 @@ struct MainProfileView: View {
         NavigationView {
             VStack {
                 Spacer()
-                Text("Profile view / recommended and catalog")
+                HStack{
+                    VStack{
+                        Text("Username")
+                        Text("Platform of Choice: PS5")
+                    }
+                    Spacer()
+                    Image("profile-user-avatar-man-person-svgrepo-com")
+                }
+                .padding()
                 SlidingTabView(selection: $tabIndex, tabs: ["Recommended", "Catalog"], animation: .easeInOut)
                 Spacer()
                 
