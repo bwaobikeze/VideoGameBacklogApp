@@ -51,6 +51,7 @@ struct HomeMainView: View {
             }
             
             Text("Number in Catalog: ").font(.largeTitle).frame(maxWidth: .infinity, alignment: .leading).padding()
+            Text(userData.userId ?? "Not value")
             Text("Gaming News: ").font(.largeTitle).frame(maxWidth: .infinity, alignment: .leading).padding()
             
             ScrollView(.horizontal) {
@@ -97,7 +98,7 @@ struct HomeMainView: View {
 
     func loadDataGame() async {
         let apiKeyGame = Config.rawgApiKey
-        guard let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKeyGame)&platforms=187&page_size=2") else {
+        guard let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKeyGame)&platforms=187&page_size=20") else {
             print("Invalid URL")
             return
         }
@@ -124,5 +125,6 @@ struct HomeMainView: View {
 struct HomeMainView_Previews: PreviewProvider {
     static var previews: some View {
         HomeMainView()
+            .environmentObject(UserData())
     }
 }

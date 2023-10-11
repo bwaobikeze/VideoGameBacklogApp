@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "playstation-4-game-controllers-video-game-dualshock-joystick-7d6b0eb7e10322d99b41504a05478bcc.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

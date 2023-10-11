@@ -10,6 +10,7 @@ struct platform: Codable{
     var id: Int?
     var name: String
     var slug: String
+    var image_background: URL?
 }
 struct Game: Codable,Identifiable{
     var id: Int
@@ -17,8 +18,4 @@ struct Game: Codable,Identifiable{
     var name: String
     //var platforms: [platform]
     var background_image: URL
-    var description: String?
-    var released: String
-    var rating: Float
-    var userId:String?
 }
