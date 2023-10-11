@@ -8,16 +8,18 @@
 import SwiftUI
 import FirebaseFirestore
 
-struct  GameDetailResponse:Codable{
+struct  GameDetailResponse:Codable, Identifiable{
     var id: Int?
     var name: String
     var background_image_additional: URL?
+    var background_image: URL?
     var description_raw: String
     var userId:String?
 
 }
 
 struct GameContentView: View {
+    @EnvironmentObject var userData: UserData
     @State var gameID: Int = 0
     @State private var Gamed = GameDetailResponse(id: 0, name: "", description_raw: "")
     var body: some View {
@@ -41,6 +43,7 @@ struct GameContentView: View {
         Button(action: {
             // Handle login action here
             //Signin()
+            addGameToCatalog(gameObj: &Gamed)
         }) {
             Text("Add to catalog")
                 .font(.headline)
@@ -53,8 +56,18 @@ struct GameContentView: View {
         .padding()
         
     }
-    func addGameToCatalog(){
+    func addGameToCatalog(gameObj: inout GameDetailResponse){
         let db = Firestore.firestore()
+        gameObj.userId=userData.userId
+        var ref:DocumentReference? = nil
+        ref=db.collection("VideoGames").addDocument(data: ["id":gameObj.id ?? "id Value","userId":gameObj.userId ?? "not user ID"]){
+            err in
+            if let err = err{
+                print("Error adding document: \(err)")
+            }else{
+                print("Document added with ID: \(ref!.documentID)")
+            }
+        }
         
     }
     func loadDataDetailGame() async {
@@ -76,4 +89,5 @@ struct GameContentView: View {
 
 #Preview {
     GameContentView()
+    
 }
