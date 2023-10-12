@@ -40,6 +40,7 @@ struct HomeMainView: View {
                                     ProgressView()
                                 }
                                 Text(game.name)
+                                
                             }
                             .padding() // Add some spacing between items if needed
                         }).sheet(item: $selectedGame) { gameID in
@@ -73,7 +74,7 @@ struct HomeMainView: View {
                 }
                 .task {
                     await loadData()
-                    await loadDataGame()
+                    await loadDataGame(year: 2023, month: 10)
                 }
             }
         }
@@ -95,9 +96,27 @@ struct HomeMainView: View {
         }
     }
 
-    func loadDataGame() async {
+    func loadDataGame(year: Int, month: Int) async {
+        
         let apiKeyGame = Config.rawgApiKey
-        guard let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKeyGame)&platforms=187&page_size=20") else {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        // Calculate the start and end dates for the specified month and year
+        let calendar = Calendar.current
+        let firstDayOfMonthComponents = DateComponents(year: year, month: month, day: 1)
+        let lastDayOfMonthComponents = DateComponents(year: year, month: month + 1, day: 1)
+        
+        guard let firstDayOfMonth = calendar.date(from: firstDayOfMonthComponents),
+              let lastDayOfMonth = calendar.date(from: lastDayOfMonthComponents) else {
+            print("Invalid date components")
+            return
+        }
+        
+        let startDateString = dateFormatter.string(from: firstDayOfMonth)
+        let endDateString = dateFormatter.string(from: lastDayOfMonth)
+        
+        guard let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKeyGame)&dates=\(startDateString),\(endDateString)&platforms=187&page_size=21") else {
             print("Invalid URL")
             return
         }

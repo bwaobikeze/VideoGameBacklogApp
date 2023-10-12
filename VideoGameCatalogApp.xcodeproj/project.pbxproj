@@ -32,6 +32,7 @@
 		3C404E882AD5570700059C73 /* BrowseSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E7C2AD5570700059C73 /* BrowseSearchView.swift */; };
 		3C404E8B2AD5595900059C73 /* SlidingTabView in Frameworks */ = {isa = PBXBuildFile; productRef = 3C404E8A2AD5595900059C73 /* SlidingTabView */; };
 		3C404E8D2AD55A8100059C73 /* configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E8C2AD55A8100059C73 /* configure.swift */; };
+		3C404E8F2AD7E43E00059C73 /* testView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E8E2AD7E43E00059C73 /* testView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		3C404E7B2AD5570700059C73 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3C404E7C2AD5570700059C73 /* BrowseSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseSearchView.swift; sourceTree = "<group>"; };
 		3C404E8C2AD55A8100059C73 /* configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = configure.swift; sourceTree = "<group>"; };
+		3C404E8E2AD7E43E00059C73 /* testView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				3C404E7A2AD5570700059C73 /* GameContentView.swift */,
 				3C404E7B2AD5570700059C73 /* ContentView.swift */,
 				3C404E7C2AD5570700059C73 /* BrowseSearchView.swift */,
+				3C404E8E2AD7E43E00059C73 /* testView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 			files = (
 				3C404E852AD5570700059C73 /* HomeMainView.swift in Sources */,
 				3C404E812AD5570700059C73 /* RecommendedView.swift in Sources */,
+				3C404E8F2AD7E43E00059C73 /* testView.swift in Sources */,
 				3C404E872AD5570700059C73 /* ContentView.swift in Sources */,
 				3C404E862AD5570700059C73 /* GameContentView.swift in Sources */,
 				3C404E802AD5570700059C73 /* ProfileInfoView.swift in Sources */,

@@ -24,8 +24,6 @@ struct GameContentView: View {
     @State private var Gamed = GameDetailResponse(id: 0, name: "", description_raw: "")
     var body: some View {
         VStack{
-            Text("Game content view")
-            Text("GameID:\(gameID)")
                 AsyncImage(url: Gamed.background_image_additional) { image in
                     image.resizable()
                         .aspectRatio(contentMode: .fit)
