@@ -19,37 +19,63 @@ struct HomeMainView: View {
     @EnvironmentObject var userData: UserData
     @State private var showContentScreen: Bool = false
     @State private var selectedGame: Game?
+    @State private var currentVisibleIndex = 0
     
     var body: some View {
         VStack {
             Text("Home").font(.title)
             Text("Upcoming In: \(getCurrentMonth()) ").font(.largeTitle).frame(maxWidth: .infinity, alignment: .leading).padding()
+
+                    RoundedRectangle(cornerRadius: 15)
+                         .fill(Color.white)
+                         .shadow(radius: 10)
+                         .frame(width: 350, height: 200)
+                         .overlay(
+                             ScrollView(.horizontal) {
+                                 HStack {
+                                     ForEach(Games, id: \.slug) { game in
+                                         Button(action: {
+                                             selectedGame = game
+                                         }, label: {
+                                             ZStack {
+                                                 AsyncImage(url: game.background_image) { image in
+                                                     image.resizable()
+                                                         .aspectRatio(contentMode: .fit)
+                                                         .frame(maxWidth: 350, maxHeight: 200)
+                                                         .cornerRadius(15)
+                                                     
+                                                 } placeholder: {
+                                                     ProgressView()
+                                                 }
+                                                 
+                                                 VStack {
+                                                     Spacer()
+                                                     Spacer()
+                                                     Spacer()
+                                                     HStack {
+                                                         Text(game.name)
+                                                             .frame(maxWidth: .infinity, alignment: .leading)
+                                                             .padding(.horizontal)
+                                                             .foregroundColor(Color.white)
+                                                     }
+                                                     Text(game.released)
+                                                         .frame(maxWidth: .infinity, alignment: .leading)
+                                                         .padding(.horizontal)
+                                                         .foregroundColor(Color.white)
+                                                     Spacer()
+                                                 }
+                                             }
+                                             // Add some spacing between items if needed
+                                         }).sheet(item: $selectedGame) { gameID in
+                                             GameContentView(gameID: gameID.id)
+                                         }
+                                         Spacer()
+                                     }
+                                 }
+                             }
+                         )
+                
             
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach(Games, id: \.slug) { game in
-                        Button(action: {
-                            selectedGame = game
-                        }, label: {
-                            VStack(spacing: 0) {
-                                AsyncImage(url: game.background_image) { image in
-                                    image.resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(maxWidth: 300, maxHeight: 200)
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                                Text(game.name)
-                                
-                            }
-                            .padding() // Add some spacing between items if needed
-                        }).sheet(item: $selectedGame) { gameID in
-                            GameContentView(gameID: gameID.id)
-                        }
-                        Spacer()
-                    }
-                }
-            }
             
             Text("Number in Catalog: ").font(.largeTitle).frame(maxWidth: .infinity, alignment: .leading).padding()
             Text("Gaming News: ").font(.largeTitle).frame(maxWidth: .infinity, alignment: .leading).padding()
@@ -57,6 +83,11 @@ struct HomeMainView: View {
             ScrollView(.horizontal) {
                 LazyHStack {
                     ForEach(articlas, id: \.title) { articla in
+                        RoundedRectangle(cornerRadius: 15)
+                             .fill(Color.white)
+                             .shadow(radius: 10)
+                             .frame(width: 350, height: 150)
+                             .overlay(
                         Button(action: {
                             UIApplication.shared.open(articla.url)
                         }) {
@@ -64,12 +95,14 @@ struct HomeMainView: View {
                                 image.resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(maxWidth: 200, maxHeight: 200)
+                                    .cornerRadius(30)
                             } placeholder: {
                                 ProgressView()
                             }
                             Spacer()
-                            Text(articla.title).frame(maxWidth: 150, maxHeight: 150)
+                            Text(articla.title).frame(maxWidth: 150, maxHeight: 150).foregroundColor(.black)
                         }
+                        )
                     }
                 }
                 .task {
@@ -82,7 +115,7 @@ struct HomeMainView: View {
 
     func loadData() async {
         let apiKeyNews = Config.newsApiKey
-        guard let url = URL(string: "https://newsapi.org/v2/top-headlines?sources=IGN&q=gaming&apiKey=\(apiKeyNews)") else {
+        guard let url = URL(string: "https://newsapi.org/v2/everything?sources=IGN,youtube&q=gaming&apiKey=\(apiKeyNews)") else {
             print("Invalid URL")
             return
         }
@@ -134,7 +167,7 @@ struct HomeMainView: View {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
 
-        dateFormatter.dateFormat = "MMM"
+        dateFormatter.dateFormat = "MMMM"
         let currentMonth = dateFormatter.string(from: currentDate)
         return currentMonth
     }

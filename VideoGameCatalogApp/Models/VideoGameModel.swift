@@ -16,6 +16,7 @@ struct Game: Codable,Identifiable{
     var slug: String
     var name: String
     //var platforms: [platformObj]
+    var released: String
     var background_image: URL
 }
 
