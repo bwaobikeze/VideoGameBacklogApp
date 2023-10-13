@@ -8,8 +8,24 @@
 import SwiftUI
 
 struct MainBrowseView: View {
+    @State private var isSearch = false
     var body: some View {
-        Text("Main Browse View")
+        NavigationView{
+        VStack{
+            Button(action: {
+                isSearch.toggle()
+                print(isSearch)
+            }, label: {
+                Image("zoom").frame(maxWidth: .infinity, alignment: .trailing).padding()
+            })
+            Spacer()
+            Text("Main Game Browse View")
+            Spacer()
+            NavigationLink(destination: BrowseSearchView(), isActive: $isSearch){
+                EmptyView()
+            }
+        }
+    }
     }
 }
 

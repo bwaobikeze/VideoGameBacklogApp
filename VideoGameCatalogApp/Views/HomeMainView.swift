@@ -19,17 +19,17 @@ struct HomeMainView: View {
     @EnvironmentObject var userData: UserData
     @State private var showContentScreen: Bool = false
     @State private var selectedGame: Game?
-    @State private var currentVisibleIndex = 0
     
     var body: some View {
         VStack {
-            Text("Home").font(.title)
+            Text("Home").font(.title).frame(maxWidth: .infinity, alignment: .leading).padding()
             Text("Upcoming In: \(getCurrentMonth()) ").font(.largeTitle).frame(maxWidth: .infinity, alignment: .leading).padding()
 
                     RoundedRectangle(cornerRadius: 15)
                          .fill(Color.white)
                          .shadow(radius: 10)
                          .frame(width: 350, height: 200)
+                         .cornerRadius(15)
                          .overlay(
                              ScrollView(.horizontal) {
                                  HStack {
