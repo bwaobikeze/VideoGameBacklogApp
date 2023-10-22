@@ -27,7 +27,7 @@ struct GameCatalogView: View {
                         Text(game.name).font(.title2)
                     }
                 }
-                }
+            }.listStyle(PlainListStyle())
 
         }.onAppear(perform: {
             fetchGamesForUserID(userID: userData.userId ?? "not id")

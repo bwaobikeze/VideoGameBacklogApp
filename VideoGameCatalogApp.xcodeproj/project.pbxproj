@@ -32,6 +32,8 @@
 		3C404E882AD5570700059C73 /* BrowseSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E7C2AD5570700059C73 /* BrowseSearchView.swift */; };
 		3C404E8B2AD5595900059C73 /* SlidingTabView in Frameworks */ = {isa = PBXBuildFile; productRef = 3C404E8A2AD5595900059C73 /* SlidingTabView */; };
 		3C404E8D2AD55A8100059C73 /* configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E8C2AD55A8100059C73 /* configure.swift */; };
+		3C4DCC262AE4FB00008E36AA /* ParentPlatformModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */; };
+		3C4DCC292AE51DEA008E36AA /* ACarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4DCC282AE51DEA008E36AA /* ACarousel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,7 @@
 		3C404E7B2AD5570700059C73 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3C404E7C2AD5570700059C73 /* BrowseSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseSearchView.swift; sourceTree = "<group>"; };
 		3C404E8C2AD55A8100059C73 /* configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = configure.swift; sourceTree = "<group>"; };
+		3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentPlatformModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +67,7 @@
 			files = (
 				3C404E8B2AD5595900059C73 /* SlidingTabView in Frameworks */,
 				3C404E642AD5558100059C73 /* FirebaseFirestore in Frameworks */,
+				3C4DCC292AE51DEA008E36AA /* ACarousel in Frameworks */,
 				3C404E502AD5558100059C73 /* FirebaseAnalyticsSwift in Frameworks */,
 				3C404E4C2AD5558100059C73 /* FirebaseAnalytics in Frameworks */,
 				3C404E682AD5558100059C73 /* FirebaseFirestoreSwift in Frameworks */,
@@ -117,6 +121,7 @@
 				3C404E6A2AD556A300059C73 /* NewsModel.swift */,
 				3C404E6B2AD556A300059C73 /* VideoGameModel.swift */,
 				3C404E6C2AD556A300059C73 /* userProfileModel.swift */,
+				3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -163,6 +168,7 @@
 				3C404E632AD5558100059C73 /* FirebaseFirestore */,
 				3C404E672AD5558100059C73 /* FirebaseFirestoreSwift */,
 				3C404E8A2AD5595900059C73 /* SlidingTabView */,
+				3C4DCC282AE51DEA008E36AA /* ACarousel */,
 			);
 			productName = VideoGameCatalogApp;
 			productReference = 3C404E372AD5541700059C73 /* VideoGameCatalogApp.app */;
@@ -195,6 +201,7 @@
 			packageReferences = (
 				3C404E4A2AD5558100059C73 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3C404E892AD5595900059C73 /* XCRemoteSwiftPackageReference "SlidingTabView" */,
+				3C4DCC272AE51DEA008E36AA /* XCRemoteSwiftPackageReference "ACarousel" */,
 			);
 			productRefGroup = 3C404E382AD5541700059C73 /* Products */;
 			projectDirPath = "";
@@ -227,6 +234,7 @@
 				3C404E812AD5570700059C73 /* RecommendedView.swift in Sources */,
 				3C404E872AD5570700059C73 /* ContentView.swift in Sources */,
 				3C404E862AD5570700059C73 /* GameContentView.swift in Sources */,
+				3C4DCC262AE4FB00008E36AA /* ParentPlatformModel.swift in Sources */,
 				3C404E802AD5570700059C73 /* ProfileInfoView.swift in Sources */,
 				3C404E6D2AD556A300059C73 /* NewsModel.swift in Sources */,
 				3C404E6E2AD556A300059C73 /* VideoGameModel.swift in Sources */,
@@ -462,6 +470,14 @@
 				minimumVersion = 1.0.2;
 			};
 		};
+		3C4DCC272AE51DEA008E36AA /* XCRemoteSwiftPackageReference "ACarousel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JWAutumn/ACarousel";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -494,6 +510,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3C404E892AD5595900059C73 /* XCRemoteSwiftPackageReference "SlidingTabView" */;
 			productName = SlidingTabView;
+		};
+		3C4DCC282AE51DEA008E36AA /* ACarousel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3C4DCC272AE51DEA008E36AA /* XCRemoteSwiftPackageReference "ACarousel" */;
+			productName = ACarousel;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
