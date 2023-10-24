@@ -18,8 +18,9 @@ struct GameCatalogView: View {
                 HStack{
                     AsyncImage(url: game.background_image) { image in
                         image.resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxWidth: 300, maxHeight:200)
+                            .aspectRatio(100/100,contentMode: .fit)
+                            .frame(maxWidth: 100, maxHeight:100)
+                            .cornerRadius(15)
                     } placeholder: {
                         ProgressView()
                     }

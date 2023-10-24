@@ -40,7 +40,7 @@ struct HomeMainView: View {
                                              ZStack {
                                                  AsyncImage(url: game.background_image) { image in
                                                      image.resizable()
-                                                         .aspectRatio(contentMode: .fit)
+                                                         .aspectRatio(350/200,contentMode: .fit)
                                                          .frame(maxWidth: 350, maxHeight: 200)
                                                          .cornerRadius(15)
                                                      
@@ -149,7 +149,7 @@ struct HomeMainView: View {
         let startDateString = dateFormatter.string(from: firstDayOfMonth)
         let endDateString = dateFormatter.string(from: lastDayOfMonth)
         
-        guard let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKeyGame)&dates=\(startDateString),\(endDateString)&platforms=187&page_size=21") else {
+        guard let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKeyGame)&dates=\(startDateString),\(endDateString)&page_size=21") else {
             print("Invalid URL")
             return
         }

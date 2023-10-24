@@ -34,6 +34,7 @@
 		3C404E8D2AD55A8100059C73 /* configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E8C2AD55A8100059C73 /* configure.swift */; };
 		3C4DCC262AE4FB00008E36AA /* ParentPlatformModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */; };
 		3C4DCC292AE51DEA008E36AA /* ACarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4DCC282AE51DEA008E36AA /* ACarousel */; };
+		3C4DCC2B2AE795A0008E36AA /* GamesForPlatformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC2A2AE795A0008E36AA /* GamesForPlatformView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		3C404E7C2AD5570700059C73 /* BrowseSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseSearchView.swift; sourceTree = "<group>"; };
 		3C404E8C2AD55A8100059C73 /* configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = configure.swift; sourceTree = "<group>"; };
 		3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentPlatformModel.swift; sourceTree = "<group>"; };
+		3C4DCC2A2AE795A0008E36AA /* GamesForPlatformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesForPlatformView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				3C404E7A2AD5570700059C73 /* GameContentView.swift */,
 				3C404E7B2AD5570700059C73 /* ContentView.swift */,
 				3C404E7C2AD5570700059C73 /* BrowseSearchView.swift */,
+				3C4DCC2A2AE795A0008E36AA /* GamesForPlatformView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				3C404E882AD5570700059C73 /* BrowseSearchView.swift in Sources */,
 				3C404E7E2AD5570700059C73 /* MainBrowseView.swift in Sources */,
 				3C404E6F2AD556A300059C73 /* userProfileModel.swift in Sources */,
+				3C4DCC2B2AE795A0008E36AA /* GamesForPlatformView.swift in Sources */,
 				3C404E8D2AD55A8100059C73 /* configure.swift in Sources */,
 				3C404E3B2AD5541700059C73 /* VideoGameCatalogAppApp.swift in Sources */,
 				3C404E842AD5570700059C73 /* GameCatalogView.swift in Sources */,

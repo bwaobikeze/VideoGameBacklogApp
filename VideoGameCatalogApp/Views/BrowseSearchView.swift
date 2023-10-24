@@ -33,7 +33,7 @@ struct BrowseSearchView: View {
                                 HStack {
                                     AsyncImage(url: game.background_image) { image in
                                         image.resizable()
-                                            .aspectRatio(contentMode: .fit)
+                                            .aspectRatio(150/200,contentMode: .fit)
                                             .frame(maxWidth: 150, maxHeight: 200)
                                             .cornerRadius(15)
                                     } placeholder: {
