@@ -26,3 +26,6 @@ struct PlatformResponse: Codable {
     var previous: URL?
     var results: [ParentPlatform]
 }
+struct subplatformsResponse: Codable{
+    var results:[subplatforms]
+}

@@ -14,10 +14,11 @@ struct RegistrationView: View {
     @State private var password = ""
     @State private var firstName = ""
     @State private var lastName = ""
-    @State private var platform = ""
+    @State private var platform = 0
     @State private var username = ""
     @State private var registrationError: String?
     @State private var isRegistered = false
+    @State private var GamePlatformsSelction = [subplatforms]()
     var body: some View {
         NavigationView{
             VStack {
@@ -41,12 +42,17 @@ struct RegistrationView: View {
                 SecureField("Password", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
-                TextField("platform", text: $platform)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
                 TextField("Username", text: $username)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
+                Picker(selection: $platform) {
+                    ForEach(GamePlatformsSelction, id: \.id){
+                        platform in
+                        Text("\(platform.name)").tag("\(platform.id)")
+                    }
+                } label: {
+                    Text("Platforms")
+                }.pickerStyle(.wheel)
                 NavigationLink(destination: ContentView(), isActive: $isRegistered) {
                     EmptyView()
                 }
@@ -63,6 +69,9 @@ struct RegistrationView: View {
                         .cornerRadius(10)
                 }
                 .padding()
+            }
+            .task{
+                await loadGamePlatforms()
             }
             .padding()
         }.navigationBarBackButtonHidden(true)
@@ -96,6 +105,22 @@ struct RegistrationView: View {
             }
         }
     }
+    func loadGamePlatforms() async {
+        let apiKeyGame=Config.rawgApiKey
+        guard let url = URL(string: "https://api.rawg.io/api/platforms?key=\(apiKeyGame)") else {
+            print("Invalid URL")
+            return
+        }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let decodedGameResponse = try JSONDecoder().decode(subplatformsResponse.self, from: data)
+            GamePlatformsSelction = decodedGameResponse.results
+        } catch {
+            debugPrint(error)
+        }
+    }
+
 }
 
 struct RegistrationView_Previews: PreviewProvider {

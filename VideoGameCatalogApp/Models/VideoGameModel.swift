@@ -8,20 +8,19 @@
 import Foundation
 struct platform: Codable{
     var id: Int?
-    var slug: String
     var name: String
+    var slug: String
 }
 struct Game: Codable,Identifiable{
     var id: Int
     var slug: String
     var name: String
-    //var platforms: [platformObj]
     var released: String
     var background_image: URL?
+    var platforms: [platformObj]
     var userId:String?
 }
 
 struct platformObj: Codable{
-    var platform: [platform]
-    var released_at: String
+    var platform: platform
 }

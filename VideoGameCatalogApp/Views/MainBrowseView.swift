@@ -15,6 +15,7 @@ struct MainBrowseView: View {
     @State private var Playstation5Games = [Game]()
     @State private var XboxSXGames = [Game]()
     @State private var SwicthGames = [Game]()
+    @State private var selectedGame: Game?
     let Columns:[GridItem] = [
         GridItem(.flexible(), spacing: 8, alignment: nil),
         GridItem(.flexible(), spacing: 8, alignment: nil)
@@ -22,64 +23,44 @@ struct MainBrowseView: View {
     var body: some View {
         NavigationView{
             ScrollView(.vertical){
-            VStack{
-                NavigationLink(destination: BrowseSearchView()){
-                    Image("zoom").frame(maxWidth: .infinity, alignment: .trailing).padding()
-                }
-                ScrollView(.horizontal){
-                    HStack{
-                        ForEach(popularGames, id: \.id){ popgames in
-                            AsyncImage(url: popgames.background_image) { image in
+                VStack{
+                    Text(" Game Browse")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.horizontal)
+                        .navigationBarItems(trailing:                 NavigationLink(destination: BrowseSearchView()){
+                            Image("zoom").frame(maxWidth: .infinity, alignment: .trailing).padding()
+                        })
+                    
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(popularGames, id: \.id){ popgames in
+                                AsyncImage(url: popgames.background_image) { image in
+                                    
+                                    image.resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(maxWidth: 350, maxHeight: 200)
+                                        .cornerRadius(15)
+                                    
+                                } placeholder: {
+                                    ProgressView()
+                                }
                                 
-                                image.resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(maxWidth: 350, maxHeight: 200)
-                                    .cornerRadius(15)
-                                
-                            } placeholder: {
-                                ProgressView()
                             }
-                            
                         }
+                        
                     }
                     
-                }
-                
-                
-                Spacer()
-                Text("Playstation 5").font(.title2).frame(maxWidth: .infinity, alignment: .leading ).padding()
-                        ScrollView(.horizontal){
-                            HStack{
-                                ForEach(Playstation5Games, id: \.id){ play5 in
-                                    VStack{
-                                        Rectangle().foregroundColor(.black).frame(width: 100, height: 100).cornerRadius(15).overlay {
-                                            
-                                            AsyncImage(url: play5.background_image) { image in
-                                                
-                                                image.resizable()
-                                                    .aspectRatio(100/100,contentMode: .fit)
-                                                    .frame(maxWidth: 150, maxHeight: 150)
-                                                    .cornerRadius(15)
-                                                
-                                            } placeholder: {
-                                                ProgressView()
-                                            }
-                                        }
-                                        Text(play5.name).multilineTextAlignment(.center)
-                                    }
-                                }
-                                
-                            }
-                            .task {
-                                await laodingThreeConsoleGames(platformID: 187, arrOfGames: &Playstation5Games)
-                            }
-                            
-                        }
                     
-                Text("Xbox Series x").font(.title2).frame(maxWidth: .infinity, alignment: .leading ).padding()
-                        ScrollView(.horizontal){
-                            HStack{
-                                ForEach(XboxSXGames, id: \.id){ play5 in
+                    Spacer()
+                    VStack(spacing:0){
+                    Text("Playstation 5").font(.title2).frame(maxWidth: .infinity, alignment: .leading ).bold().padding()
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(Playstation5Games, id: \.id){ play5 in
+                                Button {
+                                    selectedGame = play5
+                                } label: {
                                     VStack{
                                         Rectangle().foregroundColor(.black).frame(width: 100, height: 100).cornerRadius(15).overlay {
                                             
@@ -94,20 +75,28 @@ struct MainBrowseView: View {
                                                 ProgressView()
                                             }
                                         }
-                                        Text(play5.name).multilineTextAlignment(.center)
+                                        Text(play5.name).frame(width:100).multilineTextAlignment(.center)
                                     }
+                                }.sheet(item: $selectedGame) { gameID in
+                                    GameContentView(gameID: gameID.id)
                                 }
                                 
                             }
-                            .task {
-                                await laodingThreeConsoleGames(platformID: 186, arrOfGames: &XboxSXGames)
-                            }
                             
                         }
-                   Text("Nintendo switch").font(.title2).frame(maxWidth: .infinity, alignment: .leading ).padding()
-                        ScrollView(.horizontal){
-                            HStack{
-                                ForEach(SwicthGames, id: \.id){ play5 in
+                        .task {
+                            await laodingThreeConsoleGames(platformID: 187, arrOfGames: &Playstation5Games)
+                        }
+                        
+                    }
+                    
+                    Text("Xbox Series x").font(.title2).frame(maxWidth: .infinity, alignment: .leading ).bold().padding()
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(XboxSXGames, id: \.id){ play5 in
+                                Button {
+                                    selectedGame = play5
+                                } label: {
                                     VStack{
                                         Rectangle().foregroundColor(.black).frame(width: 100, height: 100).cornerRadius(15).overlay {
                                             
@@ -122,17 +111,55 @@ struct MainBrowseView: View {
                                                 ProgressView()
                                             }
                                         }
-                                        Text(play5.name).multilineTextAlignment(.center)
+                                        Text(play5.name).frame(width:100).multilineTextAlignment(.center)
                                     }
+                                    
+                                }.sheet(item: $selectedGame) { gameID in
+                                    GameContentView(gameID: gameID.id)
                                 }
-                                
-                            }
-                            .task {
-                                await laodingThreeConsoleGames(platformID: 7, arrOfGames: &SwicthGames)
                             }
                             
                         }
-                Spacer()
+                        .task {
+                            await laodingThreeConsoleGames(platformID: 186, arrOfGames: &XboxSXGames)
+                        }
+                        
+                    }
+                    Text("Nintendo switch").font(.title2).frame(maxWidth: .infinity, alignment: .leading ).bold().padding()
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(SwicthGames, id: \.id){ play5 in
+                                Button {
+                                    selectedGame = play5
+                                } label: {
+                                    VStack{
+                                        Rectangle().foregroundColor(.black).frame(width: 100, height: 100).cornerRadius(15).overlay {
+                                            
+                                            AsyncImage(url: play5.background_image) { image in
+                                                
+                                                image.resizable()
+                                                    .aspectRatio(100/100,contentMode: .fit)
+                                                    .frame(maxWidth: 150, maxHeight: 150)
+                                                    .cornerRadius(15)
+                                                
+                                            } placeholder: {
+                                                ProgressView()
+                                            }
+                                        }
+                                        Text(play5.name).frame(width:100).multilineTextAlignment(.center)
+                                    }
+                                }.sheet(item: $selectedGame) { gameID in
+                                    GameContentView(gameID: gameID.id)
+                                }
+                            }
+                            
+                        }
+                        .task {
+                            await laodingThreeConsoleGames(platformID: 7, arrOfGames: &SwicthGames)
+                        }
+                        
+                    }
+                }
                 Text("See more from").font(.title2).frame(maxWidth: .infinity, alignment: .leading ).padding()
                 LazyVGrid(columns: Columns ){
                     ForEach(GamePlatforms, id: \.id){plat in
@@ -149,7 +176,7 @@ struct MainBrowseView: View {
                 
                 
                 
-            }.navigationTitle("Browse")
+            }
                 .task {
                     await loadGamePlatforms()
                     await laodingMostPopularGames()

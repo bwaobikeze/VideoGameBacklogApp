@@ -23,21 +23,26 @@ struct GameContentView: View {
     @State var gameID: Int = 0
     @State private var Gamed = GameDetailResponse(id: 0, name: "", description_raw: "")
     var body: some View {
+        GeometryReader { geometry in
         VStack{
-                AsyncImage(url: Gamed.background_image_additional) { image in
-                    image.resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: 300, maxHeight:200)
-                } placeholder: {
-                    ProgressView()
-                }
+            AsyncImage(url: Gamed.background_image_additional) { image in
+                image.resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: geometry.size.width, height: geometry.size.height / 2)
+                    .edgesIgnoringSafeArea(.all)
+            } placeholder: {
+                ProgressView()
+            }
             Text(Gamed.name).font(.title2)
-            Text(Gamed.description_raw).multilineTextAlignment(.leading).padding()
-
+            ScrollView(.vertical){
+                Text(Gamed.description_raw).multilineTextAlignment(.leading).padding()
+            }
+            
             
         }.task {
             await loadDataDetailGame()
         }
+    }
         Button(action: {
             // Handle login action here
             //Signin()
