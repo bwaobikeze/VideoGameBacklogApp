@@ -23,49 +23,61 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView{
-            VStack {
-                Text("Login")
-                    .font(.largeTitle)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                
-                TextField("Email", text: $email)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                
-                SecureField("Password", text: $password)
-                    .padding()
-                NavigationLink(destination: HomeView(), isActive: $isLoggedIn) {
-                    EmptyView()
-                }
-                NavigationLink(destination: RegistrationView(), isActive: $isRegestsr) {
-                    EmptyView()
-                }
-                
-                Button(action: {
-                    // Handle login action here
-                    Signin()
-                }) {
-                    Text("Login")
-                        .font(.headline)
-                        .foregroundColor(.white)
+            ZStack{
+                Image("pexels-yan-krukau-9069365").resizable().scaledToFill()
+                    .ignoresSafeArea()
+                VStack{
+                    Image("playstation-4-game-controllers-video-game-dualshock-joystick-7d6b0eb7e10322d99b41504a05478bcc").resizable().frame(width: 150, height: 100)
+                    (Text("Saved") + Text("Games")).font(.title)
+                Rectangle().frame(width: 350, height: 350).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
+                    VStack {
+                        Text("Login")
+                            .font(.largeTitle)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                        
+                        TextField("Email", text: $email)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                        
+                        SecureField("Password", text: $password)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                        NavigationLink(destination: HomeView(), isActive: $isLoggedIn) {
+                            EmptyView()
+                        }
+                        NavigationLink(destination: RegistrationView(), isActive: $isRegestsr) {
+                            EmptyView()
+                        }
+                        
+                        Button(action: {
+                            // Handle login action here
+                            Signin()
+                        }) {
+                            Text("Login")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding(.vertical, 5)
+                                .padding(.horizontal, 80)
+                                .background(color.DarkOrange)
+                                .cornerRadius(10)
+                        }
                         .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .cornerRadius(10)
+                        Button(action: {
+                            // Handle login action here
+                            isRegestsr.toggle()
+                        }) {
+                            Text("Create Account").foregroundStyle(.black)
+                        }
+                        .padding()
+                        
+                    }
+                    .navigationBarHidden(true)
+                    .padding()
                 }
-                .padding()
-                Button(action: {
-                    // Handle login action here
-                    isRegestsr.toggle()
-                }) {
-                    Text("Create an Account")
-                }
-                .padding()
-                
+                    Spacer()
             }
-            .navigationBarHidden(true)
-            .padding()
+        }
         }.navigationBarBackButtonHidden(true)
         
     }

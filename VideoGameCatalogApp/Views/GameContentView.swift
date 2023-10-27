@@ -39,7 +39,7 @@ struct GameContentView: View {
             }
             
             
-        }.task {
+        }.background(.lightGrey).ignoresSafeArea().task {
             await loadDataDetailGame()
         }
     }

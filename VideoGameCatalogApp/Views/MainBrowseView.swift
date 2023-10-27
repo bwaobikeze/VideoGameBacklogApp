@@ -24,7 +24,7 @@ struct MainBrowseView: View {
         NavigationView{
             ScrollView(.vertical){
                 VStack{
-                    Text(" Game Browse")
+                    Text("Browse Games")
                         .font(.largeTitle)
                         .bold()
                         .padding(.horizontal)

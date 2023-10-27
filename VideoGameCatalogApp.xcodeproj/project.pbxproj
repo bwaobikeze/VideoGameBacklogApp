@@ -35,6 +35,7 @@
 		3C4DCC262AE4FB00008E36AA /* ParentPlatformModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */; };
 		3C4DCC292AE51DEA008E36AA /* ACarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4DCC282AE51DEA008E36AA /* ACarousel */; };
 		3C4DCC2B2AE795A0008E36AA /* GamesForPlatformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC2A2AE795A0008E36AA /* GamesForPlatformView.swift */; };
+		3C4DCC2D2AEB936C008E36AA /* ColorPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC2C2AEB936C008E36AA /* ColorPick.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		3C404E8C2AD55A8100059C73 /* configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = configure.swift; sourceTree = "<group>"; };
 		3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentPlatformModel.swift; sourceTree = "<group>"; };
 		3C4DCC2A2AE795A0008E36AA /* GamesForPlatformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesForPlatformView.swift; sourceTree = "<group>"; };
+		3C4DCC2C2AEB936C008E36AA /* ColorPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPick.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				3C404E6B2AD556A300059C73 /* VideoGameModel.swift */,
 				3C404E6C2AD556A300059C73 /* userProfileModel.swift */,
 				3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */,
+				3C4DCC2C2AEB936C008E36AA /* ColorPick.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 			files = (
 				3C404E852AD5570700059C73 /* HomeMainView.swift in Sources */,
 				3C404E812AD5570700059C73 /* RecommendedView.swift in Sources */,
+				3C4DCC2D2AEB936C008E36AA /* ColorPick.swift in Sources */,
 				3C404E872AD5570700059C73 /* ContentView.swift in Sources */,
 				3C404E862AD5570700059C73 /* GameContentView.swift in Sources */,
 				3C4DCC262AE4FB00008E36AA /* ParentPlatformModel.swift in Sources */,

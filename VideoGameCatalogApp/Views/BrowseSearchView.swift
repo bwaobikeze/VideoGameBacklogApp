@@ -21,48 +21,50 @@ struct BrowseSearchView: View {
                 Spacer()
                 TextField("Search Game", text: $SearchStrting)
                     .padding()
-                    .background(Color.orange)
+                    .background(color.DarkOrange)
+                    .foregroundColor(.white)
                     .frame(height: 3)
-                
-                ScrollView(.vertical) {
-                    ForEach(Games) { game in
-                        Button(action: {
-                            selectedGame = game
-                        }) {
-                            VStack {
-                                HStack {
-                                    AsyncImage(url: game.background_image) { image in
-                                        image.resizable()
-                                            .aspectRatio(150/200,contentMode: .fit)
-                                            .frame(maxWidth: 150, maxHeight: 200)
-                                            .cornerRadius(15)
-                                    } placeholder: {
-                                        ProgressView()
-                                    }
-                                    VStack(spacing: 0) {
-                                        Text("Name: \(game.name)").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
-                                        Text("Released: \(game.released)").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
-                                    }
-                                    var mutableGame = game
-                                    Button(action: {
-                                        addGameToCatalog(gameObj: &mutableGame)
-                                    }, label: {
-                                        Text("Add")
-                                            .font(.headline)
-                                            .foregroundColor(.black)
-                                            .padding()
-                                            .frame(maxWidth: 100,maxHeight: 30)
-                                            .background(Color.gray)
-                                            .cornerRadius(10)
-                                    })
+                ZStack{
+                    Image("game-controller-svgrepo-com").shadow(radius: 10)
+                List(Games) { game in
+                    Button(action: {
+                        selectedGame = game
+                    }) {
+                        VStack {
+                            HStack {
+                                AsyncImage(url: game.background_image) { image in
+                                    image.resizable()
+                                        .aspectRatio(100/100,contentMode: .fit)
+                                        .frame(maxWidth: 100, maxHeight: 100)
+                                        .cornerRadius(15)
+                                } placeholder: {
+                                    ProgressView()
                                 }
+                                VStack(spacing: 0) {
+                                    Text(" \(game.name)").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
+                                    Text("Released: \(game.released)").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
+                                }
+                                var mutableGame = game
+                                Button(action: {
+                                    addGameToCatalog(gameObj: &mutableGame)
+                                }, label: {
+                                    Text("Add")
+                                        .font(.headline)
+                                        .foregroundColor(.black)
+                                        .padding()
+                                        .frame(maxWidth: 100,maxHeight: 30)
+                                        .background(Color.gray)
+                                        .cornerRadius(10)
+                                })
                             }
                         }
-                        .sheet(item: $selectedGame) { game in
-                            GameContentView(gameID: game.id)
-                        }
                     }
-                }
+                    .sheet(item: $selectedGame) { game in
+                        GameContentView(gameID: game.id)
+                    }
+                }.listStyle(PlainListStyle())
+            }
+                
                 .task {
                     if !SearchStrting.isEmpty {
                         await loadDataGame(SeachQ: SearchStrting)

@@ -21,59 +21,65 @@ struct RegistrationView: View {
     @State private var GamePlatformsSelction = [subplatforms]()
     var body: some View {
         NavigationView{
-            VStack {
-                Text("Register")
-                    .font(.largeTitle)
-                    .padding()
-
-                
-                TextField("First Name", text: $firstName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                
-                TextField("Last Name", text: $lastName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                
-                TextField("Email", text: $email)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                
-                SecureField("Password", text: $password)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                TextField("Username", text: $username)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                Picker(selection: $platform) {
-                    ForEach(GamePlatformsSelction, id: \.id){
-                        platform in
-                        Text("\(platform.name)").tag("\(platform.id)")
-                    }
-                } label: {
-                    Text("Platforms")
-                }.pickerStyle(.wheel)
-                NavigationLink(destination: ContentView(), isActive: $isRegistered) {
-                    EmptyView()
-                }
-                Button(action: {
-                    // Handle registration action here
-                    registerUser()
-                }) {
-                    Text("Register")
-                        .font(.headline)
-                        .foregroundColor(.white)
+            ZStack{
+                Image("pexels-yan-krukau-9069365").resizable().scaledToFill()
+                    .ignoresSafeArea()
+                Rectangle().frame(width: 350, height: 650).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
+                VStack {
+                    Text("Create Account")
+                        .font(.largeTitle)
                         .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .cornerRadius(10)
+                    
+                    
+                    TextField("First Name", text: $firstName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    
+                    TextField("Last Name", text: $lastName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    
+                    TextField("Email", text: $email)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    
+                    SecureField("Password", text: $password)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    TextField("Username", text: $username)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    Picker(selection: $platform) {
+                        ForEach(GamePlatformsSelction, id: \.id){
+                            platform in
+                            Text("\(platform.name)").tag("\(platform.id)")
+                        }
+                    } label: {
+                        Text("Platforms")
+                    }.pickerStyle(.wheel)
+                    NavigationLink(destination: ContentView(), isActive: $isRegistered) {
+                        EmptyView()
+                    }
+                    Button(action: {
+                        // Handle registration action here
+                        registerUser()
+                    }) {
+                        Text("Create Account")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(color.DarkOrange)
+                            .cornerRadius(10)
+                    }
+                    .padding()
+                }
+                .task{
+                    await loadGamePlatforms()
                 }
                 .padding()
             }
-            .task{
-                await loadGamePlatforms()
-            }
-            .padding()
+        }
         }.navigationBarBackButtonHidden(true)
         
     }
