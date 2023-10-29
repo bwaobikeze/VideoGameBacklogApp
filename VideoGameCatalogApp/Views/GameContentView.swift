@@ -38,25 +38,24 @@ struct GameContentView: View {
                 Text(Gamed.description_raw).multilineTextAlignment(.leading).padding()
             }
             
+            Button(action: {
+                addGameToCatalog(gameObj: &Gamed)
+            }) {
+                Text("Add to catalog")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.orange)
+                    .cornerRadius(10)
+            }
+            .padding()
+            Spacer()
             
         }.background(.lightGrey).ignoresSafeArea().task {
             await loadDataDetailGame()
         }
     }
-        Button(action: {
-            // Handle login action here
-            //Signin()
-            addGameToCatalog(gameObj: &Gamed)
-        }) {
-            Text("Add to catalog")
-                .font(.headline)
-                .foregroundColor(.white)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(Color.orange)
-                .cornerRadius(10)
-        }
-        .padding()
         
     }
     func addGameToCatalog(gameObj: inout GameDetailResponse){

@@ -34,15 +34,16 @@ struct BrowseSearchView: View {
                             HStack {
                                 AsyncImage(url: game.background_image) { image in
                                     image.resizable()
-                                        .aspectRatio(100/100,contentMode: .fit)
-                                        .frame(maxWidth: 100, maxHeight: 100)
-                                        .cornerRadius(15)
+                                        .aspectRatio(67/91,contentMode: .fit)
+                                        .frame(maxWidth: 67, maxHeight: 91)
                                 } placeholder: {
                                     ProgressView()
                                 }
                                 VStack(spacing: 0) {
-                                    Text(" \(game.name)").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
-                                    Text("Released: \(game.released)").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
+                                    Text("\(game.name)").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
+                                    Text("Platforms: \(game.platforms.prefix(3).map { $0.platform.name }.joined(separator: ", "))")
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .foregroundColor(.black)
                                 }
                                 var mutableGame = game
                                 Button(action: {

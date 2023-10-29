@@ -14,29 +14,30 @@ struct MainProfileView: View {
     @EnvironmentObject var userData: UserData
     var body: some View {
         NavigationView {
-            VStack {
-                Spacer()
+            VStack (spacing: 0) {
+                ZStack{
+                    Rectangle().frame(height: 250).foregroundColor(color.DarkOrange).ignoresSafeArea()
                 HStack{
                     VStack{
-                        Text(username)
-                        Text("Platform of Choice: \(platobj.name)")
+                        Text(username).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
+                        Text("Platform of Choice: \(platobj.name)").foregroundStyle(.white).shadow(color: Color.black,radius: 1)
                     }
                     Spacer()
                     NavigationLink(destination: ProfileInfoView()) {
-                        Image("profile-user-avatar-man-person-svgrepo-com")
+                        Circle().foregroundColor(.white).overlay{
+                            Image("profile-user-avatar-man-person-svgrepo-com").frame(width: 90, height: 90)
+                        }.frame(width: 106, height: 100)
                     }
                 }
                 .padding()
+            }
                 SlidingTabView(selection: $tabIndex, tabs: ["Recommended", "Catalog"], animation: .easeInOut)
-                Spacer()
-                
+                    .padding(.top, -40)
                 if tabIndex == 0 {
                     RecommendedView()
                 } else if tabIndex == 1 {
                     GameCatalogView()
                 }
-                
-                Spacer()
             }
             .onAppear(perform: {
                 grabProfileDate()

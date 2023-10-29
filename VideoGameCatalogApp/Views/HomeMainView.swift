@@ -21,14 +21,14 @@ struct HomeMainView: View {
     @State private var selectedGame: Game?
     
     var body: some View {
-        VStack {
-            Text("Home").font(.title).frame(maxWidth: .infinity, alignment: .leading).padding()
-            Text("Upcoming In: \(getCurrentMonth()) ").font(.largeTitle).frame(maxWidth: .infinity, alignment: .leading).padding()
+        VStack (spacing: 0) {
+            Text("Home").font(.title).frame(maxWidth: .infinity, alignment: .leading).padding(.top,8).padding(.leading, 16)
+            Text("Upcoming In: \(getCurrentMonth()) ").font(.title).frame(maxWidth: .infinity, alignment: .leading).padding(.bottom,8).padding(.leading, 16)
 
                     RoundedRectangle(cornerRadius: 15)
                          .fill(Color.white)
                          .shadow(radius: 10)
-                         .frame(width: 350, height: 200)
+                         .frame(width: 314, height: 320)
                          .cornerRadius(15)
                          .overlay(
                              ScrollView(.horizontal) {
@@ -40,8 +40,8 @@ struct HomeMainView: View {
                                              ZStack {
                                                  AsyncImage(url: game.background_image) { image in
                                                      image.resizable()
-                                                         .aspectRatio(350/200,contentMode: .fit)
-                                                         .frame(maxWidth: 350, maxHeight: 200)
+                                                         .aspectRatio(314/320,contentMode: .fit)
+                                                         .frame(maxWidth: 314 ,maxHeight: 320)
                                                          .cornerRadius(15)
                                                      
                                                  } placeholder: {
@@ -77,16 +77,17 @@ struct HomeMainView: View {
                 
             
             
-            Text("Number in Catalog: ").font(.largeTitle).frame(maxWidth: .infinity, alignment: .leading).padding()
-            Text("Gaming News: ").font(.largeTitle).frame(maxWidth: .infinity, alignment: .leading).padding()
+            Text("Number in Catalog: ").font(.title).frame(maxWidth: .infinity, alignment: .leading).padding()
+            Text("Gaming News: ").font(.title).frame(maxWidth: .infinity, alignment: .leading).padding(.top, 8)
+                .padding(.leading, 16)
             
             ScrollView(.horizontal) {
-                LazyHStack {
+                LazyHStack(spacing: 8) {
                     ForEach(articlas, id: \.title) { articla in
                         RoundedRectangle(cornerRadius: 15)
                              .fill(Color.white)
                              .shadow(radius: 10)
-                             .frame(width: 350, height: 150)
+                             .frame(width: 281, height: 111)
                              .overlay(
                         Button(action: {
                             UIApplication.shared.open(articla.url)
@@ -94,8 +95,8 @@ struct HomeMainView: View {
                             AsyncImage(url: articla.urlToImage) { image in
                                 image.resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(maxWidth: 200, maxHeight: 200)
-                                    .cornerRadius(30)
+                                    .frame(maxWidth: 127, maxHeight: 80)
+                                    .cornerRadius(10)
                             } placeholder: {
                                 ProgressView()
                             }
