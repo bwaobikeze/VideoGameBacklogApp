@@ -20,8 +20,8 @@ struct MainProfileView: View {
                     Rectangle().frame(height: 250).foregroundColor(color.DarkOrange).ignoresSafeArea()
                 HStack{
                     VStack{
-                        Text(username).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
-                        Text("Platform of Choice: \(platformName)").foregroundStyle(.white).shadow(color: Color.black,radius: 1)
+                        Text(username).font(.custom("Poppins-SemiBold", size: 24)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
+                        Text("Platform of Choice: \(platformName)").font(.custom("Poppins-Medium", size: 14)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
                     }
                     Spacer()
                     NavigationLink(destination: ProfileInfoView()) {
@@ -32,18 +32,19 @@ struct MainProfileView: View {
                 }
                 .padding()
             }
-                ForEach(GamePlatformsSelction, id: \.id){userPlatform in
-                    
-                    if userPlatform.name == platformName{
-                        SlidingTabView(selection: $tabIndex, tabs: ["Recommended", "Catalog"], animation: .easeInOut)
-                            .padding(.top, -40)
-                        if tabIndex == 0 {
+                SlidingTabView(selection: $tabIndex, tabs: ["Recommended", "Catalog"], animation:
+                        .easeInOut)
+                    .padding(.top, -40)
+                if tabIndex == 0 {
+                    ForEach(GamePlatformsSelction, id: \.id){userPlatform in
+                        
+                        if userPlatform.name == platformName{
                             RecommendedView(platformNameID: userPlatform.id)
-                        } else if tabIndex == 1 {
-                            GameCatalogView()
-                        }
 
+                        }
                     }
+                } else if tabIndex == 1 {
+                    GameCatalogView()
                 }
             }
             .onAppear(perform: {

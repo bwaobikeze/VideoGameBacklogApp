@@ -25,7 +25,7 @@ struct MainBrowseView: View {
             ScrollView(.vertical){
                 VStack{
                     Text("Browse Games")
-                        .font(.largeTitle)
+                        .font(.custom("Poppins-SemiBold", size: 24))
                         .bold()
                         .padding(.horizontal)
                         .navigationBarItems(trailing:                 NavigationLink(destination: BrowseSearchView()){
@@ -54,7 +54,7 @@ struct MainBrowseView: View {
                     
                     Spacer()
                     VStack(spacing:0){
-                    Text("Playstation 5").font(.title2).frame(maxWidth: .infinity, alignment: .leading ).bold().padding()
+                    Text("Playstation 5").font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: .infinity, alignment: .leading ).bold().padding()
                     ScrollView(.horizontal){
                         HStack{
                             ForEach(Playstation5Games, id: \.id){ play5 in
@@ -75,7 +75,7 @@ struct MainBrowseView: View {
                                                 ProgressView()
                                             }
                                         }
-                                        Text(play5.name).frame(width:100).multilineTextAlignment(.center)
+                                        Text(play5.name).font(.custom("Poppins-Regular", size: 12)).frame(width:100).multilineTextAlignment(.center).foregroundStyle(Color.black)
                                     }
                                 }.sheet(item: $selectedGame) { gameID in
                                     GameContentView(gameID: gameID.id)
@@ -90,7 +90,7 @@ struct MainBrowseView: View {
                         
                     }
                     
-                    Text("Xbox Series x").font(.title2).frame(maxWidth: .infinity, alignment: .leading ).bold().padding()
+                    Text("Xbox Series x").font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: .infinity, alignment: .leading ).bold().padding()
                     ScrollView(.horizontal){
                         HStack{
                             ForEach(XboxSXGames, id: \.id){ play5 in
@@ -111,7 +111,7 @@ struct MainBrowseView: View {
                                                 ProgressView()
                                             }
                                         }
-                                        Text(play5.name).frame(width:100).multilineTextAlignment(.center)
+                                        Text(play5.name).font(.custom("Poppins-Regular", size: 12)).frame(width:100).multilineTextAlignment(.center).foregroundStyle(Color.black)
                                     }
                                     
                                 }.sheet(item: $selectedGame) { gameID in
@@ -125,7 +125,7 @@ struct MainBrowseView: View {
                         }
                         
                     }
-                    Text("Nintendo switch").font(.title2).frame(maxWidth: .infinity, alignment: .leading ).bold().padding()
+                    Text("Nintendo switch").font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: .infinity, alignment: .leading ).bold().padding()
                     ScrollView(.horizontal){
                         HStack{
                             ForEach(SwicthGames, id: \.id){ play5 in
@@ -146,7 +146,7 @@ struct MainBrowseView: View {
                                                 ProgressView()
                                             }
                                         }
-                                        Text(play5.name).frame(width:100).multilineTextAlignment(.center)
+                                        Text(play5.name).font(.custom("Poppins-Regular", size: 12)).frame(width:100).multilineTextAlignment(.center).foregroundStyle(Color.black)
                                     }
                                 }.sheet(item: $selectedGame) { gameID in
                                     GameContentView(gameID: gameID.id)
@@ -160,14 +160,14 @@ struct MainBrowseView: View {
                         
                     }
                 }
-                Text("See more from").font(.title2).frame(maxWidth: .infinity, alignment: .leading ).padding()
+                Text("See more from").font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: .infinity, alignment: .leading ).padding()
                 LazyVGrid(columns: Columns ){
                     ForEach(GamePlatforms, id: \.id){plat in
                         NavigationLink {
                             GamesForPlatformView(PlatformID: plat.id)
                         } label: {
                             Rectangle().foregroundColor(.black).frame(width: 150, height: 200).cornerRadius(15).overlay {
-                                Text(plat.name).foregroundStyle(.white)
+                                Text(plat.name).font(.custom("Poppins-Medium", size: 20)).foregroundStyle(.white)
                             }
                         }
                         

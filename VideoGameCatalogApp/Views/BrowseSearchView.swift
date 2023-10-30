@@ -20,6 +20,7 @@ struct BrowseSearchView: View {
                 Spacer()
                 Spacer()
                 TextField("Search Game", text: $SearchStrting)
+                    .font(.custom("Poppins-Medium", size: 15))
                     .padding()
                     .background(color.DarkOrange)
                     .foregroundColor(.white)
@@ -40,8 +41,9 @@ struct BrowseSearchView: View {
                                     ProgressView()
                                 }
                                 VStack(spacing: 0) {
-                                    Text("\(game.name)").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
+                                    Text("\(game.name)").font(.custom("Poppins-Medium", size: 16)).frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
                                     Text("Platforms: \(game.platforms.prefix(3).map { $0.platform.name }.joined(separator: ", "))")
+                                        .font(.custom("Poppins-Medium", size: 16))
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .foregroundColor(.black)
                                 }

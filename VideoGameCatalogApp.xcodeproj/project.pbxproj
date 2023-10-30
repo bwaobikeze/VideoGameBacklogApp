@@ -36,6 +36,10 @@
 		3C4DCC292AE51DEA008E36AA /* ACarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4DCC282AE51DEA008E36AA /* ACarousel */; };
 		3C4DCC2B2AE795A0008E36AA /* GamesForPlatformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC2A2AE795A0008E36AA /* GamesForPlatformView.swift */; };
 		3C4DCC2D2AEB936C008E36AA /* ColorPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC2C2AEB936C008E36AA /* ColorPick.swift */; };
+		3C4DCC572AF0523A008E36AA /* PixelifySans-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C4DCC562AF0523A008E36AA /* PixelifySans-VariableFont_wght.ttf */; };
+		3C4DCC592AF05272008E36AA /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C4DCC582AF05272008E36AA /* Poppins-Medium.ttf */; };
+		3C4DCC5B2AF05290008E36AA /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C4DCC5A2AF05290008E36AA /* Poppins-SemiBold.ttf */; };
+		3C4DCC5E2AF059F4008E36AA /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C4DCC5D2AF059F4008E36AA /* Poppins-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +66,11 @@
 		3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentPlatformModel.swift; sourceTree = "<group>"; };
 		3C4DCC2A2AE795A0008E36AA /* GamesForPlatformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesForPlatformView.swift; sourceTree = "<group>"; };
 		3C4DCC2C2AEB936C008E36AA /* ColorPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPick.swift; sourceTree = "<group>"; };
+		3C4DCC562AF0523A008E36AA /* PixelifySans-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PixelifySans-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		3C4DCC582AF05272008E36AA /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		3C4DCC5A2AF05290008E36AA /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		3C4DCC5C2AF0566B008E36AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3C4DCC5D2AF059F4008E36AA /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +110,8 @@
 		3C404E392AD5541700059C73 /* VideoGameCatalogApp */ = {
 			isa = PBXGroup;
 			children = (
+				3C4DCC5C2AF0566B008E36AA /* Info.plist */,
+				3C4DCC552AF05067008E36AA /* Fonts */,
 				3C404E702AD5570700059C73 /* Views */,
 				3C404E692AD556A300059C73 /* Models */,
 				3C404E482AD554EE00059C73 /* GoogleService-Info.plist */,
@@ -149,6 +160,17 @@
 				3C4DCC2A2AE795A0008E36AA /* GamesForPlatformView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		3C4DCC552AF05067008E36AA /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				3C4DCC5D2AF059F4008E36AA /* Poppins-Regular.ttf */,
+				3C4DCC5A2AF05290008E36AA /* Poppins-SemiBold.ttf */,
+				3C4DCC582AF05272008E36AA /* Poppins-Medium.ttf */,
+				3C4DCC562AF0523A008E36AA /* PixelifySans-VariableFont_wght.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,9 +245,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C4DCC572AF0523A008E36AA /* PixelifySans-VariableFont_wght.ttf in Resources */,
 				3C404E422AD5541900059C73 /* Preview Assets.xcassets in Resources */,
+				3C4DCC5E2AF059F4008E36AA /* Poppins-Regular.ttf in Resources */,
 				3C404E492AD554EE00059C73 /* GoogleService-Info.plist in Resources */,
+				3C4DCC5B2AF05290008E36AA /* Poppins-SemiBold.ttf in Resources */,
 				3C404E3F2AD5541900059C73 /* Assets.xcassets in Resources */,
+				3C4DCC592AF05272008E36AA /* Poppins-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +417,7 @@
 				DEVELOPMENT_TEAM = DF629ZWDZR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VideoGameCatalogApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -420,6 +447,7 @@
 				DEVELOPMENT_TEAM = DF629ZWDZR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VideoGameCatalogApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

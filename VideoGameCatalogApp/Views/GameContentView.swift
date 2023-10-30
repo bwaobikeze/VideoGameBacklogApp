@@ -33,9 +33,9 @@ struct GameContentView: View {
             } placeholder: {
                 ProgressView()
             }
-            Text(Gamed.name).font(.title2)
+            Text(Gamed.name).font(.custom("Poppins-Medium", size: 20))
             ScrollView(.vertical){
-                Text(Gamed.description_raw).multilineTextAlignment(.leading).padding()
+                Text(Gamed.description_raw).font(.custom("Poppins-Regular", size: 13)).multilineTextAlignment(.leading).padding()
                 Text("\(gameID)")
             }
             

@@ -24,7 +24,7 @@ struct GameCatalogView: View {
                         ProgressView()
                     }
                     VStack{
-                        Text(game.name).font(.title2)
+                        Text(game.name).font(.title2).font(.custom("Poppins-Medium", size: 16))
                     }
                 }
             }.listStyle(PlainListStyle())

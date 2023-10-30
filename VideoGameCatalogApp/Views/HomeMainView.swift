@@ -24,13 +24,13 @@ struct HomeMainView: View {
         NavigationView{
         VStack (spacing: 0) {
             HStack{
-                Text("Home").font(.title).frame(maxWidth: .infinity, alignment: .leading).padding(.top,8).padding(.leading, 16)
+                Text("Home").font(.custom("Poppins-SemiBold", size: 24)).frame(maxWidth: .infinity, alignment: .leading).padding(.top,8).padding(.leading, 16)
                 NavigationLink(destination: ProfileInfoView()) {
                     Image("profile-user-avatar-man-person-svgrepo-com").padding()
                 }
                 
             }
-            Text("Upcoming In: \(getCurrentMonth()) ").font(.title).frame(maxWidth: .infinity, alignment: .leading).padding(.bottom,8).padding(.leading, 16)
+            Text("Upcoming In: \(getCurrentMonth()) ").font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: .infinity, alignment: .leading).padding(.bottom,8).padding(.leading, 16)
             
             RoundedRectangle(cornerRadius: 15)
                 .fill(Color.white)
@@ -84,12 +84,12 @@ struct HomeMainView: View {
             
             
             
-            Text("Trailers: ").font(.title).frame(maxWidth: .infinity, alignment: .leading).padding()
+            Text("Trailers: ").font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: .infinity, alignment: .leading).padding()
             RoundedRectangle(cornerRadius: 15)
                 .fill(Color.white)
                 .shadow(radius: 10)
                 .frame(width: 314, height: 200)
-            Text("Gaming News: ").font(.title).frame(maxWidth: .infinity, alignment: .leading).padding(.top, 8)
+            Text("Gaming News: ").font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: .infinity, alignment: .leading).padding(.top, 8)
                 .padding(.leading, 16)
             
             ScrollView(.horizontal) {
@@ -112,7 +112,7 @@ struct HomeMainView: View {
                                         ProgressView()
                                     }
                                     Spacer()
-                                    Text(articla.title).frame(maxWidth: 150, maxHeight: 150).foregroundColor(.black)
+                                    Text(articla.title).font(.custom("Poppins-Medium", size: 15)).frame(maxWidth: 150, maxHeight: 150).foregroundColor(.black)
                                 }
                             ).padding()
                     }
@@ -125,7 +125,6 @@ struct HomeMainView: View {
         }
     }
     }
-
     func loadData() async {
         let apiKeyNews = Config.newsApiKey
         guard let url = URL(string: "https://newsapi.org/v2/everything?sources=IGN,youtube&q=gaming&apiKey=\(apiKeyNews)") else {
