@@ -8,8 +8,9 @@ struct favPlatformResponse: Codable{
 struct MainProfileView: View {
     @State private var tabIndex = 0
     @State var username: String = "ExampleName"
-    @State var platformIDNumber: Int = 0
+    @State var platformName: String = ""
     @State var platobj = favPlatformResponse(name: "game name")
+    @State private var GamePlatformsSelction = [subplatforms]()
     @State private var documentData: [String: Any] = [:]
     @EnvironmentObject var userData: UserData
     var body: some View {
@@ -20,7 +21,7 @@ struct MainProfileView: View {
                 HStack{
                     VStack{
                         Text(username).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
-                        Text("Platform of Choice: \(platobj.name)").foregroundStyle(.white).shadow(color: Color.black,radius: 1)
+                        Text("Platform of Choice: \(platformName)").foregroundStyle(.white).shadow(color: Color.black,radius: 1)
                     }
                     Spacer()
                     NavigationLink(destination: ProfileInfoView()) {
@@ -31,20 +32,41 @@ struct MainProfileView: View {
                 }
                 .padding()
             }
-                SlidingTabView(selection: $tabIndex, tabs: ["Recommended", "Catalog"], animation: .easeInOut)
-                    .padding(.top, -40)
-                if tabIndex == 0 {
-                    RecommendedView()
-                } else if tabIndex == 1 {
-                    GameCatalogView()
+                ForEach(GamePlatformsSelction, id: \.id){userPlatform in
+                    
+                    if userPlatform.name == platformName{
+                        SlidingTabView(selection: $tabIndex, tabs: ["Recommended", "Catalog"], animation: .easeInOut)
+                            .padding(.top, -40)
+                        if tabIndex == 0 {
+                            RecommendedView(platformNameID: userPlatform.id)
+                        } else if tabIndex == 1 {
+                            GameCatalogView()
+                        }
+
+                    }
                 }
             }
             .onAppear(perform: {
                 grabProfileDate()
+                Task{
+                    await loadGamePlatforms()
+                }
             })
-            .task {
-                await loadFavPlatform()
-            }
+        }
+    }
+    func loadGamePlatforms() async {
+        let apiKeyGame=Config.rawgApiKey
+        guard let url = URL(string: "https://api.rawg.io/api/platforms?key=\(apiKeyGame)") else {
+            print("Invalid URL")
+            return
+        }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let decodedGameResponse = try JSONDecoder().decode(subplatformsResponse.self, from: data)
+            GamePlatformsSelction = decodedGameResponse.results
+        } catch {
+            debugPrint(error)
         }
     }
     func grabProfileDate(){
@@ -57,8 +79,8 @@ struct MainProfileView: View {
                     if let name = data["username"] as? String{
                         self.username = name
                     }
-                    if let platformNum = data["platform"] as? Int{
-                        self.platformIDNumber = platformNum
+                    if let platformNum = data["platform"] as? String{
+                        self.platformName = platformNum
                     }
                 }
             } else {
@@ -66,21 +88,7 @@ struct MainProfileView: View {
             }
         }
     }
-    func loadFavPlatform() async {
-        let apiKeyGame=Config.rawgApiKey
-        guard let url = URL(string: "https://api.rawg.io/api/platforms/\(platformIDNumber)?key=\(apiKeyGame)") else {
-            print("Invalid URL")
-            return
-        }
-        
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let decodedGameResponse = try JSONDecoder().decode(favPlatformResponse.self, from: data)
-            platobj = decodedGameResponse
-        } catch {
-            debugPrint(error)
-        }
-    }
+
 }
 
 struct MainProfileView_Previews: PreviewProvider {

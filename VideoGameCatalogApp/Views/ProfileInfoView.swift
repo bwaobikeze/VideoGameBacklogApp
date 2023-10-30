@@ -14,7 +14,7 @@ struct ProfileInfoView: View {
     @State private var password = ""
     @State private var firstName = ""
     @State private var lastName = ""
-    @State private var platform = 0
+    @State private var platform = ""
     @State private var username = ""
     @ObservedObject var isLogout = determinLogout()
     @State private var GamePlatformsSelction = [subplatforms]()
@@ -47,7 +47,7 @@ struct ProfileInfoView: View {
                         Picker(selection: $platform) {
                             ForEach(GamePlatformsSelction, id: \.id){
                                 platform in
-                                Text("\(platform.name)").tag("\(platform.id)")
+                                Text("\(platform.name)").tag("\(platform.name)")
                             }
                         } label: {
                             Text("Platforms")
@@ -94,7 +94,7 @@ struct ProfileInfoView: View {
                 
 
             }.onAppear(perform: {
-                //grabingProfiledetailes()
+                grabingProfiledetailes()
             })
             
                     
@@ -139,7 +139,7 @@ struct ProfileInfoView: View {
                     if let LastName = data["lastName"] as? String{
                         self.lastName = LastName
                     }
-                    if let PlatformNum = data["platform"] as? Int{
+                    if let PlatformNum = data["platform"] as? String{
                         self.platform = PlatformNum
                     }
                 }

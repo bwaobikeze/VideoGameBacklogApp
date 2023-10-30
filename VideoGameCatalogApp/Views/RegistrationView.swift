@@ -14,7 +14,7 @@ struct RegistrationView: View {
     @State private var password = ""
     @State private var firstName = ""
     @State private var lastName = ""
-    @State private var platform = 0
+    @State private var platform = ""
     @State private var username = ""
     @State private var registrationError: String?
     @State private var isRegistered = false
@@ -52,7 +52,7 @@ struct RegistrationView: View {
                     Picker(selection: $platform) {
                         ForEach(GamePlatformsSelction, id: \.id){
                             platform in
-                            Text("\(platform.name)").tag("\(platform.id)")
+                            Text("\(platform.name)").tag("\(platform.name)")
                         }
                     } label: {
                         Text("Platforms")
