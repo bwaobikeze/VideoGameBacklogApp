@@ -36,6 +36,7 @@ struct GameContentView: View {
             Text(Gamed.name).font(.title2)
             ScrollView(.vertical){
                 Text(Gamed.description_raw).multilineTextAlignment(.leading).padding()
+                Text("\(gameID)")
             }
             
             Button(action: {
