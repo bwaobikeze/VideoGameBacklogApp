@@ -13,13 +13,13 @@ class UserData: ObservableObject {
     @Published var userId: String?
 }
 
-struct ContentView: View {
+struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var loginError: String?
     @EnvironmentObject var userData: UserData
-    @State private var isLoggedIn = false
     @State private var isRegestsr = false
+    @EnvironmentObject var settings: UserSettings
     
     var body: some View {
         NavigationView{
@@ -43,9 +43,6 @@ struct ContentView: View {
                         SecureField("Password", text: $password)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding()
-                        NavigationLink(destination: HomeView(), isActive: $isLoggedIn) {
-                            EmptyView()
-                        }
                         NavigationLink(destination: RegistrationView(), isActive: $isRegestsr) {
                             EmptyView()
                         }
@@ -87,15 +84,15 @@ struct ContentView: View {
                 print(error!.localizedDescription)
             }else{
                 userData.userId = authResult?.user.uid
-                isLoggedIn = true
+                settings.isLoggedin = true
             }
         }
     }
     
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        LoginView()
     }
 }

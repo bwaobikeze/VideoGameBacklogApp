@@ -6,11 +6,7 @@
 //
 
 import SwiftUI
-class determinLogout: ObservableObject{
-    @Published var isloggedOut: Bool = false
-}
 struct HomeView: View {
-    @ObservedObject var changeLog = determinLogout()
     var body: some View {
         NavigationView{
             TabView {
@@ -31,9 +27,6 @@ struct HomeView: View {
                     }
             }
         }.navigationBarBackButtonHidden(true)
-            .fullScreenCover(isPresented:  $changeLog.isloggedOut, content: {
-                ContentView()
-            })
         
     }
         

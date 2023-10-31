@@ -16,9 +16,9 @@ struct ProfileInfoView: View {
     @State private var lastName = ""
     @State private var platform = ""
     @State private var username = ""
-    @ObservedObject var isLogout = determinLogout()
     @State private var GamePlatformsSelction = [subplatforms]()
     @EnvironmentObject var userData: UserData
+    @EnvironmentObject var settings: UserSettings
     var body: some View {
         NavigationView{
             ZStack{
@@ -155,8 +155,7 @@ struct ProfileInfoView: View {
         do {
             try Auth.auth().signOut()
             print("Logout Successful")
-            isLogout.isloggedOut.toggle()
-            print(isLogout.isloggedOut)
+            settings.isLoggedin.toggle()
         } catch let signOutError as NSError {
             print("Error signing out: \(signOutError)")
         }

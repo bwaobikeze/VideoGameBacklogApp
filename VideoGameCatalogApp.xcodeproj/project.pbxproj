@@ -28,7 +28,7 @@
 		3C404E842AD5570700059C73 /* GameCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E782AD5570700059C73 /* GameCatalogView.swift */; };
 		3C404E852AD5570700059C73 /* HomeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E792AD5570700059C73 /* HomeMainView.swift */; };
 		3C404E862AD5570700059C73 /* GameContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E7A2AD5570700059C73 /* GameContentView.swift */; };
-		3C404E872AD5570700059C73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E7B2AD5570700059C73 /* ContentView.swift */; };
+		3C404E872AD5570700059C73 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E7B2AD5570700059C73 /* LoginView.swift */; };
 		3C404E882AD5570700059C73 /* BrowseSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E7C2AD5570700059C73 /* BrowseSearchView.swift */; };
 		3C404E8B2AD5595900059C73 /* SlidingTabView in Frameworks */ = {isa = PBXBuildFile; productRef = 3C404E8A2AD5595900059C73 /* SlidingTabView */; };
 		3C404E8D2AD55A8100059C73 /* configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E8C2AD55A8100059C73 /* configure.swift */; };
@@ -40,6 +40,8 @@
 		3C4DCC592AF05272008E36AA /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C4DCC582AF05272008E36AA /* Poppins-Medium.ttf */; };
 		3C4DCC5B2AF05290008E36AA /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C4DCC5A2AF05290008E36AA /* Poppins-SemiBold.ttf */; };
 		3C4DCC5E2AF059F4008E36AA /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C4DCC5D2AF059F4008E36AA /* Poppins-Regular.ttf */; };
+		3C4DCC602AF0D01D008E36AA /* loginLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC5F2AF0D01D008E36AA /* loginLogout.swift */; };
+		3C4DCC622AF0D892008E36AA /*  ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC612AF0D892008E36AA /*  ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +62,7 @@
 		3C404E782AD5570700059C73 /* GameCatalogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCatalogView.swift; sourceTree = "<group>"; };
 		3C404E792AD5570700059C73 /* HomeMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMainView.swift; sourceTree = "<group>"; };
 		3C404E7A2AD5570700059C73 /* GameContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameContentView.swift; sourceTree = "<group>"; };
-		3C404E7B2AD5570700059C73 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3C404E7B2AD5570700059C73 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3C404E7C2AD5570700059C73 /* BrowseSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseSearchView.swift; sourceTree = "<group>"; };
 		3C404E8C2AD55A8100059C73 /* configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = configure.swift; sourceTree = "<group>"; };
 		3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentPlatformModel.swift; sourceTree = "<group>"; };
@@ -71,6 +73,8 @@
 		3C4DCC5A2AF05290008E36AA /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		3C4DCC5C2AF0566B008E36AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3C4DCC5D2AF059F4008E36AA /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		3C4DCC5F2AF0D01D008E36AA /* loginLogout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginLogout.swift; sourceTree = "<group>"; };
+		3C4DCC612AF0D892008E36AA /*  ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " ContentView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +142,7 @@
 				3C404E6C2AD556A300059C73 /* userProfileModel.swift */,
 				3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */,
 				3C4DCC2C2AEB936C008E36AA /* ColorPick.swift */,
+				3C4DCC5F2AF0D01D008E36AA /* loginLogout.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -155,9 +160,10 @@
 				3C404E782AD5570700059C73 /* GameCatalogView.swift */,
 				3C404E792AD5570700059C73 /* HomeMainView.swift */,
 				3C404E7A2AD5570700059C73 /* GameContentView.swift */,
-				3C404E7B2AD5570700059C73 /* ContentView.swift */,
+				3C404E7B2AD5570700059C73 /* LoginView.swift */,
 				3C404E7C2AD5570700059C73 /* BrowseSearchView.swift */,
 				3C4DCC2A2AE795A0008E36AA /* GamesForPlatformView.swift */,
+				3C4DCC612AF0D892008E36AA /*  ContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -265,7 +271,7 @@
 				3C404E852AD5570700059C73 /* HomeMainView.swift in Sources */,
 				3C404E812AD5570700059C73 /* RecommendedView.swift in Sources */,
 				3C4DCC2D2AEB936C008E36AA /* ColorPick.swift in Sources */,
-				3C404E872AD5570700059C73 /* ContentView.swift in Sources */,
+				3C404E872AD5570700059C73 /* LoginView.swift in Sources */,
 				3C404E862AD5570700059C73 /* GameContentView.swift in Sources */,
 				3C4DCC262AE4FB00008E36AA /* ParentPlatformModel.swift in Sources */,
 				3C404E802AD5570700059C73 /* ProfileInfoView.swift in Sources */,
@@ -273,10 +279,12 @@
 				3C404E6E2AD556A300059C73 /* VideoGameModel.swift in Sources */,
 				3C404E832AD5570700059C73 /* MainProfileView.swift in Sources */,
 				3C404E822AD5570700059C73 /* HomeView.swift in Sources */,
+				3C4DCC602AF0D01D008E36AA /* loginLogout.swift in Sources */,
 				3C404E882AD5570700059C73 /* BrowseSearchView.swift in Sources */,
 				3C404E7E2AD5570700059C73 /* MainBrowseView.swift in Sources */,
 				3C404E6F2AD556A300059C73 /* userProfileModel.swift in Sources */,
 				3C4DCC2B2AE795A0008E36AA /* GamesForPlatformView.swift in Sources */,
+				3C4DCC622AF0D892008E36AA /*  ContentView.swift in Sources */,
 				3C404E8D2AD55A8100059C73 /* configure.swift in Sources */,
 				3C404E3B2AD5541700059C73 /* VideoGameCatalogAppApp.swift in Sources */,
 				3C404E842AD5570700059C73 /* GameCatalogView.swift in Sources */,

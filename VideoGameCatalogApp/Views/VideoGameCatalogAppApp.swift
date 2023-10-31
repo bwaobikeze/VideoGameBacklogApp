@@ -10,6 +10,7 @@ import Firebase
 @main
 struct VideoGameCatalogAppApp: App {
     @StateObject var userData = UserData()
+    @StateObject var loginDeter = UserSettings()
     init(){
         FirebaseApp.configure()
         print("Configured FireBase!")
@@ -17,6 +18,7 @@ struct VideoGameCatalogAppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(loginDeter)
                 .environmentObject(userData)
         }
     }
