@@ -19,6 +19,7 @@ struct Game: Codable,Identifiable{
     var background_image: URL?
     var platforms: [platformObj]
     var userId:String?
+    var GameDataBaseID:String?
 }
 
 struct platformObj: Codable{

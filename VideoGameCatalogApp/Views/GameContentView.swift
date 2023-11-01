@@ -15,6 +15,7 @@ struct  GameDetailResponse:Codable, Identifiable{
     var background_image: URL?
     var description_raw: String
     var userId:String?
+    var GameDataBaseID:String?
 
 }
 
@@ -60,14 +61,27 @@ struct GameContentView: View {
     }
     func addGameToCatalog(gameObj: inout GameDetailResponse){
         let db = Firestore.firestore()
-        gameObj.userId=userData.userId
-        var ref:DocumentReference? = nil
-        ref=db.collection("VideoGames").addDocument(data: ["id":gameObj.id ?? "id Value","userId":gameObj.userId ?? "not user ID"]){
-            err in
-            if let err = err{
-                print("Error adding document: \(err)")
-            }else{
-                print("Document added with ID: \(ref!.documentID)")
+        gameObj.userId = userData.userId
+        var ref: DocumentReference? = nil
+        let data: [String: Any] = [
+            "id": gameObj.id ?? "id Value",
+            "userId": gameObj.userId ?? "not user ID"
+        ]
+
+        ref = db.collection("VideoGames").addDocument(data: data) { error in
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                // Document added successfully, now update the "gameId" field with the document ID
+                if let documentId = ref?.documentID {
+                    db.collection("VideoGames").document(documentId).updateData(["GameDBID": documentId]) { updateError in
+                        if let updateError = updateError {
+                            print("Error updating gameId field: \(updateError)")
+                        } else {
+                            print("Document added with ID and gameId set: \(documentId)")
+                        }
+                    }
+                }
             }
         }
         

@@ -14,20 +14,25 @@ struct GameCatalogView: View {
     let db = Firestore.firestore()
     var body: some View {
         VStack{
-            List(games, id: \.name) { game in
-                HStack{
-                    AsyncImage(url: game.background_image) { image in
-                        image.resizable()
-                            .aspectRatio(67/91,contentMode: .fit)
-                            .frame(maxWidth: 67, maxHeight:91)
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    VStack{
-                        Text(game.name).font(.title2).font(.custom("Poppins-Medium", size: 16))
+            List{
+                ForEach(games, id: \.name){game in
+                    HStack{
+                        AsyncImage(url: game.background_image) { image in
+                            image.resizable()
+                                .aspectRatio(67/91,contentMode: .fit)
+                                .frame(maxWidth: 67, maxHeight:91)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        VStack{
+                            Text(game.name).font(.title2).font(.custom("Poppins-Medium", size: 16))
+                        }
                     }
                 }
-            }.listStyle(PlainListStyle())
+                .onDelete(perform: deleteGame)
+
+            }
+            .listStyle(PlainListStyle())
 
         }.onAppear(perform: {
             fetchGamesForUserID(userID: userData.userId ?? "not id")
@@ -35,24 +40,45 @@ struct GameCatalogView: View {
     }
     func fetchGamesForUserID(userID: String) {
         db.collection("VideoGames")
-              .whereField("userId", isEqualTo: userID)
-              .getDocuments { (querySnapshot, error) in
-                  if let error = error {
-                      print("Error fetching documents: \(error)")
-                  } else {
-                      for document in querySnapshot!.documents {
-                          if let gameID = document.data()["id"] as? Int {
-                              // Pass the game ID to a different function
-                              print(gameID)
-                              Task{
-                                  await  processGame(gameID)
-                              }
-                          }
-                      }
-                  }
-              }
+            .whereField("userId", isEqualTo: userID)
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Error fetching documents: \(error)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        if let gameID = document.data()["id"] as? Int,
+                           let gameDBID = document.data()["GameDBID"] as? String {
+                            // Pass the game ID and GameDBID to a different function
+                            print("Game ID: \(gameID)")
+                            print("GameDBID: \(gameDBID)")
+                            Task {
+                                await processGame(gameID, gameDBID)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    func deleteGame(at offsets: IndexSet) {
+        for offset in offsets {
+            let game = games[offset]
+            if let gamedataBaseID = game.GameDataBaseID { // Assuming you have the GamedataBaseID stored in the GameDetailResponse
+                // Call your DeleteItem function to delete the item from the database
+                DeleteItem(at: gamedataBaseID)
+            }
+        }
     }
-    func processGame (_ gameID: Int) async {
+    
+    func DeleteItem(at GamedataBaseID: String){
+        db.collection("VideoGames").document(GamedataBaseID).delete(){err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
+    func processGame (_ gameID: Int, _ gameDID: String) async {
            // You can implement your logic here to process the game
            // For example, you can fetch additional data or perform other actions
         let apiKeyGame=Config.rawgApiKey
@@ -63,7 +89,8 @@ struct GameCatalogView: View {
 
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-            let decodedGameResponse = try JSONDecoder().decode(GameDetailResponse.self, from: data)
+            var decodedGameResponse = try JSONDecoder().decode(GameDetailResponse.self, from: data)
+            decodedGameResponse.GameDataBaseID = gameDID
             games.append(decodedGameResponse)
         } catch {
           debugPrint(error)
