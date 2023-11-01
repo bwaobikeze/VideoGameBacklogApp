@@ -73,7 +73,7 @@ struct RecommendedView: View {
 
     func loadGamesOfPlatform(platnum: Int) async{
         let apiKeyGame=Config.rawgApiKey
-        guard let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKeyGame)&platforms=\(platnum)&page_size=5") else {
+        guard let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKeyGame)&platforms=\(platnum)&page_size=20&ordering=-released") else {
             print("Invalid URL")
             return
         }

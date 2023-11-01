@@ -85,7 +85,7 @@ struct ProfileInfoView: View {
                 VStack{
                     HStack(){
                         Circle().foregroundColor(.white).overlay{
-                            Image("profile-user-avatar-man-person-svgrepo-com").aspectRatio(106/100,contentMode: .fit)
+                            Image("profile-user-avatar-man-person-svgrepo-2com").aspectRatio(106/100,contentMode: .fit)
                         }.frame(width: 106, height: 100).offset(x: 140)
                     }
                     Spacer()

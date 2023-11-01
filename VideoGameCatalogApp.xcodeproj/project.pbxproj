@@ -33,7 +33,6 @@
 		3C404E8B2AD5595900059C73 /* SlidingTabView in Frameworks */ = {isa = PBXBuildFile; productRef = 3C404E8A2AD5595900059C73 /* SlidingTabView */; };
 		3C404E8D2AD55A8100059C73 /* configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E8C2AD55A8100059C73 /* configure.swift */; };
 		3C4DCC262AE4FB00008E36AA /* ParentPlatformModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */; };
-		3C4DCC292AE51DEA008E36AA /* ACarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4DCC282AE51DEA008E36AA /* ACarousel */; };
 		3C4DCC2B2AE795A0008E36AA /* GamesForPlatformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC2A2AE795A0008E36AA /* GamesForPlatformView.swift */; };
 		3C4DCC2D2AEB936C008E36AA /* ColorPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC2C2AEB936C008E36AA /* ColorPick.swift */; };
 		3C4DCC572AF0523A008E36AA /* PixelifySans-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C4DCC562AF0523A008E36AA /* PixelifySans-VariableFont_wght.ttf */; };
@@ -42,6 +41,7 @@
 		3C4DCC5E2AF059F4008E36AA /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C4DCC5D2AF059F4008E36AA /* Poppins-Regular.ttf */; };
 		3C4DCC602AF0D01D008E36AA /* loginLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC5F2AF0D01D008E36AA /* loginLogout.swift */; };
 		3C4DCC622AF0D892008E36AA /*  ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC612AF0D892008E36AA /*  ContentView.swift */; };
+		3CC1E5222AF187E20065FBC3 /* YoutubeVideoFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC1E5212AF187E20065FBC3 /* YoutubeVideoFormat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +75,7 @@
 		3C4DCC5D2AF059F4008E36AA /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		3C4DCC5F2AF0D01D008E36AA /* loginLogout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginLogout.swift; sourceTree = "<group>"; };
 		3C4DCC612AF0D892008E36AA /*  ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " ContentView.swift"; sourceTree = "<group>"; };
+		3CC1E5212AF187E20065FBC3 /* YoutubeVideoFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeVideoFormat.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +85,6 @@
 			files = (
 				3C404E8B2AD5595900059C73 /* SlidingTabView in Frameworks */,
 				3C404E642AD5558100059C73 /* FirebaseFirestore in Frameworks */,
-				3C4DCC292AE51DEA008E36AA /* ACarousel in Frameworks */,
 				3C404E502AD5558100059C73 /* FirebaseAnalyticsSwift in Frameworks */,
 				3C404E4C2AD5558100059C73 /* FirebaseAnalytics in Frameworks */,
 				3C404E682AD5558100059C73 /* FirebaseFirestoreSwift in Frameworks */,
@@ -143,6 +143,7 @@
 				3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */,
 				3C4DCC2C2AEB936C008E36AA /* ColorPick.swift */,
 				3C4DCC5F2AF0D01D008E36AA /* loginLogout.swift */,
+				3CC1E5212AF187E20065FBC3 /* YoutubeVideoFormat.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -202,7 +203,6 @@
 				3C404E632AD5558100059C73 /* FirebaseFirestore */,
 				3C404E672AD5558100059C73 /* FirebaseFirestoreSwift */,
 				3C404E8A2AD5595900059C73 /* SlidingTabView */,
-				3C4DCC282AE51DEA008E36AA /* ACarousel */,
 			);
 			productName = VideoGameCatalogApp;
 			productReference = 3C404E372AD5541700059C73 /* VideoGameCatalogApp.app */;
@@ -235,7 +235,6 @@
 			packageReferences = (
 				3C404E4A2AD5558100059C73 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3C404E892AD5595900059C73 /* XCRemoteSwiftPackageReference "SlidingTabView" */,
-				3C4DCC272AE51DEA008E36AA /* XCRemoteSwiftPackageReference "ACarousel" */,
 			);
 			productRefGroup = 3C404E382AD5541700059C73 /* Products */;
 			projectDirPath = "";
@@ -272,6 +271,7 @@
 				3C404E812AD5570700059C73 /* RecommendedView.swift in Sources */,
 				3C4DCC2D2AEB936C008E36AA /* ColorPick.swift in Sources */,
 				3C404E872AD5570700059C73 /* LoginView.swift in Sources */,
+				3CC1E5222AF187E20065FBC3 /* YoutubeVideoFormat.swift in Sources */,
 				3C404E862AD5570700059C73 /* GameContentView.swift in Sources */,
 				3C4DCC262AE4FB00008E36AA /* ParentPlatformModel.swift in Sources */,
 				3C404E802AD5570700059C73 /* ProfileInfoView.swift in Sources */,
@@ -514,14 +514,6 @@
 				minimumVersion = 1.0.2;
 			};
 		};
-		3C4DCC272AE51DEA008E36AA /* XCRemoteSwiftPackageReference "ACarousel" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/JWAutumn/ACarousel";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -554,11 +546,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3C404E892AD5595900059C73 /* XCRemoteSwiftPackageReference "SlidingTabView" */;
 			productName = SlidingTabView;
-		};
-		3C4DCC282AE51DEA008E36AA /* ACarousel */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3C4DCC272AE51DEA008E36AA /* XCRemoteSwiftPackageReference "ACarousel" */;
-			productName = ACarousel;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -36,18 +36,17 @@ struct GameContentView: View {
             Text(Gamed.name).font(.custom("Poppins-Medium", size: 20))
             ScrollView(.vertical){
                 Text(Gamed.description_raw).font(.custom("Poppins-Regular", size: 13)).multilineTextAlignment(.leading).padding()
-                Text("\(gameID)")
             }
             
             Button(action: {
                 addGameToCatalog(gameObj: &Gamed)
             }) {
                 Text("Add to catalog")
-                    .font(.headline)
+                    .font(.custom("Poppins-Medium", size: 20))
                     .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.orange)
+                    .background(color.DarkOrange)
                     .cornerRadius(10)
             }
             .padding()

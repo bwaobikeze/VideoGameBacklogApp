@@ -10,15 +10,6 @@
       }
     },
     {
-      "identity" : "acarousel",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/JWAutumn/ACarousel",
-      "state" : {
-        "revision" : "8a322513580f21288fd87eb3a1341c247b3e2a76",
-        "version" : "0.2.0"
-      }
-    },
-    {
       "identity" : "firebase-ios-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk",

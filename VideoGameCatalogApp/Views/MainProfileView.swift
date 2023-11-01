@@ -26,7 +26,7 @@ struct MainProfileView: View {
                     Spacer()
                     NavigationLink(destination: ProfileInfoView()) {
                         Circle().foregroundColor(.white).overlay{
-                            Image("profile-user-avatar-man-person-svgrepo-com").frame(width: 90, height: 90)
+                            Image("profile-user-avatar-man-person-svgrepo-2com").frame(width: 90, height: 90)
                         }.frame(width: 106, height: 100)
                     }
                 }
