@@ -24,7 +24,7 @@ struct MainBrowseView: View {
         NavigationView{
             ScrollView(.vertical){
                 VStack{
-                    Text("Browse Games")
+                    (Text("Browse ").foregroundColor(color.DarkOrange) + Text("Games"))
                         .font(.custom("Poppins-SemiBold", size: 24))
                         .bold()
                         .padding(.horizontal)

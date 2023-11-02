@@ -67,7 +67,7 @@ struct ProfileInfoView: View {
                         Text("-or-")
                         Button(action: {
                             // Handle logout action here
-                            logout()
+                            //logout()
                         }) {
                             Text("Logout")
                                 .font(.headline)
@@ -155,6 +155,7 @@ struct ProfileInfoView: View {
         do {
             try Auth.auth().signOut()
             print("Logout Successful")
+            userData.userId = ""
             settings.isLoggedin.toggle()
         } catch let signOutError as NSError {
             print("Error signing out: \(signOutError)")

@@ -23,11 +23,11 @@ struct RegistrationView: View {
         NavigationView{
             ZStack{
                 Image("pexels-yan-krukau-9069365").resizable().scaledToFill()
-                    .ignoresSafeArea()
+                    .ignoresSafeArea().blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
                 Rectangle().frame(width: 350, height: 650).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
                 VStack {
                     Text("Create Account")
-                        .font(.largeTitle)
+                        .font(.custom("Poppins-SemiBold", size: 20))
                         .padding()
                     
                     
@@ -65,7 +65,7 @@ struct RegistrationView: View {
                         registerUser()
                     }) {
                         Text("Create Account")
-                            .font(.headline)
+                            .font(.custom("Poppins-SemiBold", size: 20))
                             .foregroundColor(.white)
                             .padding()
                             .frame(maxWidth: .infinity)

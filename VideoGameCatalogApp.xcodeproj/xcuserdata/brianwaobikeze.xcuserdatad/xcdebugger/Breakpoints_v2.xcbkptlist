@@ -14,8 +14,8 @@
             filePath = "VideoGameCatalogApp/Views/ProfileInfoView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "logout()"
             landmarkType = "7">
             <Locations>
@@ -49,6 +49,21 @@
                   endingLineNumber = "159"
                   offsetFromSymbolStart = "446">
                </Location>
+               <Location
+                  uuid = "28DB8504-388C-4BBB-9834-699140B3C0A3 - 90818c69ff987db4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VideoGameCatalogApp.ProfileInfoView.logout() -&gt; ()"
+                  moduleName = "VideoGameCatalogApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brianwaobikeze/Desktop/VideoGameCatalogApp/VideoGameCatalogApp/Views/ProfileInfoView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "159"
+                  endingLineNumber = "159"
+                  offsetFromSymbolStart = "514">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -78,8 +93,8 @@
             filePath = "VideoGameCatalogApp/Views/ProfileInfoView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "logout()"
             landmarkType = "7">
             <Locations>
@@ -142,6 +157,36 @@
                   startingLineNumber = "159"
                   endingLineNumber = "159"
                   offsetFromSymbolStart = "650">
+               </Location>
+               <Location
+                  uuid = "55F7AF96-3659-4521-B0F2-4C7E433A7A02 - 90818c69ff987d55"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VideoGameCatalogApp.ProfileInfoView.logout() -&gt; ()"
+                  moduleName = "VideoGameCatalogApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brianwaobikeze/Desktop/VideoGameCatalogApp/VideoGameCatalogApp/Views/ProfileInfoView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "160"
+                  endingLineNumber = "160"
+                  offsetFromSymbolStart = "579">
+               </Location>
+               <Location
+                  uuid = "55F7AF96-3659-4521-B0F2-4C7E433A7A02 - 90818c69ff987d55"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VideoGameCatalogApp.ProfileInfoView.logout() -&gt; ()"
+                  moduleName = "VideoGameCatalogApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brianwaobikeze/Desktop/VideoGameCatalogApp/VideoGameCatalogApp/Views/ProfileInfoView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "160"
+                  endingLineNumber = "160"
+                  offsetFromSymbolStart = "718">
                </Location>
             </Locations>
          </BreakpointContent>

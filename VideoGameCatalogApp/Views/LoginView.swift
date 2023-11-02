@@ -25,10 +25,10 @@ struct LoginView: View {
         NavigationView{
             ZStack{
                 Image("pexels-yan-krukau-9069365").resizable().scaledToFill()
-                    .ignoresSafeArea()
+                    .ignoresSafeArea().blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
                 VStack{
                     Image("playstation-4-game-controllers-video-game-dualshock-joystick-7d6b0eb7e10322d99b41504a05478bcc").resizable().frame(width: 105, height: 65)
-                    (Text("Saved").foregroundStyle(color.DarkOrange) + Text("Games")).font(.custom("PixelifySans-VariableFont_wght", size: 32))
+                    (Text("Saved").foregroundStyle(color.DarkOrange) + Text("Games")).font(.custom("PixelifySans-VariableFont_wght-Bold", size: 32))
                 Rectangle().frame(width: 350, height: 350).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
                     VStack {
                         Text("Login")
