@@ -22,6 +22,8 @@ struct HomeMainView: View {
     @State private var selectedGame: Game?
     @State var youtubeListPointer: Int = 0
     @State private var youtubeVideosID: [String] = ["nq1M_Wc4FIc","IRNOoOYVn80","q0vNoRhuV_I", "k1kI09X8L9Y"]
+    @State private var showSafari: Bool = false
+    @State var urlArt: newsArticle?
     
     var body: some View {
         NavigationView{
@@ -144,7 +146,10 @@ struct HomeMainView: View {
                                         Spacer()
                                         Text(articla.title).font(.custom("Poppins-Medium", size: 15)).frame(maxWidth: 150, maxHeight: 150).foregroundColor(.black)
                                     }
-                                ).padding()
+                                ).onTapGesture {
+                                    showSafari.toggle()
+                            }
+                            .padding()
                         }
                     }
                     .task {
