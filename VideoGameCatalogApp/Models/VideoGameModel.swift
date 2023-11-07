@@ -25,3 +25,14 @@ struct Game: Codable,Identifiable{
 struct platformObj: Codable{
     var platform: platform
 }
+struct  GameScreenShot:Codable, Identifiable{
+    var id: Int?
+    var image: URL
+    var width: CGFloat
+    var height: CGFloat
+
+
+}
+struct  GameScreenShotResponse:Codable{
+    var results:[GameScreenShot]
+}

@@ -12,9 +12,12 @@ var id:String
 var name:String
 }
 
-struct newsArticle: Codable{
+struct newsArticle: Codable, Identifiable{
     var source: source
     var title: String
     var url: URL
     var urlToImage:URL
+    var id: String{
+        title
+    }
 }

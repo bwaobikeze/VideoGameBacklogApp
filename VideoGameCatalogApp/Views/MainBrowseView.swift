@@ -168,7 +168,19 @@ struct MainBrowseView: View {
                             GamesForPlatformView(PlatformID: plat.id)
                         } label: {
                             Rectangle().foregroundColor(.black).frame(width: 150, height: 200).cornerRadius(15).overlay {
-                                Text(plat.name).font(.custom("Poppins-Medium", size: 20)).foregroundStyle(.white)
+                                ZStack{
+                                    AsyncImage(url: plat.platforms[0].image_background) { image in
+                                        
+                                        image.resizable()
+                                            .aspectRatio(150/200,contentMode: .fit)
+                                            .frame(maxWidth: 150, maxHeight: 200)
+                                            .cornerRadius(15).blur(radius: 4)
+                                        
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                    Text(plat.name).font(.custom("Poppins-SemiBold", size: 20)).foregroundStyle(.white)
+                                }
                             }
                         }
                         

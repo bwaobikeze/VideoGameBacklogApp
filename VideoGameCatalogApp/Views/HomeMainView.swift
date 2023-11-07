@@ -23,7 +23,7 @@ struct HomeMainView: View {
     @State var youtubeListPointer: Int = 0
     @State private var youtubeVideosID: [String] = ["nq1M_Wc4FIc","IRNOoOYVn80","q0vNoRhuV_I", "k1kI09X8L9Y"]
     @State private var showSafari: Bool = false
-    @State var urlArt: newsArticle?
+    @State private var urlArt: newsArticle?
     
     var body: some View {
         NavigationView{
@@ -127,29 +127,30 @@ struct HomeMainView: View {
                 ScrollView(.horizontal) {
                     LazyHStack(spacing: 8) {
                         ForEach(articlas, id: \.title) { articla in
-                            RoundedRectangle(cornerRadius: 15)
-                                .fill(Color.white)
-                                .shadow(radius: 10)
-                                .frame(width: 281, height: 111)
-                                .overlay(
-                                    Button(action: {
-                                        UIApplication.shared.open(articla.url)
-                                    }) {
-                                        AsyncImage(url: articla.urlToImage) { image in
-                                            image.resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .frame(maxWidth: 127, maxHeight: 80)
-                                                .cornerRadius(10)
-                                        } placeholder: {
-                                            ProgressView()
-                                        }
-                                        Spacer()
-                                        Text(articla.title).font(.custom("Poppins-Medium", size: 15)).frame(maxWidth: 150, maxHeight: 150).foregroundColor(.black)
-                                    }
-                                ).onTapGesture {
-                                    showSafari.toggle()
+                            Button(action: {
+                                urlArt = articla
+                            } , label: {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color.white)
+                                    .shadow(radius: 10)
+                                    .frame(width: 281, height: 111)
+                                    .overlay{
+                                        HStack{
+                                            AsyncImage(url: articla.urlToImage) { image in
+                                                image.resizable()
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .frame(maxWidth: 127, maxHeight: 80)
+                                                    .cornerRadius(10)
+                                            } placeholder: {
+                                                ProgressView()
+                                            }
+                                            Spacer()
+                                            Text(articla.title).font(.custom("Poppins-Medium", size: 15)).frame(maxWidth: 150, maxHeight: 150).foregroundColor(.black)
+                                            
+                                        } }.padding()
+                            }).fullScreenCover(item: $urlArt) { Identifiable in
+                                SFSafariViewWrapper(url: Identifiable.url)
                             }
-                            .padding()
                         }
                     }
                     .task {

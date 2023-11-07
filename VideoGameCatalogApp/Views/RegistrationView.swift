@@ -22,7 +22,7 @@ struct RegistrationView: View {
     var body: some View {
         NavigationView{
             ZStack{
-                Image("pexels-yan-krukau-9069365").resizable().scaledToFill()
+                Image("sam-pak-X6QffKLwyoQ-unsplash").resizable().scaledToFill()
                     .ignoresSafeArea().blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
                 Rectangle().frame(width: 350, height: 650).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
                 VStack {
