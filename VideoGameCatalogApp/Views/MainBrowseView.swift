@@ -10,6 +10,7 @@ import ACarousel
 
 
 struct MainBrowseView: View {
+    //@EnvironmentObject var settings: UserSettings
     @State private var GamePlatforms = [ParentPlatform]()
     @State private var popularGames = [Game]()
     @State private var Playstation5Games = [Game]()
@@ -236,6 +237,7 @@ struct MainBrowseView: View {
     struct MainBrowseView_Previews: PreviewProvider {
         static var previews: some View {
             MainBrowseView()
+                
         }
     }
 

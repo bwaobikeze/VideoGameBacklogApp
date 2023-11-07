@@ -8,28 +8,29 @@
 import SwiftUI
 struct HomeView: View {
     @State private var selectedTab = 0
+    @EnvironmentObject var settings: UserSettings
     var body: some View {
         
         NavigationView{
             TabView {
                 HomeMainView()
                     .tabItem {
-                        Image("game-console-svgrepo-com")
+                        Image(systemName: "house.fill")
                         Text("Home")
-                    }.toolbarBackground(color.DarkOrange, for: .tabBar).toolbarBackground(.visible, for: .tabBar)
+                    }.toolbarBackground(.visible, for: .tabBar)
                     .tag(0)
                 MainBrowseView()
                     .tabItem {
-                        Image("game-console-svgrepo-com (1)")
+                        Image(systemName: "gamecontroller.fill")
                         
                         Text("Browse")
-                    }.toolbarBackground(color.DarkOrange, for: .tabBar).toolbarBackground(.visible, for: .tabBar).tag(1)
+                    }.toolbarBackground(.visible, for: .tabBar).tag(1)
                 MainProfileView()
                     .tabItem {
-                        Image("profile-user-avatar-man-person-svgrepo-com")
+                        Image(systemName: "person.crop.circle")
                         Text("Profile")
-                    }.toolbarBackground(color.DarkOrange, for: .tabBar).toolbarBackground(.visible, for: .tabBar).tag(2)
-            }.accentColor(selectedTab == 0 ? .black : .black).tabViewStyle(.automatic)
+                    }.toolbarBackground(.visible, for: .tabBar).tag(2)
+            }.accentColor(selectedTab == 0 ? color.DarkOrange : .black).tabViewStyle(.automatic)
         }.navigationBarBackButtonHidden(true)
         
     }
@@ -40,5 +41,6 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
             .environmentObject(UserData())
+            .environmentObject(UserSettings())
     }
 }

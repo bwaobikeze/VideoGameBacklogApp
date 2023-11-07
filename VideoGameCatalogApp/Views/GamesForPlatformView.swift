@@ -74,4 +74,5 @@ struct GamesForPlatformView: View {
 
 #Preview {
     GamesForPlatformView()
+        
 }
