@@ -25,64 +25,118 @@ struct LoginView: View {
     
     var body: some View {
         if heightSize == .regular{
-            
-        }else{
-            
-        }
-        NavigationView{
-            ZStack{
-                Image("sam-pak-X6QffKLwyoQ-unsplash").resizable().scaledToFill()
-                    .ignoresSafeArea().blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-                VStack{
-                    Image("playstation-4-game-controllers-video-game-dualshock-joystick-7d6b0eb7e10322d99b41504a05478bcc").resizable().frame(width: 105, height: 65)
-                    (Text("Saved").foregroundStyle(color.DarkOrange) + Text("Games")).font(.custom("SpaceMission", size: 32))
-                Rectangle().frame(width: 350, height: 350).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
-                    VStack {
-                        Text("Login")
-                            .font(.custom("Poppins-SemiBold", size: 32))
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                        
-                        TextField("Email", text: $email)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                        
-                        SecureField("Password", text: $password)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                        NavigationLink(destination: RegistrationView(), isActive: $isRegestsr) {
-                            EmptyView()
-                        }
-                        
-                        Button(action: {
-                            // Handle login action here
-                            Signin()
-                        }) {
+            NavigationView{
+                ZStack{
+                    Image("sam-pak-X6QffKLwyoQ-unsplash").resizable().scaledToFill()
+                        .ignoresSafeArea().blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+                    VStack{
+                        Image("playstation-4-game-controllers-video-game-dualshock-joystick-7d6b0eb7e10322d99b41504a05478bcc").resizable().frame(width: 105, height: 65)
+                        (Text("Saved").foregroundStyle(color.DarkOrange) + Text("Games")).font(.custom("SpaceMission", size: 32))
+                    Rectangle().frame(width: 350, height: 350).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
+                        VStack {
                             Text("Login")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .padding(.vertical, 5)
-                                .padding(.horizontal, 80)
-                                .background(color.DarkOrange)
-                                .cornerRadius(10)
+                                .font(.custom("Poppins-SemiBold", size: 32))
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding()
+                            
+                            TextField("Email", text: $email)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding()
+                            
+                            SecureField("Password", text: $password)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding()
+                            NavigationLink(destination: RegistrationView(), isActive: $isRegestsr) {
+                                EmptyView()
+                            }
+                            
+                            Button(action: {
+                                // Handle login action here
+                                Signin()
+                            }) {
+                                Text("Login")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .padding(.vertical, 5)
+                                    .padding(.horizontal, 80)
+                                    .background(color.DarkOrange)
+                                    .cornerRadius(10)
+                            }
+                            .padding()
+                            Button(action: {
+                                // Handle login action here
+                                isRegestsr.toggle()
+                            }) {
+                                Text("Create Account").foregroundStyle(.black)
+                            }
+                            .padding()
+                            
                         }
+                        .navigationBarHidden(true)
                         .padding()
-                        Button(action: {
-                            // Handle login action here
-                            isRegestsr.toggle()
-                        }) {
-                            Text("Create Account").foregroundStyle(.black)
-                        }
-                        .padding()
-                        
                     }
-                    .navigationBarHidden(true)
-                    .padding()
+                        Spacer()
                 }
-                    Spacer()
             }
+            }.navigationBarBackButtonHidden(true)
+        }else{
+            NavigationView{
+                ZStack{
+                    Image("sam-pak-X6QffKLwyoQ-unsplash").resizable().scaledToFill()
+                        .ignoresSafeArea().blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+                    ScrollView(.vertical){
+                        VStack{
+                            Image("playstation-4-game-controllers-video-game-dualshock-joystick-7d6b0eb7e10322d99b41504a05478bcc").resizable().frame(width: 105, height: 65)
+                            (Text("Saved").foregroundStyle(color.DarkOrange) + Text("Games")).font(.custom("SpaceMission", size: 32))
+                            Rectangle().frame(width: 350, height: 350).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
+                                VStack {
+                                    Text("Login")
+                                        .font(.custom("Poppins-SemiBold", size: 32))
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    
+                                    TextField("Email", text: $email)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    
+                                    SecureField("Password", text: $password)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    NavigationLink(destination: RegistrationView(), isActive: $isRegestsr) {
+                                        EmptyView()
+                                    }
+                                    
+                                    Button(action: {
+                                        // Handle login action here
+                                        Signin()
+                                    }) {
+                                        Text("Login")
+                                            .font(.headline)
+                                            .foregroundColor(.white)
+                                            .padding(.vertical, 5)
+                                            .padding(.horizontal, 80)
+                                            .background(color.DarkOrange)
+                                            .cornerRadius(10)
+                                    }
+                                    .padding()
+                                    Button(action: {
+                                        // Handle login action here
+                                        isRegestsr.toggle()
+                                    }) {
+                                        Text("Create Account").foregroundStyle(.black)
+                                    }
+                                    .padding()
+                                    
+                                }
+                                .navigationBarHidden(true)
+                                .padding()
+                            }
+                            Spacer()
+                        }
+                    }
+            }
+            }.navigationBarBackButtonHidden(true)
         }
-        }.navigationBarBackButtonHidden(true)
         
     }
     func Signin(){
@@ -101,5 +155,7 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
+        LoginView()
+            .previewInterfaceOrientation(.landscapeLeft)
     }
 }

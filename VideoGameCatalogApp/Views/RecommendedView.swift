@@ -16,45 +16,88 @@ struct RecommendedView: View {
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
         @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
-        VStack{
-            List(games, id: \.name) { game in
-                Button(action: {
-                    selectedGame = game
-                }, label: {
-                    HStack{
-                        AsyncImage(url: game.background_image) { image in
-                            image.resizable()
-                                .aspectRatio(67/91,contentMode: .fit)
-                                .frame(maxWidth: 67, maxHeight:91)
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        VStack{
-                            Text(game.name).font(.title2)
-                        }
-                        Spacer()
-                        Button(action: {
-                            var mutableGame = game
-                            addGameToCatalog(gameObj: &mutableGame)
-                        }, label: {
-                            Text("Add")
-                                .font(.headline)
-                                .foregroundColor(.black)
-                                .padding()
-                                .frame(maxWidth: 100,maxHeight: 30)
-                                .background(Color.gray)
-                                .cornerRadius(10)
-                        })
+        if heightSize == .regular{
+            VStack{
+                List(games, id: \.name) { game in
+                    Button(action: {
+                        selectedGame = game
+                    }, label: {
+                        HStack{
+                            AsyncImage(url: game.background_image) { image in
+                                image.resizable()
+                                    .aspectRatio(67/91,contentMode: .fit)
+                                    .frame(maxWidth: 67, maxHeight:91)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            VStack{
+                                Text(game.name).font(.title2)
+                            }
+                            Spacer()
+                            Button(action: {
+                                var mutableGame = game
+                                addGameToCatalog(gameObj: &mutableGame)
+                            }, label: {
+                                Text("Add")
+                                    .font(.headline)
+                                    .foregroundColor(.black)
+                                    .padding()
+                                    .frame(maxWidth: 100,maxHeight: 30)
+                                    .background(Color.gray)
+                                    .cornerRadius(10)
+                            })
 
+                        }
+                    }).sheet(item: $selectedGame) { game in
+                        GameContentView(gameID: game.id)
                     }
-                }).sheet(item: $selectedGame) { game in
-                    GameContentView(gameID: game.id)
-                }
 
-            }.listStyle(PlainListStyle())
+                }.listStyle(PlainListStyle())
 
-        }.task {
-                await loadGamesOfPlatform(platnum: platformNameID)
+            }.task {
+                    await loadGamesOfPlatform(platnum: platformNameID)
+            }
+        }else{
+                List(games, id: \.name) { game in
+                    Button(action: {
+                        selectedGame = game
+                    }, label: {
+                        HStack{
+                            AsyncImage(url: game.background_image) { image in
+                                image.resizable()
+                                    .aspectRatio(67/91,contentMode: .fit)
+                                    .frame(maxWidth: 67, maxHeight:91)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            VStack{
+                                Text(game.name).font(.title2)
+                            }
+                            Spacer()
+                            Button(action: {
+                                var mutableGame = game
+                                addGameToCatalog(gameObj: &mutableGame)
+                            }, label: {
+                                Text("Add")
+                                    .font(.headline)
+                                    .foregroundColor(.black)
+                                    .padding()
+                                    .frame(maxWidth: 100,maxHeight: 30)
+                                    .background(Color.gray)
+                                    .cornerRadius(10)
+                            })
+
+                        }
+                    }).sheet(item: $selectedGame) { game in
+                        GameContentView(gameID: game.id)
+                    }
+
+                }.task {
+                    await loadGamesOfPlatform(platnum: platformNameID)
+            }
+                .listStyle(PlainListStyle())
+
+            
         }
 
     }
@@ -104,7 +147,10 @@ struct RecommendedView: View {
     }
 }
 
-#Preview {
-    RecommendedView()
-        .environmentObject(UserData())
+struct RecommendedView_Previews: PreviewProvider {
+    static var previews: some View {
+        RecommendedView()
+        RecommendedView()
+            .previewInterfaceOrientation(.landscapeLeft)
+    }
 }

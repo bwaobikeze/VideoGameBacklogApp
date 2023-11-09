@@ -17,8 +17,12 @@ struct ContentView: View {
         }
     }
 }
-
-#Preview {
-    ContentView()
-        .environmentObject(UserSettings())
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .environmentObject(UserSettings())
+        ContentView()
+            .environmentObject(UserSettings())
+            .previewInterfaceOrientation(.landscapeLeft)
+    }
 }

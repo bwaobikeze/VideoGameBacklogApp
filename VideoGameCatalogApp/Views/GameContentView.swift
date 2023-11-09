@@ -28,84 +28,163 @@ struct GameContentView: View {
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
         @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
-        GeometryReader { geometry in
-            VStack(spacing: 10){
-                AsyncImage(url: Gamed.background_image_additional) { image in
-                    image.resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: geometry.size.width, height: geometry.size.height / 2)
-                        .edgesIgnoringSafeArea(.all)
-                } placeholder: {
-                    ProgressView()
-                }
-            ZStack{
-                    HStack{
-                        Rectangle().foregroundColor(.black).frame(width: 96, height: 133).cornerRadius(15).overlay {
-                        
-                        AsyncImage(url: Gamed.background_image) { image in
-                            image.resizable()
-                                .aspectRatio(96/133,contentMode: .fit)
-                                .frame(width: 96, height: 133)
-                                .cornerRadius(15)
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        
-                        }.offset(y:-25)
-                        Text(Gamed.name).font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: 271, maxHeight: 59)
-                        
-                    }.offset(y:-60)
-                
-
-            }
-                ScrollView(.vertical){
-                    Text(Gamed.description_raw).font(.custom("Poppins-Regular", size: 13)).multilineTextAlignment(.leading)
-                    
-                    Text("Screenshots").font(.custom("Poppins-Medium", size: 32))
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity, alignment: .leading ).padding().offset(y:40)
-                    
-                    ScrollView(.horizontal){
-                        HStack{
-                            ForEach(GamesScreenshot ,id: \.id){
-                                GameScreenshot in
-                                AsyncImage(url: GameScreenshot.image) { image in
-                                    image.resizable()
-                                        .aspectRatio(159/75,contentMode: .fit)
-                                        .frame(width: 159, height: 75)
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                                
-                                
-                            }
-                        }
-                    }.padding()
-                }.offset(y:-95).frame(height:250)
-
-                    
-                    Button(action: {
-                        addGameToCatalog(gameObj: &Gamed)
-                    }) {
-                        Text("Add to catalog")
-                            .font(.custom("Poppins-Medium", size: 20))
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(color.DarkOrange)
-                            .cornerRadius(30)
+        if heightSize == .regular{
+            GeometryReader { geometry in
+                VStack(spacing: 10){
+                    AsyncImage(url: Gamed.background_image_additional) { image in
+                        image.resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: geometry.size.width, height: geometry.size.height / 2)
+                            .edgesIgnoringSafeArea(.all)
+                    } placeholder: {
+                        ProgressView()
                     }
-                    .padding()
-                    .offset(y: -110)
-                    Spacer()
+                ZStack{
+                        HStack{
+                            Rectangle().foregroundColor(.black).frame(width: 96, height: 133).cornerRadius(15).overlay {
+                            
+                            AsyncImage(url: Gamed.background_image) { image in
+                                image.resizable()
+                                    .aspectRatio(96/133,contentMode: .fit)
+                                    .frame(width: 96, height: 133)
+                                    .cornerRadius(15)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            
+                            }.offset(y:-25)
+                            Text(Gamed.name).font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: 271, maxHeight: 59)
+                            
+                        }.offset(y:-60)
+                    
+
+                }
+                    ScrollView(.vertical){
+                        Text(Gamed.description_raw).font(.custom("Poppins-Regular", size: 13)).multilineTextAlignment(.leading)
+                        
+                        Text("Screenshots").font(.custom("Poppins-Medium", size: 32))
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity, alignment: .leading ).padding().offset(y:40)
+                        
+                        ScrollView(.horizontal){
+                            HStack{
+                                ForEach(GamesScreenshot ,id: \.id){
+                                    GameScreenshot in
+                                    AsyncImage(url: GameScreenshot.image) { image in
+                                        image.resizable()
+                                            .aspectRatio(159/75,contentMode: .fit)
+                                            .frame(width: 159, height: 75)
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                    
+                                    
+                                }
+                            }
+                        }.padding()
+                    }.offset(y:-95).frame(height:250)
+
+                        
+                        Button(action: {
+                            addGameToCatalog(gameObj: &Gamed)
+                        }) {
+                            Text("Add to catalog")
+                                .font(.custom("Poppins-Medium", size: 20))
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(color.DarkOrange)
+                                .cornerRadius(30)
+                        }
+                        .padding()
+                        .offset(y: -110)
+                        Spacer()
+                    
                 
-            
-        }.background(.lightGrey).ignoresSafeArea().task {
-            await loadDataDetailGame()
-            await loadDataDetailGameScreenshot()
+            }.background(.lightGrey).ignoresSafeArea().task {
+                await loadDataDetailGame()
+                await loadDataDetailGameScreenshot()
+            }
         }
-    }
-        
+        }else{
+            GeometryReader { geometry in
+                VStack(spacing: 10){
+                    AsyncImage(url: Gamed.background_image_additional) { image in
+                        image.resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: geometry.size.width, height: geometry.size.height / 2)
+                            .edgesIgnoringSafeArea(.all)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                ZStack{
+                        HStack{
+                            Rectangle().foregroundColor(.black).frame(width: 96, height: 133).cornerRadius(15).overlay {
+                            
+                            AsyncImage(url: Gamed.background_image) { image in
+                                image.resizable()
+                                    .aspectRatio(96/133,contentMode: .fit)
+                                    .frame(width: 96, height: 133)
+                                    .cornerRadius(15)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            
+                            }.offset(y:-25)
+                            Text(Gamed.name).font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: 271, maxHeight: 59)
+                            
+                        }.offset(y:-60)
+                    
+
+                }
+                    ScrollView(.vertical){
+                        Text(Gamed.description_raw).font(.custom("Poppins-Regular", size: 13)).multilineTextAlignment(.leading)
+                        
+                        Text("Screenshots").font(.custom("Poppins-Medium", size: 32))
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity, alignment: .leading ).padding().offset(y:40)
+                        
+                        ScrollView(.horizontal){
+                            HStack{
+                                ForEach(GamesScreenshot ,id: \.id){
+                                    GameScreenshot in
+                                    AsyncImage(url: GameScreenshot.image) { image in
+                                        image.resizable()
+                                            .aspectRatio(159/75,contentMode: .fit)
+                                            .frame(width: 159, height: 75)
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                    
+                                    
+                                }
+                            }
+                        }.padding()
+                    }.offset(y:-95).frame(height:250)
+
+                        
+                        Button(action: {
+                            addGameToCatalog(gameObj: &Gamed)
+                        }) {
+                            Text("Add to catalog")
+                                .font(.custom("Poppins-Medium", size: 20))
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(color.DarkOrange)
+                                .cornerRadius(30)
+                        }
+                        .padding()
+                        .offset(y: -110)
+                        Spacer()
+                    
+                
+            }.background(.lightGrey).ignoresSafeArea().task {
+                await loadDataDetailGame()
+                await loadDataDetailGameScreenshot()
+            }
+        }
+        }
     }
     func addGameToCatalog(gameObj: inout GameDetailResponse){
         let db = Firestore.firestore()
@@ -167,7 +246,11 @@ struct GameContentView: View {
     }
 }
 
-#Preview {
-    GameContentView()
-    
+struct  GameContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        GameContentView()
+        GameContentView()
+            .previewInterfaceOrientation(.landscapeLeft)
+    }
 }
+

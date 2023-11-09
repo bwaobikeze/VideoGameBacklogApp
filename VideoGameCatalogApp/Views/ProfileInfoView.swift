@@ -22,88 +22,173 @@ struct ProfileInfoView: View {
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
         @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
-        NavigationView{
-            ZStack{
-                Image("tarn-nguyen-RjXOvhpmb20-unsplash").resizable().scaledToFill()
-                    .ignoresSafeArea()
-                Rectangle().frame(width: 350, height: 650).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
-                    VStack {
-                        Text("Profile")
-                            .font(.largeTitle)
-                            .padding()
-                        TextField("Username", text: $username)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                        
-                        TextField("First Name", text: $firstName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                        
-                        TextField("Last Name", text: $lastName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                        
-                        TextField("Email", text: $email)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                        Picker(selection: $platform) {
-                            ForEach(GamePlatformsSelction, id: \.id){
-                                platform in
-                                Text("\(platform.name)").tag("\(platform.name)")
-                            }
-                        } label: {
-                            Text("Platforms")
-                        }.pickerStyle(.wheel).frame(maxWidth: 300, maxHeight: 60)
-                        Button(action: {
-                            // Handle registration action here
-                            updateProfileData()
-                        }) {
-                            Text("Update Profile")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .frame(maxWidth:200, minHeight:30)
-                                .background(color.DarkOrange)
-                                .cornerRadius(10)
+        if heightSize == .regular{
+            NavigationView{
+                ZStack{
+                    Image("tarn-nguyen-RjXOvhpmb20-unsplash").resizable().scaledToFill()
+                        .ignoresSafeArea()
+                    Rectangle().frame(width: 350, height: 550).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
+                        VStack {
+                            Text("Profile")
+                                .font(.largeTitle)
+                                .padding()
+                            TextField("Username", text: $username)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding()
                             
+                            TextField("First Name", text: $firstName)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding()
+                            
+                            TextField("Last Name", text: $lastName)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding()
+                            
+                            TextField("Email", text: $email)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding()
+                            Picker(selection: $platform) {
+                                ForEach(GamePlatformsSelction, id: \.id){
+                                    platform in
+                                    Text("\(platform.name)").tag("\(platform.name)")
+                                }
+                            } label: {
+                                Text("Platforms")
+                            }.pickerStyle(.wheel).frame(maxWidth: 300, maxHeight: 60)
+                            Button(action: {
+                                // Handle registration action here
+                                updateProfileData()
+                            }) {
+                                Text("Update Profile")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth:200, minHeight:30)
+                                    .background(color.DarkOrange)
+                                    .cornerRadius(10)
+                                
+                            }
+                            Text("-or-")
+                            Button(action: {
+                                // Handle logout action here
+                                logout()
+                            }) {
+                                Text("Logout")
+                                    .font(.headline)
+                                    .frame(maxWidth:200, minHeight:30)
+                                    .foregroundColor(.black)
+                                    .background(color.lightGrey)
+                                    .cornerRadius(10)
+                            }
+                            .offset(y:-25)
+                            .padding()
+                            
+                        }.task{
+                            await loadGamePlatforms()
                         }
-                        Text("-or-")
-                        Button(action: {
-                            // Handle logout action here
-                            logout()
-                        }) {
-                            Text("Logout")
-                                .font(.headline)
-                                .frame(maxWidth:200, minHeight:30)
-                                .foregroundColor(.black)
-                                .background(color.lightGrey)
-                                .cornerRadius(10)
+                    }
+                    VStack{
+                        HStack(){
+                            Circle().foregroundColor(.white).overlay{
+                            }.frame(width: 106, height: 100).offset(x: 140, y: 90)
                         }
-                        .padding()
+                        Spacer()
                         
-                    }.task{
-                        await loadGamePlatforms()
                     }
-                }
-                VStack{
-                    HStack(){
-                        Circle().foregroundColor(.white).overlay{
-                            Image("profile-user-avatar-man-person-svgrepo-2com").aspectRatio(106/100,contentMode: .fit)
-                        }.frame(width: 106, height: 100).offset(x: 140)
+                    
+
+                }.onAppear(perform: {
+                    //grabingProfiledetailes()
+                })
+                
+            }
+        }else{
+            NavigationView{
+                ZStack{
+                    Image("tarn-nguyen-RjXOvhpmb20-unsplash").resizable().scaledToFill()
+                        .ignoresSafeArea()
+                    Rectangle().frame(width: 600, height: 350).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
+                        VStack {
+                            Text("Profile")
+                                .font(.custom("Poppins-SemiBold", size: 20))
+                                .padding()
+                            ScrollView(.vertical){
+                                VStack {
+                                    TextField("Username", text: $username)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    
+                                    TextField("First Name", text: $firstName)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    
+                                    TextField("Last Name", text: $lastName)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    
+                                    TextField("Email", text: $email)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    Picker(selection: $platform) {
+                                        ForEach(GamePlatformsSelction, id: \.id){
+                                            platform in
+                                            Text("\(platform.name)").tag("\(platform.name)")
+                                        }
+                                    } label: {
+                                        Text("Platforms")
+                                    }.pickerStyle(.wheel).frame(maxWidth: 300, maxHeight: 60)
+                                    Button(action: {
+                                        // Handle registration action here
+                                        updateProfileData()
+                                    }) {
+                                        Text("Update Profile")
+                                            .font(.headline)
+                                            .foregroundColor(.white)
+                                            .frame(maxWidth:200, minHeight:30)
+                                            .background(color.DarkOrange)
+                                            .cornerRadius(10)
+                                        
+                                    }
+                                    Text("-or-")
+                                    Button(action: {
+                                        // Handle logout action here
+                                        logout()
+                                    }) {
+                                        Text("Logout")
+                                            .font(.headline)
+                                            .frame(maxWidth:200, minHeight:30)
+                                            .foregroundColor(.black)
+                                            .background(color.lightGrey)
+                                            .cornerRadius(10)
+                                    }
+                                    .padding()
+                                }
+                            }
+                            
+                        }.task{
+                            await loadGamePlatforms()
+                        }
+                    }.offset(y:15)
+                    VStack{
+                        HStack(){
+                            Circle().foregroundColor(.white).overlay{
+                            }.frame(width: 106, height: 100).offset(x: 290, y: 280)
+                        }
+                        Spacer()
+                        
                     }
-                    Spacer()
                     
-                }
-                
 
-            }.onAppear(perform: {
-                grabingProfiledetailes()
-            })
-            
+                }.onAppear(perform: {
+                    grabingProfiledetailes()
+                })
+                
+                        
                     
-                
 
-            
+                
+            }
         }
+
         
     }
     func updateProfileData(){
@@ -185,5 +270,8 @@ struct ProfileInfoView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileInfoView()
             .environmentObject(UserSettings())
+        ProfileInfoView()
+            .environmentObject(UserSettings())
+            .previewInterfaceOrientation(.landscapeLeft)
     }
 }

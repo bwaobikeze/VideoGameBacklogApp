@@ -16,45 +16,86 @@ struct MainProfileView: View {
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
         @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
-        NavigationView {
-            VStack (spacing: 0) {
-                ZStack{
-                    Rectangle().frame(height: 250).foregroundColor(color.DarkOrange).ignoresSafeArea()
-                HStack{
-                    VStack{
-                        Text(username).font(.custom("Poppins-SemiBold", size: 24)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
-                        Text("Platform of Choice: \(platformName)").font(.custom("Poppins-Medium", size: 14)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
-                    }
-                    Spacer()
-                    NavigationLink(destination: ProfileInfoView()) {
-                        Circle().foregroundColor(.white).overlay{
-                            Image("profile-user-avatar-man-person-svgrepo-2com").frame(width: 90, height: 90)
-                        }.frame(width: 106, height: 100)
-                    }
-                }
-                .padding()
-            }
-                SlidingTabView(selection: $tabIndex, tabs: ["Recommended", "Catalog"], animation:
-                        .easeInOut)
-                    .padding(.top, -40)
-                if tabIndex == 0 {
-                    ForEach(GamePlatformsSelction, id: \.id){userPlatform in
-                        
-                        if userPlatform.name == platformName{
-                            RecommendedView(platformNameID: userPlatform.id)
-
+        if heightSize == .regular{
+            NavigationView {
+                VStack (spacing: 0) {
+                    ZStack{
+                        Rectangle().frame(height: 250).foregroundColor(color.DarkOrange).ignoresSafeArea()
+                    HStack{
+                        VStack{
+                            Text(username).font(.custom("Poppins-SemiBold", size: 24)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
+                            Text("Platform of Choice: \(platformName)").font(.custom("Poppins-Medium", size: 14)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
+                        }
+                        Spacer()
+                        NavigationLink(destination: ProfileInfoView()) {
+                            Circle().foregroundColor(.white).overlay{
+                                Image("profile-user-avatar-man-person-svgrepo-2com").frame(width: 90, height: 90)
+                            }.frame(width: 106, height: 100)
                         }
                     }
-                } else if tabIndex == 1 {
-                    GameCatalogView()
+                    .padding()
                 }
+                    SlidingTabView(selection: $tabIndex, tabs: ["Recommended", "Catalog"], animation:
+                            .easeInOut)
+                        .padding(.top, -40)
+                    if tabIndex == 0 {
+                        ForEach(GamePlatformsSelction, id: \.id){userPlatform in
+                            
+                            if userPlatform.name == platformName{
+                                RecommendedView(platformNameID: userPlatform.id)
+
+                            }
+                        }
+                    } else if tabIndex == 1 {
+                        GameCatalogView()
+                    }
+                }
+                .onAppear(perform: {
+                    grabProfileDate()
+                    Task{
+                        await loadGamePlatforms()
+                    }
+                })
             }
-            .onAppear(perform: {
-                grabProfileDate()
-                Task{
-                    await loadGamePlatforms()
+        }else{
+            NavigationView {
+                VStack (spacing: 0) {
+                    ZStack{
+                        Rectangle().frame(height: 190).foregroundColor(color.DarkOrange).ignoresSafeArea().offset(y:-90)
+                    HStack{
+                        VStack{
+                            Text(username).font(.custom("Poppins-SemiBold", size: 24)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
+                            Text("Platform of Choice: \(platformName)").font(.custom("Poppins-Medium", size: 14)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
+                        }
+                        Spacer()
+                        NavigationLink(destination: ProfileInfoView()) {
+                            Circle().foregroundColor(.white).overlay{
+                            }.frame(width: 106, height: 100)
+                        }
+                    }.offset(y:-48)
+                    .padding()
                 }
-            })
+                    SlidingTabView(selection: $tabIndex, tabs: ["Recommended", "Catalog"], animation:
+                            .easeInOut).offset(y:-50)
+                    if tabIndex == 0 {
+                        ForEach(GamePlatformsSelction, id: \.id){userPlatform in
+                            
+                            if userPlatform.name == platformName{
+                                RecommendedView(platformNameID: userPlatform.id)
+
+                            }
+                        }
+                    } else if tabIndex == 1 {
+                        GameCatalogView()
+                    }
+                }
+                .onAppear(perform: {
+                    grabProfileDate()
+                    Task{
+                        await loadGamePlatforms()
+                    }
+                })
+            }
         }
     }
     func loadGamePlatforms() async {
@@ -97,5 +138,7 @@ struct MainProfileView: View {
 struct MainProfileView_Previews: PreviewProvider {
     static var previews: some View {
         MainProfileView()
+        MainProfileView()
+            .previewInterfaceOrientation(.landscapeLeft)
     }
 }

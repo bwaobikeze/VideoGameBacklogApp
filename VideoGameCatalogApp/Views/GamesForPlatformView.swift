@@ -11,50 +11,93 @@ struct GamesForPlatformView: View {
     @State var PlatformID: Int = 0
     @State private var listOfPlatformGames = [Game]()
     @State private var selectedGame: Game?
-    let Columns:[GridItem] = [
+    @State var Columns:[GridItem] = [
         GridItem(.flexible(), spacing: 8, alignment: nil),
         GridItem(.flexible(), spacing: 8, alignment: nil),
-        //GridItem(.flexible(), spacing: 8, alignment: nil)
     ]
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
         @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
-        VStack{
-            ScrollView(.vertical){
-                LazyVGrid(columns: Columns){
-                    ForEach(listOfPlatformGames, id: \.id){ Gamelist in
-                        Button(action: {
-                            selectedGame = Gamelist
-                        }, label: {
-                            VStack{
-                                Rectangle().foregroundColor(.black).frame(width: 150, height: 200).cornerRadius(15).overlay {
-                                    AsyncImage(url: Gamelist.background_image) { image in
+        if heightSize == .regular{
+            VStack{
+                ScrollView(.vertical){
+                    LazyVGrid(columns: Columns){
+                        ForEach(listOfPlatformGames, id: \.id){ Gamelist in
+                            Button(action: {
+                                selectedGame = Gamelist
+                            }, label: {
+                                VStack{
+                                    Rectangle().foregroundColor(.black).frame(width: 150, height: 200).cornerRadius(15).overlay {
+                                        AsyncImage(url: Gamelist.background_image) { image in
+                                            
+                                            image.resizable()
+                                                .aspectRatio(150/200,contentMode: .fit)
+                                                .frame(maxWidth: 150, maxHeight: 200)
+                                                .cornerRadius(15)
+                                            
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
                                         
-                                        image.resizable()
-                                            .aspectRatio(150/200,contentMode: .fit)
-                                            .frame(maxWidth: 150, maxHeight: 200)
-                                            .cornerRadius(15)
-                                        
-                                    } placeholder: {
-                                        ProgressView()
                                     }
-                                    
+                                    Text(Gamelist.name)
                                 }
-                                Text(Gamelist.name)
-                            }
 
-                        }).sheet(item: $selectedGame) { gameID in
-                            GameContentView(gameID: gameID.id)
+                            }).sheet(item: $selectedGame) { gameID in
+                                GameContentView(gameID: gameID.id)
+                            }
                         }
                     }
-                }
+            }
+            .task {
+                await loadGamesOfPlatform()
+            }
         }
-        .task {
-            await loadGamesOfPlatform()
+        }else{
+            VStack{
+                ScrollView(.vertical){
+                    LazyVGrid(columns: Columns){
+                        ForEach(listOfPlatformGames, id: \.id){ Gamelist in
+                            Button(action: {
+                                selectedGame = Gamelist
+                            }, label: {
+                                VStack{
+                                    Rectangle().foregroundColor(.black).frame(width: 150, height: 200).cornerRadius(15).overlay {
+                                        AsyncImage(url: Gamelist.background_image) { image in
+                                            
+                                            image.resizable()
+                                                .aspectRatio(150/200,contentMode: .fit)
+                                                .frame(maxWidth: 150, maxHeight: 200)
+                                                .cornerRadius(15)
+                                            
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+                                        
+                                    }
+                                    Text(Gamelist.name)
+                                }
+
+                            }).sheet(item: $selectedGame) { gameID in
+                                GameContentView(gameID: gameID.id)
+                            }
+                        }
+                    }
+            }
+            .task {
+                await loadGamesOfPlatform()
+            }
+            }.onAppear {
+                addtogridArray()
+            }
         }
+        
+        
+        
     }
-        
-        
+     func addtogridArray(){
+         let addedgridItem: GridItem = GridItem(.flexible(), spacing: 8, alignment: nil)
+       Columns.append(addedgridItem)
     }
     func loadGamesOfPlatform() async{
         let apiKeyGame=Config.rawgApiKey
@@ -73,8 +116,11 @@ struct GamesForPlatformView: View {
     }
     
 }
-
-#Preview {
-    GamesForPlatformView()
-        
+struct  GamesForPlatformView_Previews: PreviewProvider {
+    static var previews: some View {
+        GamesForPlatformView()
+        GamesForPlatformView()
+            .previewInterfaceOrientation(.landscapeLeft)
+    }
 }
+

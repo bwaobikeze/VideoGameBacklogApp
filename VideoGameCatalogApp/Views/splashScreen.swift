@@ -30,7 +30,11 @@ struct splashScreen: View {
         }
     }
 }
-
-#Preview {
-    splashScreen()
+struct splashScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        splashScreen()
+        splashScreen()
+            .previewInterfaceOrientation(.landscapeLeft)
+    }
 }
+

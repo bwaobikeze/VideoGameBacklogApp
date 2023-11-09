@@ -15,30 +15,57 @@ struct GameCatalogView: View {
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
         @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
-        VStack{
-            List{
-                ForEach(games, id: \.name){game in
-                    HStack{
-                        AsyncImage(url: game.background_image) { image in
-                            image.resizable()
-                                .aspectRatio(67/91,contentMode: .fit)
-                                .frame(maxWidth: 67, maxHeight:91)
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        VStack{
-                            Text(game.name).font(.title2).font(.custom("Poppins-Medium", size: 16))
+        if heightSize == .regular{
+            VStack{
+                List{
+                    ForEach(games, id: \.name){game in
+                        HStack{
+                            AsyncImage(url: game.background_image) { image in
+                                image.resizable()
+                                    .aspectRatio(67/91,contentMode: .fit)
+                                    .frame(maxWidth: 67, maxHeight:91)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            VStack{
+                                Text(game.name).font(.title2).font(.custom("Poppins-Medium", size: 16))
+                            }
                         }
                     }
+                    .onDelete(perform: deleteGame)
+
                 }
-                .onDelete(perform: deleteGame)
+                .listStyle(PlainListStyle())
 
-            }
-            .listStyle(PlainListStyle())
+            }.onAppear(perform: {
+                fetchGamesForUserID(userID: userData.userId ?? "not id")
+            })
+        }else{
+            VStack{
+                List{
+                    ForEach(games, id: \.name){game in
+                        HStack{
+                            AsyncImage(url: game.background_image) { image in
+                                image.resizable()
+                                    .aspectRatio(67/91,contentMode: .fit)
+                                    .frame(maxWidth: 67, maxHeight:91)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            VStack{
+                                Text(game.name).font(.title2).font(.custom("Poppins-Medium", size: 16))
+                            }
+                        }
+                    }
+                    .onDelete(perform: deleteGame)
 
-        }.onAppear(perform: {
-            fetchGamesForUserID(userID: userData.userId ?? "not id")
-        })
+                }
+                .listStyle(PlainListStyle())
+
+            }.onAppear(perform: {
+                //fetchGamesForUserID(userID: userData.userId ?? "not id")
+            })
+        }
     }
     func fetchGamesForUserID(userID: String) {
         db.collection("VideoGames")
@@ -101,7 +128,13 @@ struct GameCatalogView: View {
     
 }
 
-#Preview {
-    GameCatalogView()
-        .environmentObject(UserData())
+struct  GameCatalogView_Previews: PreviewProvider {
+    static var previews: some View {
+        GameCatalogView()
+            .environmentObject(UserData())
+            .previewInterfaceOrientation(.landscapeLeft)
+        GameCatalogView()
+            .environmentObject(UserData())
+            .previewInterfaceOrientation(.landscapeLeft)
+    }
 }

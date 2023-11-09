@@ -17,75 +17,152 @@ struct BrowseSearchView: View {
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
         @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
-        NavigationView{
-            VStack {
-                Spacer()
-                Spacer()
-                TextField("Search Game", text: $SearchStrting)
-                    .font(.custom("Poppins-Medium", size: 15))
-                    .padding()
-                    .background(color.DarkOrange)
-                    .foregroundColor(.white)
-                    .frame(height: 3)
-                ZStack{
-                    Image("game-controller-svgrepo-com").shadow(radius: 10)
-                List(Games) { game in
-                    Button(action: {
-                        selectedGame = game
-                    }) {
-                        VStack {
-                            HStack {
-                                AsyncImage(url: game.background_image) { image in
-                                    image.resizable()
-                                        .aspectRatio(67/91,contentMode: .fit)
-                                        .frame(maxWidth: 67, maxHeight: 91)
-                                } placeholder: {
-                                    ProgressView()
+        if heightSize == .regular{
+            NavigationView{
+                VStack {
+                    Spacer()
+                    Spacer()
+                    TextField("Search Game", text: $SearchStrting)
+                        .font(.custom("Poppins-Medium", size: 15))
+                        .padding()
+                        .background(color.DarkOrange)
+                        .foregroundColor(.white)
+                        .frame(height: 3)
+                    ZStack{
+                        Image("game-controller-svgrepo-com").shadow(radius: 10)
+                    List(Games) { game in
+                        Button(action: {
+                            selectedGame = game
+                        }) {
+                            VStack {
+                                HStack {
+                                    AsyncImage(url: game.background_image) { image in
+                                        image.resizable()
+                                            .aspectRatio(67/91,contentMode: .fit)
+                                            .frame(maxWidth: 67, maxHeight: 91)
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                    VStack(spacing: 0) {
+                                        Text("\(game.name)").font(.custom("Poppins-Medium", size: 16)).frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
+                                        Text("Platforms: \(game.platforms.prefix(3).map { $0.platform.name }.joined(separator: ", "))")
+                                            .font(.custom("Poppins-Medium", size: 16))
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .foregroundColor(.black)
+                                    }
+                                    var mutableGame = game
+                                    Button(action: {
+                                        addGameToCatalog(gameObj: &mutableGame)
+                                    }, label: {
+                                        Text("Add")
+                                            .font(.headline)
+                                            .foregroundColor(.black)
+                                            .padding()
+                                            .frame(maxWidth: 100,maxHeight: 30)
+                                            .background(Color.gray)
+                                            .cornerRadius(10)
+                                    })
                                 }
-                                VStack(spacing: 0) {
-                                    Text("\(game.name)").font(.custom("Poppins-Medium", size: 16)).frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
-                                    Text("Platforms: \(game.platforms.prefix(3).map { $0.platform.name }.joined(separator: ", "))")
-                                        .font(.custom("Poppins-Medium", size: 16))
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .foregroundColor(.black)
-                                }
-                                var mutableGame = game
-                                Button(action: {
-                                    addGameToCatalog(gameObj: &mutableGame)
-                                }, label: {
-                                    Text("Add")
-                                        .font(.headline)
-                                        .foregroundColor(.black)
-                                        .padding()
-                                        .frame(maxWidth: 100,maxHeight: 30)
-                                        .background(Color.gray)
-                                        .cornerRadius(10)
-                                })
+                            }
+                        }
+                        .sheet(item: $selectedGame) { game in
+                            GameContentView(gameID: game.id)
+                        }
+                    }.listStyle(PlainListStyle())
+                }
+                    
+                    .task {
+                        if !SearchStrting.isEmpty {
+                            await loadDataGame(SeachQ: SearchStrting)
+                        } else {
+                            Games = []
+                        }
+                    }
+                }
+                .onChange(of: SearchStrting) { newSearchString in
+                    timer?.invalidate()
+                    if newSearchString.isEmpty {
+                        Games = []
+                    } else {
+                        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+                            Task {
+                                await loadDataGame(SeachQ: SearchStrting)
                             }
                         }
                     }
-                    .sheet(item: $selectedGame) { game in
-                        GameContentView(gameID: game.id)
-                    }
-                }.listStyle(PlainListStyle())
-            }
-                
-                .task {
-                    if !SearchStrting.isEmpty {
-                        await loadDataGame(SeachQ: SearchStrting)
-                    } else {
-                        Games = []
-                    }
                 }
             }
-            .onChange(of: SearchStrting) { newSearchString in
-                timer?.invalidate()
-                if newSearchString.isEmpty {
-                    Games = []
-                } else {
-                    timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-                        Task {
+        }else{
+            NavigationView{
+                VStack {
+                    Spacer()
+                    Spacer()
+                    TextField("Search Game", text: $SearchStrting)
+                        .font(.custom("Poppins-Medium", size: 15))
+                        .padding()
+                        .background(color.DarkOrange)
+                        .foregroundColor(.white)
+                        .frame(height: 3)
+                    ZStack{
+                        Image("game-controller-svgrepo-com").shadow(radius: 10)
+                    List(Games) { game in
+                        Button(action: {
+                            selectedGame = game
+                        }) {
+                            VStack {
+                                HStack {
+                                    AsyncImage(url: game.background_image) { image in
+                                        image.resizable()
+                                            .aspectRatio(67/91,contentMode: .fit)
+                                            .frame(maxWidth: 67, maxHeight: 91)
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                    VStack(spacing: 0) {
+                                        Text("\(game.name)").font(.custom("Poppins-Medium", size: 16)).frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
+                                        Text("Platforms: \(game.platforms.prefix(3).map { $0.platform.name }.joined(separator: ", "))")
+                                            .font(.custom("Poppins-Medium", size: 16))
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .foregroundColor(.black)
+                                    }
+                                    var mutableGame = game
+                                    Button(action: {
+                                        addGameToCatalog(gameObj: &mutableGame)
+                                    }, label: {
+                                        Text("Add")
+                                            .font(.headline)
+                                            .foregroundColor(.black)
+                                            .padding()
+                                            .frame(maxWidth: 100,maxHeight: 30)
+                                            .background(Color.gray)
+                                            .cornerRadius(10)
+                                    })
+                                }
+                            }
+                        }
+                        .sheet(item: $selectedGame) { game in
+                            GameContentView(gameID: game.id)
+                        }
+                    }.listStyle(PlainListStyle())
+                }
+                    
+                    .task {
+                        if !SearchStrting.isEmpty {
                             await loadDataGame(SeachQ: SearchStrting)
+                        } else {
+                            Games = []
+                        }
+                    }
+                }
+                .onChange(of: SearchStrting) { newSearchString in
+                    timer?.invalidate()
+                    if newSearchString.isEmpty {
+                        Games = []
+                    } else {
+                        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+                            Task {
+                                await loadDataGame(SeachQ: SearchStrting)
+                            }
                         }
                     }
                 }
@@ -142,6 +219,9 @@ struct BrowseSearchView: View {
         static var previews: some View {
             BrowseSearchView()
                 .environmentObject(UserData())
+            BrowseSearchView()
+                .environmentObject(UserData())
+                .previewInterfaceOrientation(.landscapeLeft)
         }
     }
 

@@ -26,90 +26,185 @@ struct RegistrationView: View {
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
         @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
-        NavigationView{
-            ZStack{
-                Image("sam-pak-X6QffKLwyoQ-unsplash").resizable().scaledToFill()
-                    .ignoresSafeArea().blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-                Rectangle().frame(width: 350, height: 650).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
-                VStack {
-                    Text("Create Account")
-                        .font(.custom("Poppins-SemiBold", size: 20))
-                        .padding()
-                    
-                    
-                    TextField("First Name", text: $firstName)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                    
-                    TextField("Last Name", text: $lastName)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                    
-                    TextField("Email", text: $email)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                    
-                    SecureField("Password", text: $password)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                    TextField("Username", text: $username)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                    Picker(selection: $platform) {
-                        ForEach(GamePlatformsSelction, id: \.id){
-                            platform in
-                            Text("\(platform.name)").tag("\(platform.name)")
+        if heightSize == .regular{
+            NavigationView{
+                ZStack{
+                    Image("sam-pak-X6QffKLwyoQ-unsplash").resizable().scaledToFill()
+                        .ignoresSafeArea().blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+                    Rectangle().frame(width: 350, height: 550).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
+                        VStack {
+                            Text("Create Account")
+                                .font(.custom("Poppins-SemiBold", size: 20))
+                                .padding()
+                            ScrollView(.vertical){
+                            VStack {
+                                TextField("First Name", text: $firstName)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding()
+                                
+                                TextField("Last Name", text: $lastName)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding()
+                                
+                                TextField("Email", text: $email)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding()
+                                
+                                SecureField("Password", text: $password)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding()
+                                TextField("Username", text: $username)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding()
+                                Picker(selection: $platform) {
+                                    ForEach(GamePlatformsSelction, id: \.id){
+                                        platform in
+                                        Text("\(platform.name)").tag("\(platform.name)")
+                                    }
+                                } label: {
+                                    Text("Platforms")
+                                }.pickerStyle(.wheel)
+                            }
                         }
-                    } label: {
-                        Text("Platforms")
-                    }.pickerStyle(.wheel)
-                    NavigationLink(destination: ContentView(), isActive: $isRegistered) {
-                        EmptyView()
+                        NavigationLink(destination: ContentView(), isActive: $isRegistered) {
+                            EmptyView()
+                        }
+                        Button(action: {
+                            // Handle registration action here
+                            registerUser()
+                        }) {
+                            Text("Create Account")
+                                .font(.custom("Poppins-SemiBold", size: 20))
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(color.DarkOrange)
+                                .cornerRadius(10)
+                        }
+                        .padding()
                     }
-                    Button(action: {
-                        // Handle registration action here
-                        registerUser()
-                    }) {
-                        Text("Create Account")
-                            .font(.custom("Poppins-SemiBold", size: 20))
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(color.DarkOrange)
-                            .cornerRadius(10)
+                    .task{
+                        await loadGamePlatforms()
                     }
                     .padding()
                 }
-                .task{
-                    await loadGamePlatforms()
-                }
-                .padding()
-            }
-                VStack{
-                   
-                    PhotosPicker(selection: $SelectedPhotoItem, matching: .images) {
-                        VStack{
-                            Image(uiImage: avatarImage ?? UIImage(systemName: "person.crop.circle") ?? UIImage())
-                                .resizable()
-                                .scaledToFit()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 100, height: 100)
-                                .background(.white)
-                                .clipShape(.circle)
-                            Text("Add Photo").font(.custom("Poppins-SemiBold", size: 13)).offset(y:-6)
-                        }
-                    }.onChange(of: SelectedPhotoItem) { _ , _ in
-                        Task{
-                            if let SelectedPhotoItem, let data = try? await SelectedPhotoItem.loadTransferable(type: Data.self){
-                                if let image = UIImage(data: data){
-                                    avatarImage = image
-                                }
+                    VStack{
+                       
+                        PhotosPicker(selection: $SelectedPhotoItem, matching: .images) {
+                            VStack{
+                                Image(uiImage: avatarImage ?? UIImage(systemName: "person.crop.circle") ?? UIImage())
+                                    .resizable()
+                                    .scaledToFit()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                    .background(.white)
+                                    .clipShape(.circle)
+                                Text("Add").font(.custom("Poppins-SemiBold", size: 13)).offset(y:-6)
                             }
-                            SelectedPhotoItem = nil
+                        }.onChange(of: SelectedPhotoItem) { _ , _ in
+                            Task{
+                                if let SelectedPhotoItem, let data = try? await SelectedPhotoItem.loadTransferable(type: Data.self){
+                                    if let image = UIImage(data: data){
+                                        avatarImage = image
+                                    }
+                                }
+                                SelectedPhotoItem = nil
+                            }
+                        }
+                        .offset(x:140, y:90)
+                        Spacer()
+                    }
+                }
+            }
+        }else{
+            NavigationView{
+                ZStack{
+                    Image("sam-pak-X6QffKLwyoQ-unsplash").resizable().scaledToFill()
+                        .ignoresSafeArea().blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+                    Rectangle().frame(width: 550, height: 350).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
+                        VStack {
+                            Text("Create Account")
+                                .font(.custom("Poppins-SemiBold", size: 20))
+                                .padding()
+                            ScrollView(.vertical){
+                            VStack {
+                                
+                                TextField("First Name", text: $firstName)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding()
+                                
+                                TextField("Last Name", text: $lastName)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding()
+                                
+                                TextField("Email", text: $email)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding()
+                                
+                                SecureField("Password", text: $password)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding()
+                                TextField("Username", text: $username)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding()
+                                Picker(selection: $platform) {
+                                    ForEach(GamePlatformsSelction, id: \.id){
+                                        platform in
+                                        Text("\(platform.name)").tag("\(platform.name)")
+                                    }
+                                } label: {
+                                    Text("Platforms")
+                                }.pickerStyle(.wheel)
+                                NavigationLink(destination: ContentView(), isActive: $isRegistered) {
+                                    EmptyView()
+                                }
+                                Button(action: {
+                                    // Handle registration action here
+                                    registerUser()
+                                }) {
+                                    Text("Create Account")
+                                        .font(.custom("Poppins-SemiBold", size: 20))
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .frame(maxWidth: .infinity)
+                                        .background(color.DarkOrange)
+                                        .cornerRadius(10)
+                                }
+                                .padding()
+                            }
                         }
                     }
-                    .offset(x:140, y:-18)
-                    Spacer()
+                    .task{
+                        await loadGamePlatforms()
+                    }
+                    .padding()
+                }
+                    VStack{
+                       
+                        PhotosPicker(selection: $SelectedPhotoItem, matching: .images) {
+                            VStack{
+                                Image(uiImage: avatarImage ?? UIImage(systemName: "person.crop.circle") ?? UIImage())
+                                    .resizable()
+                                    .scaledToFit()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                    .background(.white)
+                                    .clipShape(.circle)
+                                Text("Add Photo").font(.custom("Poppins-SemiBold", size: 13)).offset(y:-6)
+                            }
+                        }.onChange(of: SelectedPhotoItem) { _ , _ in
+                            Task{
+                                if let SelectedPhotoItem, let data = try? await SelectedPhotoItem.loadTransferable(type: Data.self){
+                                    if let image = UIImage(data: data){
+                                        avatarImage = image
+                                    }
+                                }
+                                SelectedPhotoItem = nil
+                            }
+                        }
+                        .offset(x:250, y:59)
+                        Spacer()
+                    }
                 }
             }
         }
@@ -164,5 +259,8 @@ struct RegistrationView: View {
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {
         RegistrationView()
+        
+        RegistrationView()
+            .previewInterfaceOrientation(.landscapeLeft)
     }
 }
