@@ -17,7 +17,7 @@ struct VideoGameCatalogAppApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            splashScreen()
                 .environmentObject(loginDeter)
                 .environmentObject(userData)
         }

@@ -12,6 +12,8 @@ struct GameCatalogView: View {
     @EnvironmentObject var userData: UserData
     @State private var games: [GameDetailResponse] = []
     let db = Firestore.firestore()
+    @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
+        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
         VStack{
             List{

@@ -22,9 +22,11 @@ struct  GameDetailResponse:Codable, Identifiable{
 
 struct GameContentView: View {
     @EnvironmentObject var userData: UserData
-    @State var gameID: Int = 0
+    @State var gameID: Int = 3328
     @State private var Gamed = GameDetailResponse(id: 0, name: "", description_raw: "")
     @State private var GamesScreenshot = [GameScreenShot]()
+    @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
+        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 10){
@@ -49,36 +51,37 @@ struct GameContentView: View {
                             ProgressView()
                         }
                         
-                    }
+                        }.offset(y:-25)
                         Text(Gamed.name).font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: 271, maxHeight: 59)
                         
-                    }.offset(y:-40)
+                    }.offset(y:-60)
                 
 
             }
                 ScrollView(.vertical){
-                    Text(Gamed.description_raw).font(.custom("Poppins-Regular", size: 13)).multilineTextAlignment(.leading).padding()
-                }.offset(y:-40)
+                    Text(Gamed.description_raw).font(.custom("Poppins-Regular", size: 13)).multilineTextAlignment(.leading)
+                    
                     Text("Screenshots").font(.custom("Poppins-Medium", size: 32))
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity, alignment: .leading ).padding().offset(y:40)
                     
-                ScrollView(.horizontal){
-                    HStack{
-                    ForEach(GamesScreenshot ,id: \.id){
-                        GameScreenshot in
-                        AsyncImage(url: GameScreenshot.image) { image in
-                            image.resizable()
-                                .aspectRatio(159/75,contentMode: .fit)
-                                .frame(width: 159, height: 75)
-                        } placeholder: {
-                            ProgressView()
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(GamesScreenshot ,id: \.id){
+                                GameScreenshot in
+                                AsyncImage(url: GameScreenshot.image) { image in
+                                    image.resizable()
+                                        .aspectRatio(159/75,contentMode: .fit)
+                                        .frame(width: 159, height: 75)
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                
+                                
+                            }
                         }
-                        
-                        
-                    }
-                }
-                }.padding()
+                    }.padding()
+                }.offset(y:-95).frame(height:250)
 
                     
                     Button(action: {
@@ -90,9 +93,10 @@ struct GameContentView: View {
                             .padding()
                             .frame(maxWidth: .infinity)
                             .background(color.DarkOrange)
-                            .cornerRadius(10)
+                            .cornerRadius(30)
                     }
                     .padding()
+                    .offset(y: -110)
                     Spacer()
                 
             

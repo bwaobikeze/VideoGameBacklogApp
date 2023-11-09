@@ -14,6 +14,8 @@ struct BrowseSearchView: View {
     @State private var timer: Timer?
     @State private var selectedGame: Game?
     @EnvironmentObject var userData: UserData
+    @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
+        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
         NavigationView{
             VStack {

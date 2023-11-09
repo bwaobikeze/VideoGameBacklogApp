@@ -13,6 +13,8 @@ struct MainProfileView: View {
     @State private var GamePlatformsSelction = [subplatforms]()
     @State private var documentData: [String: Any] = [:]
     @EnvironmentObject var userData: UserData
+    @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
+        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
         NavigationView {
             VStack (spacing: 0) {

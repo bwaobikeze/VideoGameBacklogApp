@@ -19,6 +19,8 @@ struct ProfileInfoView: View {
     @State private var GamePlatformsSelction = [subplatforms]()
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var settings: UserSettings
+    @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
+        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
         NavigationView{
             ZStack{
@@ -155,9 +157,9 @@ struct ProfileInfoView: View {
         do {
             try Auth.auth().signOut()
             print("Logout Successful")
-            userData.userId = ""
-            GamePlatformsSelction = []
             settings.isLoggedin.toggle()
+//            userData.userId = ""
+            GamePlatformsSelction = []
         } catch let signOutError as NSError {
             print("Error signing out: \(signOutError)")
         }

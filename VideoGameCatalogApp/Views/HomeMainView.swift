@@ -24,6 +24,9 @@ struct HomeMainView: View {
     @State private var youtubeVideosID: [String] = ["nq1M_Wc4FIc","IRNOoOYVn80","q0vNoRhuV_I", "k1kI09X8L9Y"]
     @State private var showSafari: Bool = false
     @State private var urlArt: newsArticle?
+    @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
+        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @State private var currentIndex = 0
     
     var body: some View {
         NavigationView{
@@ -86,6 +89,7 @@ struct HomeMainView: View {
                                 }
                             }
                         }
+
                     )
                 
                 

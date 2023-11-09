@@ -17,6 +17,8 @@ struct MainBrowseView: View {
     @State private var XboxSXGames = [Game]()
     @State private var SwicthGames = [Game]()
     @State private var selectedGame: Game?
+    @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
+        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     let Columns:[GridItem] = [
         GridItem(.flexible(), spacing: 8, alignment: nil),
         GridItem(.flexible(), spacing: 8, alignment: nil)

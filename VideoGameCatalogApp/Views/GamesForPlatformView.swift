@@ -16,6 +16,8 @@ struct GamesForPlatformView: View {
         GridItem(.flexible(), spacing: 8, alignment: nil),
         //GridItem(.flexible(), spacing: 8, alignment: nil)
     ]
+    @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
+        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
         VStack{
             ScrollView(.vertical){

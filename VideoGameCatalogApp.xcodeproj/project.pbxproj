@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3C3651C62AF31E5800DFE01B /* inAPPSafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3651C52AF31E5800DFE01B /* inAPPSafari.swift */; };
+		3C3651C82AFB777D00DFE01B /* SpaceMission-rgyw9.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3C3651C72AFB777C00DFE01B /* SpaceMission-rgyw9.otf */; };
+		3C3651CA2AFB79F400DFE01B /* splashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3651C92AFB79F400DFE01B /* splashScreen.swift */; };
 		3C404E3B2AD5541700059C73 /* VideoGameCatalogAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E3A2AD5541700059C73 /* VideoGameCatalogAppApp.swift */; };
 		3C404E3F2AD5541900059C73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C404E3E2AD5541900059C73 /* Assets.xcassets */; };
 		3C404E422AD5541900059C73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C404E412AD5541900059C73 /* Preview Assets.xcassets */; };
@@ -47,6 +49,8 @@
 
 /* Begin PBXFileReference section */
 		3C3651C52AF31E5800DFE01B /* inAPPSafari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inAPPSafari.swift; sourceTree = "<group>"; };
+		3C3651C72AFB777C00DFE01B /* SpaceMission-rgyw9.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpaceMission-rgyw9.otf"; sourceTree = "<group>"; };
+		3C3651C92AFB79F400DFE01B /* splashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = splashScreen.swift; sourceTree = "<group>"; };
 		3C404E372AD5541700059C73 /* VideoGameCatalogApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoGameCatalogApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C404E3A2AD5541700059C73 /* VideoGameCatalogAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoGameCatalogAppApp.swift; sourceTree = "<group>"; };
 		3C404E3E2AD5541900059C73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 				3C404E7C2AD5570700059C73 /* BrowseSearchView.swift */,
 				3C4DCC2A2AE795A0008E36AA /* GamesForPlatformView.swift */,
 				3C4DCC612AF0D892008E36AA /*  ContentView.swift */,
+				3C3651C92AFB79F400DFE01B /* splashScreen.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 		3C4DCC552AF05067008E36AA /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				3C3651C72AFB777C00DFE01B /* SpaceMission-rgyw9.otf */,
 				3C4DCC5D2AF059F4008E36AA /* Poppins-Regular.ttf */,
 				3C4DCC5A2AF05290008E36AA /* Poppins-SemiBold.ttf */,
 				3C4DCC582AF05272008E36AA /* Poppins-Medium.ttf */,
@@ -255,6 +261,7 @@
 			files = (
 				3C4DCC572AF0523A008E36AA /* PixelifySans-VariableFont_wght.ttf in Resources */,
 				3C404E422AD5541900059C73 /* Preview Assets.xcassets in Resources */,
+				3C3651C82AFB777D00DFE01B /* SpaceMission-rgyw9.otf in Resources */,
 				3C4DCC5E2AF059F4008E36AA /* Poppins-Regular.ttf in Resources */,
 				3C404E492AD554EE00059C73 /* GoogleService-Info.plist in Resources */,
 				3C4DCC5B2AF05290008E36AA /* Poppins-SemiBold.ttf in Resources */,
@@ -270,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C3651CA2AFB79F400DFE01B /* splashScreen.swift in Sources */,
 				3C404E852AD5570700059C73 /* HomeMainView.swift in Sources */,
 				3C404E812AD5570700059C73 /* RecommendedView.swift in Sources */,
 				3C4DCC2D2AEB936C008E36AA /* ColorPick.swift in Sources */,

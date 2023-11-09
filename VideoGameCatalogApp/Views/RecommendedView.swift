@@ -13,6 +13,8 @@ struct RecommendedView: View {
     @State private var games: [Game] = []
     @State var platformNameID = 0
     @State private var selectedGame: Game?
+    @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
+        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
         VStack{
             List(games, id: \.name) { game in

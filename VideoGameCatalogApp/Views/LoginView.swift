@@ -20,15 +20,22 @@ struct LoginView: View {
     @EnvironmentObject var userData: UserData
     @State private var isRegestsr = false
     @EnvironmentObject var settings: UserSettings
+    @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
+        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     
     var body: some View {
+        if heightSize == .regular{
+            
+        }else{
+            
+        }
         NavigationView{
             ZStack{
                 Image("sam-pak-X6QffKLwyoQ-unsplash").resizable().scaledToFill()
                     .ignoresSafeArea().blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
                 VStack{
                     Image("playstation-4-game-controllers-video-game-dualshock-joystick-7d6b0eb7e10322d99b41504a05478bcc").resizable().frame(width: 105, height: 65)
-                    (Text("Saved").foregroundStyle(color.DarkOrange) + Text("Games")).font(.custom("Poppins-SemiBold", size: 32))
+                    (Text("Saved").foregroundStyle(color.DarkOrange) + Text("Games")).font(.custom("SpaceMission", size: 32))
                 Rectangle().frame(width: 350, height: 350).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
                     VStack {
                         Text("Login")

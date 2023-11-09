@@ -8,6 +8,7 @@
 import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
+import PhotosUI
 
 struct RegistrationView: View {
     @State private var email = ""
@@ -19,6 +20,11 @@ struct RegistrationView: View {
     @State private var registrationError: String?
     @State private var isRegistered = false
     @State private var GamePlatformsSelction = [subplatforms]()
+    @State private var SelectedPhotoItem: PhotosPickerItem?
+    @State private var avatarImage: UIImage?
+    @State var data: Data?
+    @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
+        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
         NavigationView{
             ZStack{
@@ -79,8 +85,34 @@ struct RegistrationView: View {
                 }
                 .padding()
             }
+                VStack{
+                   
+                    PhotosPicker(selection: $SelectedPhotoItem, matching: .images) {
+                        VStack{
+                            Image(uiImage: avatarImage ?? UIImage(systemName: "person.crop.circle") ?? UIImage())
+                                .resizable()
+                                .scaledToFit()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 100, height: 100)
+                                .background(.white)
+                                .clipShape(.circle)
+                            Text("Add Photo").font(.custom("Poppins-SemiBold", size: 13)).offset(y:-6)
+                        }
+                    }.onChange(of: SelectedPhotoItem) { _ , _ in
+                        Task{
+                            if let SelectedPhotoItem, let data = try? await SelectedPhotoItem.loadTransferable(type: Data.self){
+                                if let image = UIImage(data: data){
+                                    avatarImage = image
+                                }
+                            }
+                            SelectedPhotoItem = nil
+                        }
+                    }
+                    .offset(x:140, y:-18)
+                    Spacer()
+                }
+            }
         }
-        }.navigationBarBackButtonHidden(true)
         
     }
     func registerUser(){
