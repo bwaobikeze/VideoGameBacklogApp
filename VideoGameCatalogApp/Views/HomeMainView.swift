@@ -1,5 +1,6 @@
 import SwiftUI
-
+import FirebaseStorage
+import FirebaseFirestore
 
 struct NewsResponse: Codable {
     var status: String
@@ -329,6 +330,9 @@ struct HomeMainView: View {
         } catch {
             print("Error trying to decode JSON object: \(error.localizedDescription)")
         }
+    }
+    func loadProfileImage(){
+        
     }
 
     func loadDataGame(year: Int, month: Int) async {

@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 import PhotosUI
+import FirebaseStorage
 
 struct RegistrationView: View {
     @State private var email = ""
@@ -22,6 +23,7 @@ struct RegistrationView: View {
     @State private var GamePlatformsSelction = [subplatforms]()
     @State private var SelectedPhotoItem: PhotosPickerItem?
     @State private var avatarImage: UIImage?
+    @State private var profileImaageURL: URL?
     @State var data: Data?
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
         @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
@@ -110,6 +112,9 @@ struct RegistrationView: View {
                                 }
                                 SelectedPhotoItem = nil
                             }
+                        }
+                        .onChange(of: avatarImage){
+                            saveImage()
                         }
                         .offset(x:140, y:90)
                         Spacer()
@@ -210,6 +215,35 @@ struct RegistrationView: View {
         }
         
     }
+    func saveImage(){
+        guard let imageData = avatarImage?.jpegData(compressionQuality: 0.5) else {
+                return
+            }
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        let imageName = UUID().uuidString
+        let imageRef = storageRef.child("images/\(imageName).jpg")
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        let uploadTask = imageRef.putData(imageData, metadata: metadata) { metadata, error in
+            guard metadata != nil, error == nil else {
+                print("Error uploading image: \(error?.localizedDescription ?? "")")
+                return
+            }
+            imageRef.downloadURL { url, error in
+                guard let downloadURL = url, error == nil else {
+                    print("Error getting download URL: \(error?.localizedDescription ?? "")")
+                    return
+                }
+                profileImaageURL = downloadURL
+            }
+            
+            
+            
+        }
+            
+    }
     func registerUser(){
         Auth.auth().createUser(withEmail: email, password: password){ result, error in
             if error != nil{print(error!.localizedDescription)} else{
@@ -223,7 +257,8 @@ struct RegistrationView: View {
                         "email": email,
                         "platform": platform,
                         "username": username,
-                        "uid": String(uid)
+                        "uid": String(uid),
+                        "profileImageURL": profileImaageURL?.absoluteString ?? "not converted string"
                     ]
                     userDocREf.setData(userDate){ error in
                         if let error = error{
