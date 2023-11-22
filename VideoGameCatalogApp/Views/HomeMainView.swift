@@ -28,6 +28,7 @@ struct HomeMainView: View {
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
         @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     @State private var currentIndex = 0
+    @State private var profileImageRendered: URL?
     
     var body: some View {
         if heightSize == .regular{
@@ -37,7 +38,18 @@ struct HomeMainView: View {
                     HStack{
                         (Text("Ho").foregroundStyle(color.DarkOrange)+Text("me")).font(.custom("Poppins-SemiBold", size: 24)).frame(maxWidth: .infinity, alignment: .leading).padding(.top,8).padding(.leading, 16).offset(y:2)
                         NavigationLink(destination: ProfileInfoView()) {
-                            Image("profile-user-avatar-man-person-svgrepo-com").padding()
+                            AsyncImage(url: profileImageRendered) { image in
+                                image.resizable()
+                                    .scaledToFit()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                    .background(.white)
+                                    .clipShape(.circle)
+                                
+                            } placeholder: {
+                                ProgressView()
+                            }
+//                            Image("profile-user-avatar-man-person-svgrepo-com").padding()
                         }
                         
                     }
@@ -166,7 +178,9 @@ struct HomeMainView: View {
                     }
                 }
             }
-        }
+            }.onAppear {
+                loadProfileImage()
+            }
         }else{
             NavigationView{
                 ScrollView(){
@@ -332,8 +346,21 @@ struct HomeMainView: View {
         }
     }
     func loadProfileImage(){
-        
-    }
+        let db = Firestore.firestore()
+        let docRef = db.collection("users").document(userData.userId ?? "not id")
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let data = document.data() {
+                    // Document data is available in the "data" dictionary
+                    if let profileImage = data["profileImageURL"] as? String{
+                        self.profileImageRendered = URL(string: profileImage)
+                    }
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+       }
 
     func loadDataGame(year: Int, month: Int) async {
         

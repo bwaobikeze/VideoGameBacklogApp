@@ -21,6 +21,7 @@ struct ProfileInfoView: View {
     @EnvironmentObject var settings: UserSettings
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
         @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @State private var profileImageRendered: URL?
     var body: some View {
         if heightSize == .regular{
             NavigationView{
@@ -88,8 +89,20 @@ struct ProfileInfoView: View {
                     }
                     VStack{
                         HStack(){
-                            Circle().foregroundColor(.white).overlay{
-                            }.frame(width: 106, height: 100).offset(x: 140, y: 90)
+                            AsyncImage(url: profileImageRendered) { image in
+                                image.resizable()
+                                    .scaledToFit()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 106, height: 100)
+                                    .background(.white)
+                                    .clipShape(.circle)
+                                    .offset(x: 140, y: 45)
+                                
+                            } placeholder: {
+                                ProgressView()
+                            }
+//                            Circle().foregroundColor(.white).overlay{
+//                            }.frame(width: 106, height: 100).offset(x: 140, y: 90)
                         }
                         Spacer()
                         
@@ -97,7 +110,7 @@ struct ProfileInfoView: View {
                     
 
                 }.onAppear(perform: {
-                    //grabingProfiledetailes()
+                    grabingProfiledetailes()
                 })
                 
             }
@@ -228,6 +241,9 @@ struct ProfileInfoView: View {
                     }
                     if let PlatformNum = data["platform"] as? String{
                         self.platform = PlatformNum
+                    }
+                    if let profileImage = data["profileImageURL"] as? String{
+                        self.profileImageRendered = URL(string: profileImage)
                     }
                 }
             } else {

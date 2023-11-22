@@ -15,6 +15,7 @@ struct MainProfileView: View {
     @EnvironmentObject var userData: UserData
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
         @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @State private var profileImageRendered: URL?
     var body: some View {
         if heightSize == .regular{
             NavigationView {
@@ -28,9 +29,17 @@ struct MainProfileView: View {
                         }
                         Spacer()
                         NavigationLink(destination: ProfileInfoView()) {
-                            Circle().foregroundColor(.white).overlay{
-                                Image("profile-user-avatar-man-person-svgrepo-2com").frame(width: 90, height: 90)
-                            }.frame(width: 106, height: 100)
+                            AsyncImage(url: profileImageRendered) { image in
+                                image.resizable()
+                                    .scaledToFit()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 106, height: 100)
+                                    .background(.white)
+                                    .clipShape(.circle)
+                                
+                            } placeholder: {
+                                ProgressView()
+                            }
                         }
                     }
                     .padding()
@@ -125,6 +134,9 @@ struct MainProfileView: View {
                     }
                     if let platformNum = data["platform"] as? String{
                         self.platformName = platformNum
+                    }
+                    if let profileImage = data["profileImageURL"] as? String{
+                        self.profileImageRendered = URL(string: profileImage)
                     }
                 }
             } else {
