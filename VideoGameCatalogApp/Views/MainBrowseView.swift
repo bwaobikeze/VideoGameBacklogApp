@@ -24,8 +24,8 @@ struct MainBrowseView: View {
         GridItem(.flexible(), spacing: 8, alignment: nil)
     ]
     var body: some View {
+        NavigationView{
         if heightSize == .regular{
-            NavigationView{
                 ScrollView(.vertical){
                     VStack{
                         (Text("Browse ").foregroundColor(color.DarkOrange) + Text("Games"))
@@ -198,42 +198,41 @@ struct MainBrowseView: View {
                         await laodingMostPopularGames()
                     }
             }
-                }
+                
 
         }else{
-            NavigationView{
-                ScrollView(.vertical){
-                    VStack{
-                        (Text("Browse ").foregroundColor(color.DarkOrange) + Text("Games"))
-                            .font(.custom("Poppins-SemiBold", size: 24))
-                            .bold()
-                            .padding(.horizontal)
-                            .navigationBarItems(trailing:                 NavigationLink(destination: BrowseSearchView()){
-                                Image("zoom").frame(maxWidth: .infinity, alignment: .trailing).padding()
-                            })
-                        
-                        ScrollView(.horizontal){
-                            HStack{
-                                ForEach(popularGames, id: \.id){ popgames in
-                                    AsyncImage(url: popgames.background_image) { image in
-                                        
-                                        image.resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(maxWidth: 350, maxHeight: 200)
-                                            .cornerRadius(15)
-                                        
-                                    } placeholder: {
-                                        ProgressView()
-                                    }
+            ScrollView(.vertical){
+                VStack{
+                    (Text("Browse ").foregroundColor(color.DarkOrange) + Text("Games"))
+                        .font(.custom("Poppins-SemiBold", size: 24))
+                        .bold()
+                        .padding(.horizontal)
+                        .navigationBarItems(trailing:                 NavigationLink(destination: BrowseSearchView()){
+                            Image("zoom").frame(maxWidth: .infinity, alignment: .trailing).padding()
+                        })
+                    
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(popularGames, id: \.id){ popgames in
+                                AsyncImage(url: popgames.background_image) { image in
                                     
+                                    image.resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(maxWidth: 350, maxHeight: 200)
+                                        .cornerRadius(15)
+                                    
+                                } placeholder: {
+                                    ProgressView()
                                 }
+                                
                             }
-                            
                         }
                         
-                        
-                        Spacer()
-                        VStack(spacing:0){
+                    }
+                    
+                    
+                    Spacer()
+                    VStack(spacing:0){
                         Text("Playstation 5").font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: .infinity, alignment: .leading ).bold().padding()
                         ScrollView(.horizontal){
                             HStack{
@@ -364,19 +363,20 @@ struct MainBrowseView: View {
                             }
                             
                         }
+                    }.onAppear{
+                        addtogridArray()
                     }
                     
                     
                     
                 }
-                    .task {
-                        await loadGamePlatforms()
-                        await laodingMostPopularGames()
-                    }
+                .task {
+                    await loadGamePlatforms()
+                    await laodingMostPopularGames()
+                }
             }
-            }.onAppear {
-                addtogridArray()
-            }
+        }
+
 
         }
             

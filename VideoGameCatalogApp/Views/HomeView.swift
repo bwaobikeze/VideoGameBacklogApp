@@ -14,24 +14,34 @@ struct HomeView: View {
     var body: some View {
         if heightSize == .regular{
             NavigationView{
-                TabView {
+                TabView (selection: $selectedTab){
                     HomeMainView()
                         .tabItem {
                             Image(systemName: "house.fill")
                             Text("Home")
                         }.toolbarBackground(.visible, for: .tabBar)
                         .tag(0)
+//                        .onTapGesture {
+//                            selectedTab = 0
+//                        }
+
                     MainBrowseView()
                         .tabItem {
                             Image(systemName: "gamecontroller.fill")
                             
                             Text("Browse")
                         }.toolbarBackground(.visible, for: .tabBar).tag(1)
+//                        .onTapGesture {
+//                            selectedTab = 1
+//                        }
                     MainProfileView()
                         .tabItem {
                             Image(systemName: "person.crop.circle")
                             Text("Profile")
                         }.toolbarBackground(.visible, for: .tabBar).tag(2)
+//                        .onTapGesture {
+//                            selectedTab = 2
+//                        }
                 }.accentColor(selectedTab == 0 ? color.DarkOrange : .black).tabViewStyle(.automatic)
             }.navigationBarBackButtonHidden(true)
         }else{
@@ -43,17 +53,26 @@ struct HomeView: View {
                             Text("Home")
                         }.toolbarBackground(.visible, for: .tabBar)
                         .tag(0)
+//                        .onTapGesture {
+//                            selectedTab = 0
+//                        }
                     MainBrowseView()
                         .tabItem {
                             Image(systemName: "gamecontroller.fill")
                             
                             Text("Browse")
                         }.toolbarBackground(.visible, for: .tabBar).tag(1)
+//                        .onTapGesture {
+//                            selectedTab = 1
+//                        }
                     MainProfileView()
                         .tabItem {
                             Image(systemName: "person.crop.circle")
                             Text("Profile")
                         }.toolbarBackground(.visible, for: .tabBar).tag(2)
+//                        .onTapGesture {
+//                            selectedTab = 2
+//                        }
                 }.accentColor(selectedTab == 0 ? color.DarkOrange : .black).tabViewStyle(.automatic)
             }.navigationBarBackButtonHidden(true)
         }

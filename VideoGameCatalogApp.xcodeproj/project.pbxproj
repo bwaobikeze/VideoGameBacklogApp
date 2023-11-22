@@ -35,6 +35,7 @@
 		3C404E882AD5570700059C73 /* BrowseSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E7C2AD5570700059C73 /* BrowseSearchView.swift */; };
 		3C404E8B2AD5595900059C73 /* SlidingTabView in Frameworks */ = {isa = PBXBuildFile; productRef = 3C404E8A2AD5595900059C73 /* SlidingTabView */; };
 		3C404E8D2AD55A8100059C73 /* configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C404E8C2AD55A8100059C73 /* configure.swift */; };
+		3C48417F2B00A8C500A1FEE5 /* ZoomedINImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C48417E2B00A8C500A1FEE5 /* ZoomedINImage.swift */; };
 		3C4DCC262AE4FB00008E36AA /* ParentPlatformModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */; };
 		3C4DCC2B2AE795A0008E36AA /* GamesForPlatformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC2A2AE795A0008E36AA /* GamesForPlatformView.swift */; };
 		3C4DCC2D2AEB936C008E36AA /* ColorPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC2C2AEB936C008E36AA /* ColorPick.swift */; };
@@ -44,6 +45,8 @@
 		3C4DCC5E2AF059F4008E36AA /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C4DCC5D2AF059F4008E36AA /* Poppins-Regular.ttf */; };
 		3C4DCC602AF0D01D008E36AA /* loginLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC5F2AF0D01D008E36AA /* loginLogout.swift */; };
 		3C4DCC622AF0D892008E36AA /*  ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC612AF0D892008E36AA /*  ContentView.swift */; };
+		3C7198342B09D4DC00927536 /* ACarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 3C7198332B09D4DC00927536 /* ACarousel */; };
+		3C7198372B0E49C800927536 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3C7198362B0E49C800927536 /* FirebaseStorage */; };
 		3CC1E5222AF187E20065FBC3 /* YoutubeVideoFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC1E5212AF187E20065FBC3 /* YoutubeVideoFormat.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +74,7 @@
 		3C404E7B2AD5570700059C73 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3C404E7C2AD5570700059C73 /* BrowseSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseSearchView.swift; sourceTree = "<group>"; };
 		3C404E8C2AD55A8100059C73 /* configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = configure.swift; sourceTree = "<group>"; };
+		3C48417E2B00A8C500A1FEE5 /* ZoomedINImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomedINImage.swift; sourceTree = "<group>"; };
 		3C4DCC252AE4FB00008E36AA /* ParentPlatformModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentPlatformModel.swift; sourceTree = "<group>"; };
 		3C4DCC2A2AE795A0008E36AA /* GamesForPlatformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesForPlatformView.swift; sourceTree = "<group>"; };
 		3C4DCC2C2AEB936C008E36AA /* ColorPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPick.swift; sourceTree = "<group>"; };
@@ -91,8 +95,10 @@
 			files = (
 				3C404E8B2AD5595900059C73 /* SlidingTabView in Frameworks */,
 				3C404E642AD5558100059C73 /* FirebaseFirestore in Frameworks */,
+				3C7198342B09D4DC00927536 /* ACarousel in Frameworks */,
 				3C404E502AD5558100059C73 /* FirebaseAnalyticsSwift in Frameworks */,
 				3C404E4C2AD5558100059C73 /* FirebaseAnalytics in Frameworks */,
+				3C7198372B0E49C800927536 /* FirebaseStorage in Frameworks */,
 				3C404E682AD5558100059C73 /* FirebaseFirestoreSwift in Frameworks */,
 				3C404E582AD5558100059C73 /* FirebaseAuth in Frameworks */,
 			);
@@ -106,6 +112,7 @@
 			children = (
 				3C404E392AD5541700059C73 /* VideoGameCatalogApp */,
 				3C404E382AD5541700059C73 /* Products */,
+				3C7198352B0E49C800927536 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -173,6 +180,7 @@
 				3C4DCC2A2AE795A0008E36AA /* GamesForPlatformView.swift */,
 				3C4DCC612AF0D892008E36AA /*  ContentView.swift */,
 				3C3651C92AFB79F400DFE01B /* splashScreen.swift */,
+				3C48417E2B00A8C500A1FEE5 /* ZoomedINImage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -187,6 +195,13 @@
 				3C4DCC562AF0523A008E36AA /* PixelifySans-VariableFont_wght.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		3C7198352B0E49C800927536 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +227,8 @@
 				3C404E632AD5558100059C73 /* FirebaseFirestore */,
 				3C404E672AD5558100059C73 /* FirebaseFirestoreSwift */,
 				3C404E8A2AD5595900059C73 /* SlidingTabView */,
+				3C7198332B09D4DC00927536 /* ACarousel */,
+				3C7198362B0E49C800927536 /* FirebaseStorage */,
 			);
 			productName = VideoGameCatalogApp;
 			productReference = 3C404E372AD5541700059C73 /* VideoGameCatalogApp.app */;
@@ -244,6 +261,7 @@
 			packageReferences = (
 				3C404E4A2AD5558100059C73 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3C404E892AD5595900059C73 /* XCRemoteSwiftPackageReference "SlidingTabView" */,
+				3C7198322B09D4DC00927536 /* XCRemoteSwiftPackageReference "ACarousel" */,
 			);
 			productRefGroup = 3C404E382AD5541700059C73 /* Products */;
 			projectDirPath = "";
@@ -292,6 +310,7 @@
 				3C404E822AD5570700059C73 /* HomeView.swift in Sources */,
 				3C4DCC602AF0D01D008E36AA /* loginLogout.swift in Sources */,
 				3C404E882AD5570700059C73 /* BrowseSearchView.swift in Sources */,
+				3C48417F2B00A8C500A1FEE5 /* ZoomedINImage.swift in Sources */,
 				3C404E7E2AD5570700059C73 /* MainBrowseView.swift in Sources */,
 				3C404E6F2AD556A300059C73 /* userProfileModel.swift in Sources */,
 				3C4DCC2B2AE795A0008E36AA /* GamesForPlatformView.swift in Sources */,
@@ -526,6 +545,14 @@
 				minimumVersion = 1.0.2;
 			};
 		};
+		3C7198322B09D4DC00927536 /* XCRemoteSwiftPackageReference "ACarousel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JWAutumn/ACarousel";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -558,6 +585,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3C404E892AD5595900059C73 /* XCRemoteSwiftPackageReference "SlidingTabView" */;
 			productName = SlidingTabView;
+		};
+		3C7198332B09D4DC00927536 /* ACarousel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3C7198322B09D4DC00927536 /* XCRemoteSwiftPackageReference "ACarousel" */;
+			productName = ACarousel;
+		};
+		3C7198362B0E49C800927536 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3C404E4A2AD5558100059C73 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

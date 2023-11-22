@@ -27,6 +27,8 @@ struct GameContentView: View {
     @State private var GamesScreenshot = [GameScreenShot]()
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
         @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @State var getimageZoom:URL?
+    @State var ShowNewImageScreen = false
     var body: some View {
         if heightSize == .regular{
             GeometryReader { geometry in
@@ -70,14 +72,21 @@ struct GameContentView: View {
                             HStack{
                                 ForEach(GamesScreenshot ,id: \.id){
                                     GameScreenshot in
-                                    AsyncImage(url: GameScreenshot.image) { image in
-                                        image.resizable()
-                                            .aspectRatio(159/75,contentMode: .fit)
-                                            .frame(width: 159, height: 75)
-                                    } placeholder: {
-                                        ProgressView()
+                                    Button(action: {
+                                        getimageZoom = GameScreenshot.image
+                                        ShowNewImageScreen.toggle()
+                                    }, label: {
+                                        AsyncImage(url: GameScreenshot.image) { image in
+                                            image.resizable()
+                                                .aspectRatio(159/75,contentMode: .fit)
+                                                .frame(width: 159, height: 75)
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+
+                                    }).sheet(isPresented: $ShowNewImageScreen) {
+                                        ZoomedINImage(imageZoomed: getimageZoom)
                                     }
-                                    
                                     
                                 }
                             }
@@ -148,13 +157,16 @@ struct GameContentView: View {
                             HStack{
                                 ForEach(GamesScreenshot ,id: \.id){
                                     GameScreenshot in
-                                    AsyncImage(url: GameScreenshot.image) { image in
-                                        image.resizable()
-                                            .aspectRatio(159/75,contentMode: .fit)
-                                            .frame(width: 159, height: 75)
-                                    } placeholder: {
-                                        ProgressView()
-                                    }
+                                    Button(action: {}, label: {
+                                        AsyncImage(url: GameScreenshot.image) { image in
+                                            image.resizable()
+                                                .aspectRatio(159/75,contentMode: .fit)
+                                                .frame(width: 159, height: 75)
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+
+                                    })
                                     
                                     
                                 }

@@ -63,7 +63,9 @@ struct GameCatalogView: View {
                 .listStyle(PlainListStyle())
 
             }.onAppear(perform: {
-                //fetchGamesForUserID(userID: userData.userId ?? "not id")
+                if games.isEmpty{
+                    fetchGamesForUserID(userID: userData.userId ?? "not id")
+                }
             })
         }
     }
@@ -132,7 +134,6 @@ struct  GameCatalogView_Previews: PreviewProvider {
     static var previews: some View {
         GameCatalogView()
             .environmentObject(UserData())
-            .previewInterfaceOrientation(.landscapeLeft)
         GameCatalogView()
             .environmentObject(UserData())
             .previewInterfaceOrientation(.landscapeLeft)
