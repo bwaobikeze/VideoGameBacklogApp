@@ -26,10 +26,12 @@ struct RegistrationView: View {
     @State private var profileImaageURL: URL?
     @State var data: Data?
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
-        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
         if heightSize == .regular{
+            // portrait mode code
             NavigationView{
+                // register screen UI logic
                 ZStack{
                     Image("sam-pak-X6QffKLwyoQ-unsplash").resizable().scaledToFill()
                         .ignoresSafeArea().blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
@@ -39,59 +41,59 @@ struct RegistrationView: View {
                                 .font(.custom("Poppins-SemiBold", size: 20))
                                 .padding()
                             ScrollView(.vertical){
-                            VStack {
-                                TextField("First Name", text: $firstName)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .padding()
-                                
-                                TextField("Last Name", text: $lastName)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .padding()
-                                
-                                TextField("Email", text: $email)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .padding()
-                                
-                                SecureField("Password", text: $password)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .padding()
-                                TextField("Username", text: $username)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .padding()
-                                Picker(selection: $platform) {
-                                    ForEach(GamePlatformsSelction, id: \.id){
-                                        platform in
-                                        Text("\(platform.name)").tag("\(platform.name)")
-                                    }
-                                } label: {
-                                    Text("Platforms")
-                                }.pickerStyle(.wheel)
+                                VStack {
+                                    TextField("First Name", text: $firstName)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    
+                                    TextField("Last Name", text: $lastName)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    
+                                    TextField("Email", text: $email)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    
+                                    SecureField("Password", text: $password)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    TextField("Username", text: $username)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    Picker(selection: $platform) {
+                                        ForEach(GamePlatformsSelction, id: \.id){
+                                            platform in
+                                            Text("\(platform.name)").tag("\(platform.name)")
+                                        }
+                                    } label: {
+                                        Text("Platforms")
+                                    }.pickerStyle(.wheel)
+                                }
                             }
+                            NavigationLink(destination: ContentView(), isActive: $isRegistered) {
+                                EmptyView()
+                            }
+                            Button(action: {
+                                // Handle registration action here
+                                registerUser()
+                            }) {
+                                Text("Create Account")
+                                    .font(.custom("Poppins-SemiBold", size: 20))
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(color.DarkOrange)
+                                    .cornerRadius(10)
+                            }
+                            .padding()
                         }
-                        NavigationLink(destination: ContentView(), isActive: $isRegistered) {
-                            EmptyView()
-                        }
-                        Button(action: {
-                            // Handle registration action here
-                            registerUser()
-                        }) {
-                            Text("Create Account")
-                                .font(.custom("Poppins-SemiBold", size: 20))
-                                .foregroundColor(.white)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(color.DarkOrange)
-                                .cornerRadius(10)
+                        .task{
+                            await loadGamePlatforms()
                         }
                         .padding()
                     }
-                    .task{
-                        await loadGamePlatforms()
-                    }
-                    .padding()
-                }
                     VStack{
-                       
+                        // logic to handle picking photo from galary for profile
                         PhotosPicker(selection: $SelectedPhotoItem, matching: .images) {
                             VStack{
                                 Image(uiImage: avatarImage ?? UIImage(systemName: "person.crop.circle") ?? UIImage())
@@ -122,8 +124,10 @@ struct RegistrationView: View {
                 }
             }
         }else{
+            // Landscape mode code
             NavigationView{
                 ZStack{
+                    // register screen UI logic(landscape)
                     Image("sam-pak-X6QffKLwyoQ-unsplash").resizable().scaledToFill()
                         .ignoresSafeArea().blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
                     Rectangle().frame(width: 550, height: 350).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
@@ -132,60 +136,60 @@ struct RegistrationView: View {
                                 .font(.custom("Poppins-SemiBold", size: 20))
                                 .padding()
                             ScrollView(.vertical){
-                            VStack {
-                                
-                                TextField("First Name", text: $firstName)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .padding()
-                                
-                                TextField("Last Name", text: $lastName)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .padding()
-                                
-                                TextField("Email", text: $email)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .padding()
-                                
-                                SecureField("Password", text: $password)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .padding()
-                                TextField("Username", text: $username)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .padding()
-                                Picker(selection: $platform) {
-                                    ForEach(GamePlatformsSelction, id: \.id){
-                                        platform in
-                                        Text("\(platform.name)").tag("\(platform.name)")
-                                    }
-                                } label: {
-                                    Text("Platforms")
-                                }.pickerStyle(.wheel)
-                                NavigationLink(destination: ContentView(), isActive: $isRegistered) {
-                                    EmptyView()
-                                }
-                                Button(action: {
-                                    // Handle registration action here
-                                    registerUser()
-                                }) {
-                                    Text("Create Account")
-                                        .font(.custom("Poppins-SemiBold", size: 20))
-                                        .foregroundColor(.white)
+                                VStack {
+                                    
+                                    TextField("First Name", text: $firstName)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
                                         .padding()
-                                        .frame(maxWidth: .infinity)
-                                        .background(color.DarkOrange)
-                                        .cornerRadius(10)
+                                    
+                                    TextField("Last Name", text: $lastName)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    
+                                    TextField("Email", text: $email)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    
+                                    SecureField("Password", text: $password)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    TextField("Username", text: $username)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    Picker(selection: $platform) {
+                                        ForEach(GamePlatformsSelction, id: \.id){
+                                            platform in
+                                            Text("\(platform.name)").tag("\(platform.name)")
+                                        }
+                                    } label: {
+                                        Text("Platforms")
+                                    }.pickerStyle(.wheel)
+                                    NavigationLink(destination: ContentView(), isActive: $isRegistered) {
+                                        EmptyView()
+                                    }
+                                    Button(action: {
+                                        // Handle registration action here
+                                        registerUser()
+                                    }) {
+                                        Text("Create Account")
+                                            .font(.custom("Poppins-SemiBold", size: 20))
+                                            .foregroundColor(.white)
+                                            .padding()
+                                            .frame(maxWidth: .infinity)
+                                            .background(color.DarkOrange)
+                                            .cornerRadius(10)
+                                    }
+                                    .padding()
                                 }
-                                .padding()
                             }
                         }
+                        .task{
+                            await loadGamePlatforms()
+                        }
+                        .padding()
                     }
-                    .task{
-                        await loadGamePlatforms()
-                    }
-                    .padding()
-                }
                     VStack{
-                       
+                        // logic to handle picking photo from galary for profile(landscape)
                         PhotosPicker(selection: $SelectedPhotoItem, matching: .images) {
                             VStack{
                                 Image(uiImage: avatarImage ?? UIImage(systemName: "person.crop.circle") ?? UIImage())
@@ -215,10 +219,15 @@ struct RegistrationView: View {
         }
         
     }
+    /*
+     saveImage():
+     logic to save image to
+     firebase storage
+     */
     func saveImage(){
         guard let imageData = avatarImage?.jpegData(compressionQuality: 0.5) else {
-                return
-            }
+            return
+        }
         let storage = Storage.storage()
         let storageRef = storage.reference()
         let imageName = UUID().uuidString
@@ -242,8 +251,13 @@ struct RegistrationView: View {
             
             
         }
-            
+        
     }
+    /*
+     registerUser():
+     logic to save the user input
+     and create an account
+     */
     func registerUser(){
         Auth.auth().createUser(withEmail: email, password: password){ result, error in
             if error != nil{print(error!.localizedDescription)} else{
@@ -263,7 +277,7 @@ struct RegistrationView: View {
                     userDocREf.setData(userDate){ error in
                         if let error = error{
                             print("Error creating user profile document: \(error.localizedDescription)")
-                                                    self.registrationError = "Error creating user profile"
+                            self.registrationError = "Error creating user profile"
                         }else{
                             print("User registered and profile created successfully")
                             isRegistered.toggle()
@@ -273,6 +287,11 @@ struct RegistrationView: View {
             }
         }
     }
+    /*
+     loadGamePlatforms():
+     logic to get the differnt platforms for the
+     user to choose from 
+     */
     func loadGamePlatforms() async {
         let apiKeyGame=Config.rawgApiKey
         guard let url = URL(string: "https://api.rawg.io/api/platforms?key=\(apiKeyGame)") else {
@@ -288,7 +307,7 @@ struct RegistrationView: View {
             debugPrint(error)
         }
     }
-
+    
 }
 
 struct RegistrationView_Previews: PreviewProvider {

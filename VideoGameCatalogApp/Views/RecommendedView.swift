@@ -14,9 +14,11 @@ struct RecommendedView: View {
     @State var platformNameID = 0
     @State private var selectedGame: Game?
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
-        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @State var isInCatlog = false
     var body: some View {
         if heightSize == .regular{
+            // portrait mode UI logic
             VStack{
                 List(games, id: \.name) { game in
                     Button(action: {
@@ -37,6 +39,9 @@ struct RecommendedView: View {
                             Button(action: {
                                 var mutableGame = game
                                 addGameToCatalog(gameObj: &mutableGame)
+                                Task{
+                                    await checkIfGameIsAlreadyInCatalog(selectGameid: mutableGame.id)
+                                }
                             }, label: {
                                 Text("Add")
                                     .font(.headline)
@@ -45,62 +50,112 @@ struct RecommendedView: View {
                                     .frame(maxWidth: 100,maxHeight: 30)
                                     .background(Color.gray)
                                     .cornerRadius(10)
+                            }).onAppear(perform: {
+                                Task{
+                                    await checkIfGameIsAlreadyInCatalog(selectGameid: game.id)
+                                }
                             })
-
+                            .disabled(isInCatlog)
+                            
                         }
-                    }).sheet(item: $selectedGame) { game in
+                    })
+                    .sheet(item: $selectedGame) { game in
                         GameContentView(gameID: game.id)
                     }
-
+                    
                 }.listStyle(PlainListStyle())
-
+                
             }.task {
-                    await loadGamesOfPlatform(platnum: platformNameID)
+                await loadGamesOfPlatform(platnum: platformNameID)
             }
         }else{
-                List(games, id: \.name) { game in
-                    Button(action: {
-                        selectedGame = game
-                    }, label: {
-                        HStack{
-                            AsyncImage(url: game.background_image) { image in
-                                image.resizable()
-                                    .aspectRatio(67/91,contentMode: .fit)
-                                    .frame(maxWidth: 67, maxHeight:91)
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            VStack{
-                                Text(game.name).font(.title2)
-                            }
-                            Spacer()
-                            Button(action: {
-                                var mutableGame = game
-                                addGameToCatalog(gameObj: &mutableGame)
-                            }, label: {
-                                Text("Add")
-                                    .font(.headline)
-                                    .foregroundColor(.black)
-                                    .padding()
-                                    .frame(maxWidth: 100,maxHeight: 30)
-                                    .background(Color.gray)
-                                    .cornerRadius(10)
-                            })
-
+            // landscape mode UI logic
+            List(games, id: \.name) { game in
+                Button(action: {
+                    selectedGame = game
+                }, label: {
+                    HStack{
+                        AsyncImage(url: game.background_image) { image in
+                            image.resizable()
+                                .aspectRatio(67/91,contentMode: .fit)
+                                .frame(maxWidth: 67, maxHeight:91)
+                        } placeholder: {
+                            ProgressView()
                         }
-                    }).sheet(item: $selectedGame) { game in
-                        GameContentView(gameID: game.id)
+                        VStack{
+                            Text(game.name).font(.title2)
+                        }
+                        Spacer()
+                        Button(action: {
+                            var mutableGame = game
+                            addGameToCatalog(gameObj: &mutableGame)
+                            Task{
+                                await checkIfGameIsAlreadyInCatalog(selectGameid: mutableGame.id)
+                            }
+                        }, label: {
+                            Text("Add")
+                                .font(.headline)
+                                .foregroundColor(.black)
+                                .padding()
+                                .frame(maxWidth: 100,maxHeight: 30)
+                                .background(Color.gray)
+                                .cornerRadius(10)
+                        })
+                        .onAppear(perform: {
+                            Task{
+                                await checkIfGameIsAlreadyInCatalog(selectGameid: game.id)
+                            }
+                        })
+                        .disabled(isInCatlog)
+                        
                     }
-
-                }.task {
-                    await loadGamesOfPlatform(platnum: platformNameID)
+                }).sheet(item: $selectedGame) { game in
+                    GameContentView(gameID: game.id)
+                }
+                
+            }.task {
+                await loadGamesOfPlatform(platnum: platformNameID)
             }
-                .listStyle(PlainListStyle())
-
+            .listStyle(PlainListStyle())
+            
             
         }
-
+        
     }
+    /*
+     checkIfGameIsAlreadyInCatalog():
+     logic to check if the game is already in
+     the users catalog
+     */
+    func checkIfGameIsAlreadyInCatalog(selectGameid: Int) async {
+        let db = Firestore.firestore()
+        let userId = userData.userId
+        let gameId = selectGameid
+        
+        do {
+            let querySnapshot = try await db.collection("VideoGames")
+                .whereField("userId", isEqualTo: userId)
+                .whereField("id", isEqualTo: gameId)
+                .getDocuments()
+            
+            if !querySnapshot.isEmpty {
+                // The game is already in the catalog
+                print("Game already in catalog")
+                isInCatlog = true
+            } else {
+                // The game is not in the catalog
+                print("Game not in catalog")
+                isInCatlog = false
+            }
+        } catch {
+            print("Error checking game in catalog: \(error.localizedDescription)")
+        }
+    }
+    /*
+     addGameToCatalog():
+     logic to add the game to the users game catalog
+     in the firestore database
+     */
     func addGameToCatalog(gameObj: inout Game){
         let db = Firestore.firestore()
         gameObj.userId = userData.userId
@@ -109,7 +164,7 @@ struct RecommendedView: View {
             "id": gameObj.id ,
             "userId": gameObj.userId ?? "not user ID"
         ]
-
+        
         ref = db.collection("VideoGames").addDocument(data: data) { error in
             if let error = error {
                 print("Error adding document: \(error)")
@@ -126,10 +181,14 @@ struct RecommendedView: View {
                 }
             }
         }
-
+        
         
     }
-
+    /*
+     loadGamesOfPlatform():
+     logic to get the platforms from the
+     api
+     */
     func loadGamesOfPlatform(platnum: Int) async{
         let apiKeyGame=Config.rawgApiKey
         guard let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKeyGame)&platforms=\(platnum)&page_size=20&ordering=-released") else {

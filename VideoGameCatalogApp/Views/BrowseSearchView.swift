@@ -15,9 +15,11 @@ struct BrowseSearchView: View {
     @State private var selectedGame: Game?
     @EnvironmentObject var userData: UserData
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
-        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @State var isInCatlog = false
     var body: some View {
         if heightSize == .regular{
+            // portrait mode UI logic
             NavigationView{
                 VStack {
                     Spacer()
@@ -30,46 +32,55 @@ struct BrowseSearchView: View {
                         .frame(height: 3)
                     ZStack{
                         Image("game-controller-svgrepo-com").shadow(radius: 10)
-                    List(Games) { game in
-                        Button(action: {
-                            selectedGame = game
-                        }) {
-                            VStack {
-                                HStack {
-                                    AsyncImage(url: game.background_image) { image in
-                                        image.resizable()
-                                            .aspectRatio(67/91,contentMode: .fit)
-                                            .frame(maxWidth: 67, maxHeight: 91)
-                                    } placeholder: {
-                                        ProgressView()
+                        List(Games) { game in
+                            Button(action: {
+                                selectedGame = game
+                            }) {
+                                VStack {
+                                    HStack {
+                                        AsyncImage(url: game.background_image) { image in
+                                            image.resizable()
+                                                .aspectRatio(67/91,contentMode: .fit)
+                                                .frame(maxWidth: 67, maxHeight: 91)
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+                                        VStack(spacing: 0) {
+                                            Text("\(game.name)").font(.custom("Poppins-Medium", size: 16)).frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
+                                            Text("Platforms: \(game.platforms.prefix(3).map { $0.platform.name }.joined(separator: ", "))")
+                                                .font(.custom("Poppins-Medium", size: 16))
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .foregroundColor(.black)
+                                        }
+                                        var mutableGame = game
+                                        Button(action: {
+                                            addGameToCatalog(gameObj: &mutableGame)
+                                            Task{
+                                                await checkIfGameIsAlreadyInCatalog(selectGameid: mutableGame.id)
+                                            }
+                                        }, label: {
+                                            Text("Add")
+                                                .font(.headline)
+                                                .foregroundColor(.black)
+                                                .padding()
+                                                .frame(maxWidth: 100,maxHeight: 30)
+                                                .background(Color.gray)
+                                                .cornerRadius(10)
+                                        })
+                                        .onAppear(perform: {
+                                            Task{
+                                                await checkIfGameIsAlreadyInCatalog(selectGameid: game.id)
+                                            }
+                                        })
+                                        .disabled(isInCatlog)
                                     }
-                                    VStack(spacing: 0) {
-                                        Text("\(game.name)").font(.custom("Poppins-Medium", size: 16)).frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
-                                        Text("Platforms: \(game.platforms.prefix(3).map { $0.platform.name }.joined(separator: ", "))")
-                                            .font(.custom("Poppins-Medium", size: 16))
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .foregroundColor(.black)
-                                    }
-                                    var mutableGame = game
-                                    Button(action: {
-                                        addGameToCatalog(gameObj: &mutableGame)
-                                    }, label: {
-                                        Text("Add")
-                                            .font(.headline)
-                                            .foregroundColor(.black)
-                                            .padding()
-                                            .frame(maxWidth: 100,maxHeight: 30)
-                                            .background(Color.gray)
-                                            .cornerRadius(10)
-                                    })
                                 }
                             }
-                        }
-                        .sheet(item: $selectedGame) { game in
-                            GameContentView(gameID: game.id)
-                        }
-                    }.listStyle(PlainListStyle())
-                }
+                            .sheet(item: $selectedGame) { game in
+                                GameContentView(gameID: game.id)
+                            }
+                        }.listStyle(PlainListStyle())
+                    }
                     
                     .task {
                         if !SearchStrting.isEmpty {
@@ -93,6 +104,7 @@ struct BrowseSearchView: View {
                 }
             }
         }else{
+            // landscape mode UI logic
             NavigationView{
                 VStack {
                     Spacer()
@@ -105,46 +117,55 @@ struct BrowseSearchView: View {
                         .frame(height: 3)
                     ZStack{
                         Image("game-controller-svgrepo-com").shadow(radius: 10)
-                    List(Games) { game in
-                        Button(action: {
-                            selectedGame = game
-                        }) {
-                            VStack {
-                                HStack {
-                                    AsyncImage(url: game.background_image) { image in
-                                        image.resizable()
-                                            .aspectRatio(67/91,contentMode: .fit)
-                                            .frame(maxWidth: 67, maxHeight: 91)
-                                    } placeholder: {
-                                        ProgressView()
+                        List(Games) { game in
+                            Button(action: {
+                                selectedGame = game
+                            }) {
+                                VStack {
+                                    HStack {
+                                        AsyncImage(url: game.background_image) { image in
+                                            image.resizable()
+                                                .aspectRatio(67/91,contentMode: .fit)
+                                                .frame(maxWidth: 67, maxHeight: 91)
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+                                        VStack(spacing: 0) {
+                                            Text("\(game.name)").font(.custom("Poppins-Medium", size: 16)).frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
+                                            Text("Platforms: \(game.platforms.prefix(3).map { $0.platform.name }.joined(separator: ", "))")
+                                                .font(.custom("Poppins-Medium", size: 16))
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .foregroundColor(.black)
+                                        }
+                                        var mutableGame = game
+                                        Button(action: {
+                                            addGameToCatalog(gameObj: &mutableGame)
+                                            Task{
+                                                await checkIfGameIsAlreadyInCatalog(selectGameid: mutableGame.id)
+                                            }
+                                        }, label: {
+                                            Text("Add")
+                                                .font(.headline)
+                                                .foregroundColor(.black)
+                                                .padding()
+                                                .frame(maxWidth: 100,maxHeight: 30)
+                                                .background(Color.gray)
+                                                .cornerRadius(10)
+                                        })
+                                        .onAppear(perform: {
+                                            Task{
+                                                await checkIfGameIsAlreadyInCatalog(selectGameid: game.id)
+                                            }
+                                        })
+                                        .disabled(isInCatlog)
                                     }
-                                    VStack(spacing: 0) {
-                                        Text("\(game.name)").font(.custom("Poppins-Medium", size: 16)).frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.black)
-                                        Text("Platforms: \(game.platforms.prefix(3).map { $0.platform.name }.joined(separator: ", "))")
-                                            .font(.custom("Poppins-Medium", size: 16))
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .foregroundColor(.black)
-                                    }
-                                    var mutableGame = game
-                                    Button(action: {
-                                        addGameToCatalog(gameObj: &mutableGame)
-                                    }, label: {
-                                        Text("Add")
-                                            .font(.headline)
-                                            .foregroundColor(.black)
-                                            .padding()
-                                            .frame(maxWidth: 100,maxHeight: 30)
-                                            .background(Color.gray)
-                                            .cornerRadius(10)
-                                    })
                                 }
                             }
-                        }
-                        .sheet(item: $selectedGame) { game in
-                            GameContentView(gameID: game.id)
-                        }
-                    }.listStyle(PlainListStyle())
-                }
+                            .sheet(item: $selectedGame) { game in
+                                GameContentView(gameID: game.id)
+                            }
+                        }.listStyle(PlainListStyle())
+                    }
                     
                     .task {
                         if !SearchStrting.isEmpty {
@@ -169,23 +190,60 @@ struct BrowseSearchView: View {
             }
         }
     }
-        func loadDataGame(SeachQ:String) async {
+    /*
+     checkIfGameIsAlreadyInCatalog():
+     Checks if a game with the specified ID
+     is already in the user's catalog.
+     */
+    func checkIfGameIsAlreadyInCatalog(selectGameid: Int) async {
+        let db = Firestore.firestore()
+        let userId = userData.userId
+        let gameId = selectGameid
+        
+        do {
+            let querySnapshot = try await db.collection("VideoGames")
+                .whereField("userId", isEqualTo: userId)
+                .whereField("id", isEqualTo: gameId)
+                .getDocuments()
             
-            let apiKeyGame = Config.rawgApiKey
-            guard let encodedSearchQuery = SeachQ.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-                  let url = URL(string: "https://api.rawg.io/api/games?search=\(encodedSearchQuery)&key=\(apiKeyGame)&page_size=20") else {
-                print("Invalid URL")
-                return
+            if !querySnapshot.isEmpty {
+                // The game is already in the catalog
+                print("Game already in catalog")
+                isInCatlog = true
+            } else {
+                // The game is not in the catalog
+                print("Game not in catalog")
+                isInCatlog = false
             }
-            
-            do {
-                let (data, _) = try await URLSession.shared.data(from: url)
-                let decodedGameResponse = try JSONDecoder().decode(GameResponse.self, from: data)
-                Games = decodedGameResponse.results
-            } catch {
-                debugPrint(error)
-            }
+        } catch {
+            print("Error checking game in catalog: \(error.localizedDescription)")
         }
+    }
+    /*
+     loadDataGame():
+     Loads games based on the provided search query.
+     */
+    func loadDataGame(SeachQ:String) async {
+        
+        let apiKeyGame = Config.rawgApiKey
+        guard let encodedSearchQuery = SeachQ.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let url = URL(string: "https://api.rawg.io/api/games?search=\(encodedSearchQuery)&key=\(apiKeyGame)&page_size=20") else {
+            print("Invalid URL")
+            return
+        }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let decodedGameResponse = try JSONDecoder().decode(GameResponse.self, from: data)
+            Games = decodedGameResponse.results
+        } catch {
+            debugPrint(error)
+        }
+    }
+    /*
+     addGameToCatalog():
+     Adds a game to the user's catalog.
+     */
     func addGameToCatalog(gameObj: inout Game){
         let db = Firestore.firestore()
         gameObj.userId = userData.userId
@@ -194,7 +252,7 @@ struct BrowseSearchView: View {
             "id": gameObj.id ,
             "userId": gameObj.userId ?? "not user ID"
         ]
-
+        
         ref = db.collection("VideoGames").addDocument(data: data) { error in
             if let error = error {
                 print("Error adding document: \(error)")
@@ -213,15 +271,15 @@ struct BrowseSearchView: View {
         }
         
     }
+}
+
+struct BrowseSearchView_Previews: PreviewProvider {
+    static var previews: some View {
+        BrowseSearchView()
+            .environmentObject(UserData())
+        BrowseSearchView()
+            .environmentObject(UserData())
+            .previewInterfaceOrientation(.landscapeLeft)
     }
-    
-    struct BrowseSearchView_Previews: PreviewProvider {
-        static var previews: some View {
-            BrowseSearchView()
-                .environmentObject(UserData())
-            BrowseSearchView()
-                .environmentObject(UserData())
-                .previewInterfaceOrientation(.landscapeLeft)
-        }
-    }
+}
 

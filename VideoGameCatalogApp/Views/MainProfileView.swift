@@ -14,45 +14,51 @@ struct MainProfileView: View {
     @State private var documentData: [String: Any] = [:]
     @EnvironmentObject var userData: UserData
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
-        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     @State private var profileImageRendered: URL?
     var body: some View {
         if heightSize == .regular{
+            // portrait mode UI logic
             NavigationView {
                 VStack (spacing: 0) {
                     ZStack{
                         Rectangle().frame(height: 250).foregroundColor(color.DarkOrange).ignoresSafeArea()
-                    HStack{
-                        VStack{
-                            Text(username).font(.custom("Poppins-SemiBold", size: 24)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
-                            Text("Platform of Choice: \(platformName)").font(.custom("Poppins-Medium", size: 14)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
-                        }
-                        Spacer()
-                        NavigationLink(destination: ProfileInfoView()) {
-                            AsyncImage(url: profileImageRendered) { image in
-                                image.resizable()
-                                    .scaledToFit()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 106, height: 100)
-                                    .background(.white)
-                                    .clipShape(.circle)
-                                
-                            } placeholder: {
-                                ProgressView()
+                        HStack{
+                            VStack{
+                                Text(username).font(.custom("Poppins-SemiBold", size: 24)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
+                                Text("Platform of Choice: \(platformName)").font(.custom("Poppins-Medium", size: 14)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
+                            }
+                            Spacer()
+                            NavigationLink(destination: ProfileInfoView()) {
+                                AsyncImage(url: profileImageRendered) { image in
+                                    image.resizable()
+                                        .scaledToFit()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 106, height: 100)
+                                        .background(.white)
+                                        .clipShape(.circle)
+                                    
+                                } placeholder: {
+                                    Image(systemName: "person.crop.circle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 106, height: 100)
+                                        .background(.white)
+                                        .clipShape(Circle())
+                                }
                             }
                         }
+                        .padding()
                     }
-                    .padding()
-                }
                     SlidingTabView(selection: $tabIndex, tabs: ["Recommended", "Catalog"], animation:
                             .easeInOut)
-                        .padding(.top, -40)
+                    .padding(.top, -40)
                     if tabIndex == 0 {
                         ForEach(GamePlatformsSelction, id: \.id){userPlatform in
                             
                             if userPlatform.name == platformName{
                                 RecommendedView(platformNameID: userPlatform.id)
-
+                                
                             }
                         }
                     } else if tabIndex == 1 {
@@ -67,23 +73,24 @@ struct MainProfileView: View {
                 })
             }
         }else{
+            // landscape mode UI logic
             NavigationView {
                 VStack (spacing: 0) {
                     ZStack{
                         Rectangle().frame(height: 190).foregroundColor(color.DarkOrange).ignoresSafeArea().offset(y:-90)
-                    HStack{
-                        VStack{
-                            Text(username).font(.custom("Poppins-SemiBold", size: 24)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
-                            Text("Platform of Choice: \(platformName)").font(.custom("Poppins-Medium", size: 14)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
-                        }
-                        Spacer()
-                        NavigationLink(destination: ProfileInfoView()) {
-                            Circle().foregroundColor(.white).overlay{
-                            }.frame(width: 106, height: 100)
-                        }
-                    }.offset(y:-48)
-                    .padding()
-                }
+                        HStack{
+                            VStack{
+                                Text(username).font(.custom("Poppins-SemiBold", size: 24)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
+                                Text("Platform of Choice: \(platformName)").font(.custom("Poppins-Medium", size: 14)).foregroundStyle(.white).shadow(color: Color.black,radius: 1)
+                            }
+                            Spacer()
+                            NavigationLink(destination: ProfileInfoView()) {
+                                Circle().foregroundColor(.white).overlay{
+                                }.frame(width: 106, height: 100)
+                            }
+                        }.offset(y:-48)
+                            .padding()
+                    }
                     SlidingTabView(selection: $tabIndex, tabs: ["Recommended", "Catalog"], animation:
                             .easeInOut).offset(y:-50)
                     if tabIndex == 0 {
@@ -91,7 +98,7 @@ struct MainProfileView: View {
                             
                             if userPlatform.name == platformName{
                                 RecommendedView(platformNameID: userPlatform.id)
-
+                                
                             }
                         }
                     } else if tabIndex == 1 {
@@ -107,6 +114,11 @@ struct MainProfileView: View {
             }
         }
     }
+    /*
+     loadGamePlatforms():
+     logic to load the different platforms
+     from the api call
+     */
     func loadGamePlatforms() async {
         let apiKeyGame=Config.rawgApiKey
         guard let url = URL(string: "https://api.rawg.io/api/platforms?key=\(apiKeyGame)") else {
@@ -122,6 +134,12 @@ struct MainProfileView: View {
             debugPrint(error)
         }
     }
+    /*
+     grabProfileDate():
+     logic to pull the users profile
+     data to be able to view
+     it
+     */
     func grabProfileDate(){
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(userData.userId ?? "not id")
@@ -144,7 +162,7 @@ struct MainProfileView: View {
             }
         }
     }
-
+    
 }
 
 struct MainProfileView_Previews: PreviewProvider {

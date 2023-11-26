@@ -6,11 +6,13 @@
 //
 
 import Foundation
+// Represents a platform.
 struct platform: Codable{
     var id: Int?
     var name: String
     var slug: String
 }
+// Represents a game, conforming to Codable and Identifiable.
 struct Game: Codable,Identifiable{
     var id: Int
     var slug: String
@@ -21,10 +23,11 @@ struct Game: Codable,Identifiable{
     var userId:String?
     var GameDataBaseID:String?
 }
-
+// Nested struct representing a platform object.
 struct platformObj: Codable{
     var platform: platform
 }
+// Represents a game screenshot, conforming to Codable and Identifiable.
 struct  GameScreenShot:Codable, Identifiable{
     var id: Int?
     var image: URL
@@ -33,6 +36,7 @@ struct  GameScreenShot:Codable, Identifiable{
 
 
 }
+// Represents a response containing an array of game screenshots.
 struct  GameScreenShotResponse:Codable{
     var results:[GameScreenShot]
 }

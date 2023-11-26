@@ -7,6 +7,8 @@
 
 import Foundation
 import FirebaseFirestoreSwift
+
+// Represents user profile information, conforming to Codable.
 struct UserProfile: Codable {
     var userID: String
     var firstName: String

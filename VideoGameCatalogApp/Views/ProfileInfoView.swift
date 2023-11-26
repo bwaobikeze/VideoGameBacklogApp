@@ -20,12 +20,14 @@ struct ProfileInfoView: View {
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var settings: UserSettings
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
-        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     @State private var profileImageRendered: URL?
     var body: some View {
         if heightSize == .regular{
+            // portrait mode UI logic
             NavigationView{
                 ZStack{
+                    // textfeilds with the users data pre-filled
                     Image("tarn-nguyen-RjXOvhpmb20-unsplash").resizable().scaledToFill()
                         .ignoresSafeArea()
                     Rectangle().frame(width: 350, height: 550).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
@@ -99,24 +101,29 @@ struct ProfileInfoView: View {
                                     .offset(x: 140, y: 45)
                                 
                             } placeholder: {
-                                ProgressView()
+                                Image(systemName: "person.crop.circle")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 106, height: 100)
+                                    .background(.white)
+                                    .clipShape(Circle())
                             }
-//                            Circle().foregroundColor(.white).overlay{
-//                            }.frame(width: 106, height: 100).offset(x: 140, y: 90)
                         }
                         Spacer()
                         
                     }
                     
-
+                    
                 }.onAppear(perform: {
                     grabingProfiledetailes()
                 })
                 
             }
         }else{
+            // Landscape mode UI logic
             NavigationView{
                 ZStack{
+                    // textfeilds with the users data pre-filled(landscape)
                     Image("tarn-nguyen-RjXOvhpmb20-unsplash").resizable().scaledToFill()
                         .ignoresSafeArea()
                     Rectangle().frame(width: 600, height: 350).foregroundColor(color.lightGrey).cornerRadius(30).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).overlay {
@@ -183,27 +190,43 @@ struct ProfileInfoView: View {
                     }.offset(y:15)
                     VStack{
                         HStack(){
-                            Circle().foregroundColor(.white).overlay{
-                            }.frame(width: 106, height: 100).offset(x: 290, y: 280)
+                            AsyncImage(url: profileImageRendered) { image in
+                                image.resizable()
+                                    .scaledToFit()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 106, height: 100)
+                                    .background(.white)
+                                    .clipShape(.circle)
+                                    .offset(x: 290, y: 280)
+                                
+                            } placeholder: {
+                                Image(systemName: "person.crop.circle")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 106, height: 100)
+                                    .background(.white)
+                                    .clipShape(Circle())
+                            }
                         }
                         Spacer()
                         
                     }
                     
-
+                    
                 }.onAppear(perform: {
                     grabingProfiledetailes()
                 })
                 
-                        
-                    
-
-                
             }
         }
-
+        
         
     }
+    /*
+     updateProfileData():
+     logic to save update users
+     info in database
+     */
     func updateProfileData(){
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(userData.userId ?? "not id")
@@ -223,6 +246,12 @@ struct ProfileInfoView: View {
         }
         
     }
+    /*
+     grabingProfiledetailes():
+     logic to pull the users profile
+     data to be able to view and change
+     it
+     */
     func grabingProfiledetailes(){
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(userData.userId ?? "not id")
@@ -254,17 +283,26 @@ struct ProfileInfoView: View {
             self.email = user.email ?? "not email"
         }
     }
+    /*
+     logout():
+     logic to logout of app
+     */
     func logout() {
         do {
             try Auth.auth().signOut()
             print("Logout Successful")
             settings.isLoggedin.toggle()
-//            userData.userId = ""
+            //            userData.userId = ""
             GamePlatformsSelction = []
         } catch let signOutError as NSError {
             print("Error signing out: \(signOutError)")
         }
     }
+    /*
+     loadGamePlatforms():
+     logic to load the different platforms
+     from the api call
+     */
     func loadGamePlatforms() async {
         let apiKeyGame=Config.rawgApiKey
         guard let url = URL(string: "https://api.rawg.io/api/platforms?key=\(apiKeyGame)") else {

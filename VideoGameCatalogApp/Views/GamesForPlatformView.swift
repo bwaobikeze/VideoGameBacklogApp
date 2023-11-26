@@ -16,9 +16,10 @@ struct GamesForPlatformView: View {
         GridItem(.flexible(), spacing: 8, alignment: nil),
     ]
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
-        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     var body: some View {
         if heightSize == .regular{
+            // portrait mode UI logic
             VStack{
                 ScrollView(.vertical){
                     LazyVGrid(columns: Columns){
@@ -42,18 +43,19 @@ struct GamesForPlatformView: View {
                                     }
                                     Text(Gamelist.name)
                                 }
-
+                                
                             }).sheet(item: $selectedGame) { gameID in
                                 GameContentView(gameID: gameID.id)
                             }
                         }
                     }
+                }
+                .task {
+                    await loadGamesOfPlatform()
+                }
             }
-            .task {
-                await loadGamesOfPlatform()
-            }
-        }
         }else{
+            // landscape mode UI logic
             VStack{
                 ScrollView(.vertical){
                     LazyVGrid(columns: Columns){
@@ -77,16 +79,16 @@ struct GamesForPlatformView: View {
                                     }
                                     Text(Gamelist.name)
                                 }
-
+                                
                             }).sheet(item: $selectedGame) { gameID in
                                 GameContentView(gameID: gameID.id)
                             }
                         }
                     }
-            }
-            .task {
-                await loadGamesOfPlatform()
-            }
+                }
+                .task {
+                    await loadGamesOfPlatform()
+                }
             }.onAppear {
                 addtogridArray()
             }
@@ -95,10 +97,18 @@ struct GamesForPlatformView: View {
         
         
     }
-     func addtogridArray(){
-         let addedgridItem: GridItem = GridItem(.flexible(), spacing: 8, alignment: nil)
-       Columns.append(addedgridItem)
+    /*
+     addtogridArray():
+     Adds a flexible grid item to the grid columns array.
+     */
+    func addtogridArray(){
+        let addedgridItem: GridItem = GridItem(.flexible(), spacing: 8, alignment: nil)
+        Columns.append(addedgridItem)
     }
+    /*
+     loadGamesOfPlatform():
+     Loads games of a specified platform asynchronously.
+     */
     func loadGamesOfPlatform() async{
         let apiKeyGame=Config.rawgApiKey
         guard let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKeyGame)&parent_platforms=\(PlatformID)&page_size=40") else {

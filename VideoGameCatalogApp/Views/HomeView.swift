@@ -6,13 +6,17 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 struct HomeView: View {
     @State private var selectedTab = 0
     @EnvironmentObject var settings: UserSettings
+    @EnvironmentObject var userData: UserData
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
-        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @State private var profileImageRendered: URL?
     var body: some View {
         if heightSize == .regular{
+            //portrait mode UI logic
             NavigationView{
                 TabView (selection: $selectedTab){
                     HomeMainView()
@@ -21,30 +25,22 @@ struct HomeView: View {
                             Text("Home")
                         }.toolbarBackground(.visible, for: .tabBar)
                         .tag(0)
-//                        .onTapGesture {
-//                            selectedTab = 0
-//                        }
-
                     MainBrowseView()
                         .tabItem {
                             Image(systemName: "gamecontroller.fill")
                             
                             Text("Browse")
                         }.toolbarBackground(.visible, for: .tabBar).tag(1)
-//                        .onTapGesture {
-//                            selectedTab = 1
-//                        }
                     MainProfileView()
                         .tabItem {
                             Image(systemName: "person.crop.circle")
                             Text("Profile")
                         }.toolbarBackground(.visible, for: .tabBar).tag(2)
-//                        .onTapGesture {
-//                            selectedTab = 2
-//                        }
+
                 }.accentColor(selectedTab == 0 ? color.DarkOrange : .black).tabViewStyle(.automatic)
             }.navigationBarBackButtonHidden(true)
         }else{
+            //landscape mode UI logic
             NavigationView{
                 TabView {
                     HomeMainView()
@@ -53,33 +49,27 @@ struct HomeView: View {
                             Text("Home")
                         }.toolbarBackground(.visible, for: .tabBar)
                         .tag(0)
-//                        .onTapGesture {
-//                            selectedTab = 0
-//                        }
                     MainBrowseView()
                         .tabItem {
                             Image(systemName: "gamecontroller.fill")
                             
                             Text("Browse")
                         }.toolbarBackground(.visible, for: .tabBar).tag(1)
-//                        .onTapGesture {
-//                            selectedTab = 1
-//                        }
                     MainProfileView()
                         .tabItem {
                             Image(systemName: "person.crop.circle")
+                            
                             Text("Profile")
                         }.toolbarBackground(.visible, for: .tabBar).tag(2)
-//                        .onTapGesture {
-//                            selectedTab = 2
-//                        }
+
                 }.accentColor(selectedTab == 0 ? color.DarkOrange : .black).tabViewStyle(.automatic)
             }.navigationBarBackButtonHidden(true)
         }
-
+        
         
     }
-        
+    
+    
 }
 
 struct HomeView_Previews: PreviewProvider {

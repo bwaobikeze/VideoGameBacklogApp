@@ -16,7 +16,7 @@ struct  GameDetailResponse:Codable, Identifiable{
     var description_raw: String
     var userId:String?
     var GameDataBaseID:String?
-
+    
 }
 
 
@@ -26,11 +26,14 @@ struct GameContentView: View {
     @State private var Gamed = GameDetailResponse(id: 0, name: "", description_raw: "")
     @State private var GamesScreenshot = [GameScreenShot]()
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
-        @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     @State var getimageZoom:URL?
     @State var ShowNewImageScreen = false
+    @State var isInCatlog = false
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         if heightSize == .regular{
+            // portrait mode UI logic
             GeometryReader { geometry in
                 VStack(spacing: 10){
                     AsyncImage(url: Gamed.background_image_additional) { image in
@@ -41,26 +44,26 @@ struct GameContentView: View {
                     } placeholder: {
                         ProgressView()
                     }
-                ZStack{
+                    ZStack{
                         HStack{
                             Rectangle().foregroundColor(.black).frame(width: 96, height: 133).cornerRadius(15).overlay {
-                            
-                            AsyncImage(url: Gamed.background_image) { image in
-                                image.resizable()
-                                    .aspectRatio(96/133,contentMode: .fit)
-                                    .frame(width: 96, height: 133)
-                                    .cornerRadius(15)
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            
+                                
+                                AsyncImage(url: Gamed.background_image) { image in
+                                    image.resizable()
+                                        .aspectRatio(96/133,contentMode: .fit)
+                                        .frame(width: 96, height: 133)
+                                        .cornerRadius(15)
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                
                             }.offset(y:-25)
                             Text(Gamed.name).font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: 271, maxHeight: 59)
                             
                         }.offset(y:-60)
-                    
-
-                }
+                        
+                        
+                    }
                     ScrollView(.vertical){
                         Text(Gamed.description_raw).font(.custom("Poppins-Regular", size: 13)).multilineTextAlignment(.leading)
                         
@@ -83,7 +86,7 @@ struct GameContentView: View {
                                         } placeholder: {
                                             ProgressView()
                                         }
-
+                                        
                                     }).sheet(isPresented: $ShowNewImageScreen) {
                                         ZoomedINImage(imageZoomed: getimageZoom)
                                     }
@@ -92,112 +95,154 @@ struct GameContentView: View {
                             }
                         }.padding()
                     }.offset(y:-95).frame(height:250)
-
-                        
-                        Button(action: {
-                            addGameToCatalog(gameObj: &Gamed)
-                        }) {
-                            Text("Add to catalog")
-                                .font(.custom("Poppins-Medium", size: 20))
-                                .foregroundColor(.white)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(color.DarkOrange)
-                                .cornerRadius(30)
-                        }
-                        .padding()
-                        .offset(y: -110)
-                        Spacer()
                     
-                
-            }.background(.lightGrey).ignoresSafeArea().task {
-                await loadDataDetailGame()
-                await loadDataDetailGameScreenshot()
-            }
-        }
-        }else{
-            GeometryReader { geometry in
-                VStack(spacing: 10){
-                    AsyncImage(url: Gamed.background_image_additional) { image in
-                        image.resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: geometry.size.width, height: geometry.size.height / 2)
-                            .edgesIgnoringSafeArea(.all)
-                    } placeholder: {
-                        ProgressView()
+                    
+                    Button(action: {
+                        addGameToCatalog(gameObj: &Gamed)
+                        Task{
+                            await checkIfGameIsAlreadyInCatalog()
+                        }
+                    }) {
+                        Text("Add to catalog")
+                            .font(.custom("Poppins-Medium", size: 20))
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(color.DarkOrange)
+                            .cornerRadius(30)
                     }
-                ZStack{
-                        HStack{
-                            Rectangle().foregroundColor(.black).frame(width: 96, height: 133).cornerRadius(15).overlay {
-                            
-                            AsyncImage(url: Gamed.background_image) { image in
-                                image.resizable()
-                                    .aspectRatio(96/133,contentMode: .fit)
-                                    .frame(width: 96, height: 133)
-                                    .cornerRadius(15)
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            
-                            }.offset(y:-25)
-                            Text(Gamed.name).font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: 271, maxHeight: 59)
-                            
-                        }.offset(y:-60)
+                    .padding()
+                    .offset(y: -110)
+                    .disabled(isInCatlog)
+                    Spacer()
                     
-
+                    
+                }.background(.lightGrey).ignoresSafeArea().task {
+                    await loadDataDetailGame()
+                    await loadDataDetailGameScreenshot()
                 }
-                    ScrollView(.vertical){
-                        Text(Gamed.description_raw).font(.custom("Poppins-Regular", size: 13)).multilineTextAlignment(.leading)
-                        
-                        Text("Screenshots").font(.custom("Poppins-Medium", size: 32))
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity, alignment: .leading ).padding().offset(y:40)
-                        
-                        ScrollView(.horizontal){
-                            HStack{
-                                ForEach(GamesScreenshot ,id: \.id){
-                                    GameScreenshot in
-                                    Button(action: {}, label: {
-                                        AsyncImage(url: GameScreenshot.image) { image in
-                                            image.resizable()
-                                                .aspectRatio(159/75,contentMode: .fit)
-                                                .frame(width: 159, height: 75)
-                                        } placeholder: {
-                                            ProgressView()
-                                        }
-
-                                    })
-                                    
-                                    
-                                }
-                            }
-                        }.padding()
-                    }.offset(y:-95).frame(height:250)
-
-                        
-                        Button(action: {
-                            addGameToCatalog(gameObj: &Gamed)
-                        }) {
-                            Text("Add to catalog")
-                                .font(.custom("Poppins-Medium", size: 20))
-                                .foregroundColor(.white)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(color.DarkOrange)
-                                .cornerRadius(30)
+            }.onAppear(perform: {
+                Task{
+                    //await checkIfGameIsAlreadyInCatalog()
+                }
+            })
+        }else{
+            ZStack{
+                HStack{
+                    // landscape mode UI logic
+                    GeometryReader { geometry in
+                        AsyncImage(url: Gamed.background_image) { image in
+                            image.resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(height: geometry.size.height+25)
+                                .edgesIgnoringSafeArea(.all)
+                        } placeholder: {
+                            ProgressView()
                         }
-                        .padding()
-                        .offset(y: -110)
-                        Spacer()
-                    
-                
-            }.background(.lightGrey).ignoresSafeArea().task {
-                await loadDataDetailGame()
-                await loadDataDetailGameScreenshot()
+                    }
+                    VStack(spacing: 10){
+                        ScrollView(.vertical){
+                            Text(Gamed.name).font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: 271, maxHeight: 59)
+                            Text(Gamed.description_raw).font(.custom("Poppins-Regular", size: 13)).multilineTextAlignment(.leading)
+                            
+                            Text("Screenshots").font(.custom("Poppins-Medium", size: 32))
+                                .foregroundColor(.black)
+                                .frame(maxWidth: .infinity, alignment: .leading ).padding()
+                            
+                            ScrollView(.horizontal){
+                                HStack{
+                                    ForEach(GamesScreenshot ,id: \.id){
+                                        GameScreenshot in
+                                        Button(action: {
+                                            getimageZoom = GameScreenshot.image
+                                            ShowNewImageScreen.toggle()
+                                        }, label: {
+                                            AsyncImage(url: GameScreenshot.image) { image in
+                                                image.resizable()
+                                                    .aspectRatio(159/75,contentMode: .fit)
+                                                    .frame(width: 159, height: 75)
+                                            } placeholder: {
+                                                ProgressView()
+                                            }
+                                            
+                                        }).sheet(isPresented: $ShowNewImageScreen) {
+                                            ZoomedINImage(imageZoomed: getimageZoom)
+                                        }
+                                        
+                                        
+                                    }
+                                }
+                                
+                            }
+                            
+                            
+                            Button(action: {
+                                addGameToCatalog(gameObj: &Gamed)
+                            }) {
+                                Text("Add to catalog")
+                                    .font(.custom("Poppins-Medium", size: 20))
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(color.DarkOrange)
+                                    .cornerRadius(30)
+                            }
+                            .padding()
+                            Spacer()
+                        }.padding()
+                        
+                        
+                    }.background(.lightGrey).ignoresSafeArea().task {
+                        await loadDataDetailGame()
+                        await loadDataDetailGameScreenshot()
+                    }
+                }
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    Image(systemName: "chevron.backward.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundStyle(color.DarkOrange)
+                        .frame(width: 50, height: 100)
+                }).offset(x: -360, y: -150)
             }
-        }
+            
+            
         }
     }
+    /*
+     checkIfGameIsAlreadyInCatalog():
+     Checks if a game is already in the user's catalog in Firestore.
+     */
+    func checkIfGameIsAlreadyInCatalog() async {
+        let db = Firestore.firestore()
+        let userId = userData.userId
+        let gameId = gameID
+        
+        do {
+            let querySnapshot = try await db.collection("VideoGames")
+                .whereField("userId", isEqualTo: userId)
+                .whereField("id", isEqualTo: gameId)
+                .getDocuments()
+            
+            if !querySnapshot.isEmpty {
+                // The game is already in the catalog
+                print("Game already in catalog")
+                isInCatlog = true
+            } else {
+                // The game is not in the catalog
+                print("Game not in catalog")
+                isInCatlog = false
+            }
+        } catch {
+            print("Error checking game in catalog: \(error.localizedDescription)")
+        }
+    }
+    /*
+     addGameToCatalog():
+     Adds a game to the user's catalog in Firestore, updating the database with the document ID.
+     */
     func addGameToCatalog(gameObj: inout GameDetailResponse){
         let db = Firestore.firestore()
         gameObj.userId = userData.userId
@@ -206,7 +251,7 @@ struct GameContentView: View {
             "id": gameObj.id ?? "id Value",
             "userId": gameObj.userId ?? "not user ID"
         ]
-
+        
         ref = db.collection("VideoGames").addDocument(data: data) { error in
             if let error = error {
                 print("Error adding document: \(error)")
@@ -225,35 +270,42 @@ struct GameContentView: View {
         }
         
     }
+    /*
+     loadDataDetailGameScreenshot():
+     Loads screenshots for a specific game from the RAWG API.
+     */
     func loadDataDetailGameScreenshot() async {
         let apiKeyGame=Config.rawgApiKey
         guard let url = URL(string: "https://api.rawg.io/api/games/\(gameID)/screenshots?key=\(apiKeyGame)") else {
             print("Invalid URL")
             return
         }
-
+        
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             let decodedGameResponse = try JSONDecoder().decode( GameScreenShotResponse.self, from: data)
             GamesScreenshot = decodedGameResponse.results
         } catch {
-          debugPrint(error)
+            debugPrint(error)
         }
     }
-
+    /*
+     loadDataDetailGame():
+     Loads detailed information about a specific game from the RAWG API.
+     */
     func loadDataDetailGame() async {
         let apiKeyGame=Config.rawgApiKey
         guard let url = URL(string: "https://api.rawg.io/api/games/\(gameID)?key=\(apiKeyGame)") else {
             print("Invalid URL")
             return
         }
-
+        
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             let decodedGameResponse = try JSONDecoder().decode(GameDetailResponse.self, from: data)
             Gamed = decodedGameResponse
         } catch {
-          debugPrint(error)
+            debugPrint(error)
         }
     }
 }
