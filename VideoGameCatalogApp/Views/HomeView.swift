@@ -15,7 +15,6 @@ struct HomeView: View {
     @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
     @State private var profileImageRendered: URL?
     var body: some View {
-        if heightSize == .regular{
             //portrait mode UI logic
             NavigationView{
                 TabView (selection: $selectedTab){
@@ -35,38 +34,14 @@ struct HomeView: View {
                         .tabItem {
                             Image(systemName: "person.crop.circle")
                             Text("Profile")
-                        }.toolbarBackground(.visible, for: .tabBar).tag(2)
-
-                }.accentColor(selectedTab == 0 ? color.DarkOrange : .black).tabViewStyle(.automatic)
-            }.navigationBarBackButtonHidden(true)
-        }else{
-            //landscape mode UI logic
-            NavigationView{
-                TabView {
-                    HomeMainView()
-                        .tabItem {
-                            Image(systemName: "house.fill")
-                            Text("Home")
                         }.toolbarBackground(.visible, for: .tabBar)
-                        .tag(0)
-                    MainBrowseView()
-                        .tabItem {
-                            Image(systemName: "gamecontroller.fill")
-                            
-                            Text("Browse")
-                        }.toolbarBackground(.visible, for: .tabBar).tag(1)
-                    MainProfileView()
-                        .tabItem {
-                            Image(systemName: "person.crop.circle")
-                            
-                            Text("Profile")
-                        }.toolbarBackground(.visible, for: .tabBar).tag(2)
+                        .tag(2)
 
-                }.accentColor(selectedTab == 0 ? color.DarkOrange : .black).tabViewStyle(.automatic)
+                }.accentColor(selectedTab == 0 ? color.DarkOrange : selectedTab == 0 ? Color.darkOrange : (selectedTab == 1 ? Color.darkOrange : Color.darkOrange)).tabViewStyle(.automatic)
+                    .onChange(of: selectedTab) { newTab in
+                        selectedTab = newTab
+                    }
             }.navigationBarBackButtonHidden(true)
-        }
-        
-        
     }
     
     

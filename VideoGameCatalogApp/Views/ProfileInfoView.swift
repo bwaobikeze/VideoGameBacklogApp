@@ -180,6 +180,7 @@ struct ProfileInfoView: View {
                                             .background(color.lightGrey)
                                             .cornerRadius(10)
                                     }
+                                    .offset(y: -28)
                                     .padding()
                                 }
                             }
