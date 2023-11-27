@@ -194,6 +194,7 @@ struct HomeMainView: View {
                         HStack{
                             (Text("Ho").foregroundStyle(color.DarkOrange)+Text("me")).font(.custom("Poppins-SemiBold", size: 35)).frame(maxWidth: .infinity, alignment: .leading).padding(.top,8).padding(.leading, 16).offset(y:2)
                             NavigationLink(destination: ProfileInfoView()) {
+                                
                                 AsyncImage(url: profileImageRendered) { image in
                                     image.resizable()
                                         .scaledToFit()
@@ -203,7 +204,12 @@ struct HomeMainView: View {
                                         .clipShape(.circle)
                                     
                                 } placeholder: {
-                                    ProgressView()
+                                    Image(systemName: "person.crop.circle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 60, height: 60)
+                                        .background(.white)
+                                        .clipShape(Circle())
                                 }
                                 .padding()
                             }
@@ -327,6 +333,7 @@ struct HomeMainView: View {
                                     }
                                 }
                             }
+                            
                             .task {
                                 await loadData()
                                 await loadDataGame(year: 2023, month: 11)
@@ -334,6 +341,8 @@ struct HomeMainView: View {
                         }
                     }
                 }
+            }.onAppear {
+                loadProfileImage()
             }
         }
     }

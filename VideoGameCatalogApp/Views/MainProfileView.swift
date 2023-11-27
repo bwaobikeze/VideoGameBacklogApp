@@ -85,24 +85,38 @@ struct MainProfileView: View {
                             }
                             Spacer()
                             NavigationLink(destination: ProfileInfoView()) {
-                                Circle().foregroundColor(.white).overlay{
-                                }.frame(width: 106, height: 100)
+                                AsyncImage(url: profileImageRendered) { image in
+                                    image.resizable()
+                                        .scaledToFit()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 106, height: 100)
+                                        .background(.white)
+                                        .clipShape(.circle)
+                                    
+                                } placeholder: {
+                                    Image(systemName: "person.crop.circle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 106, height: 100)
+                                        .background(.white)
+                                        .clipShape(Circle())
+                                }
                             }
                         }.offset(y:-48)
                             .padding()
                     }
                     SlidingTabView(selection: $tabIndex, tabs: ["Recommended", "Catalog"], animation:
-                            .easeInOut).offset(y:-50)
+                            .easeInOut).offset(y:-65).ignoresSafeArea()
                     if tabIndex == 0 {
                         ForEach(GamePlatformsSelction, id: \.id){userPlatform in
                             
                             if userPlatform.name == platformName{
-                                RecommendedView(platformNameID: userPlatform.id)
+                                RecommendedView(platformNameID: userPlatform.id).offset(y: -60).ignoresSafeArea()
                                 
                             }
                         }
                     } else if tabIndex == 1 {
-                        GameCatalogView()
+                        GameCatalogView().offset(y: -60).ignoresSafeArea()
                     }
                 }
                 .onAppear(perform: {

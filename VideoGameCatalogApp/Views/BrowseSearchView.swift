@@ -52,27 +52,23 @@ struct BrowseSearchView: View {
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .foregroundColor(.black)
                                         }
-                                        var mutableGame = game
-                                        Button(action: {
-                                            addGameToCatalog(gameObj: &mutableGame)
-                                            Task{
-                                                await checkIfGameIsAlreadyInCatalog(selectGameid: mutableGame.id)
-                                            }
-                                        }, label: {
-                                            Text("Add")
-                                                .font(.headline)
-                                                .foregroundColor(.black)
-                                                .padding()
-                                                .frame(maxWidth: 100,maxHeight: 30)
-                                                .background(Color.gray)
-                                                .cornerRadius(10)
-                                        })
-                                        .onAppear(perform: {
-                                            Task{
-                                                await checkIfGameIsAlreadyInCatalog(selectGameid: game.id)
-                                            }
-                                        })
-                                        .disabled(isInCatlog)
+//                                        var mutableGame = game
+//                                        Button(action: {
+//                                            addGameToCatalog(gameObj: &mutableGame)
+//                                            Task{
+//                                                await checkIfGameIsAlreadyInCatalog(selectGameid: mutableGame.id)
+//                                            }
+//                                        }, label: {
+//                                            Text(isInCatlog ? "✅":"Add")
+//                                                .font(.headline)
+//                                                .foregroundColor(.black)
+//                                                .padding()
+//                                                .frame(maxWidth: 100,maxHeight: 30)
+//                                                .background(Color.gray)
+//                                                .cornerRadius(10)
+//                                        })
+//                                        .disabled(isInCatlog)
+                                        
                                     }
                                 }
                             }
@@ -137,27 +133,22 @@ struct BrowseSearchView: View {
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .foregroundColor(.black)
                                         }
-                                        var mutableGame = game
-                                        Button(action: {
-                                            addGameToCatalog(gameObj: &mutableGame)
-                                            Task{
-                                                await checkIfGameIsAlreadyInCatalog(selectGameid: mutableGame.id)
-                                            }
-                                        }, label: {
-                                            Text("Add")
-                                                .font(.headline)
-                                                .foregroundColor(.black)
-                                                .padding()
-                                                .frame(maxWidth: 100,maxHeight: 30)
-                                                .background(Color.gray)
-                                                .cornerRadius(10)
-                                        })
-                                        .onAppear(perform: {
-                                            Task{
-                                                await checkIfGameIsAlreadyInCatalog(selectGameid: game.id)
-                                            }
-                                        })
-                                        .disabled(isInCatlog)
+//                                        var mutableGame = game
+//                                        Button(action: {
+//                                            addGameToCatalog(gameObj: &mutableGame)
+//                                            Task{
+//                                                await checkIfGameIsAlreadyInCatalog(selectGameid: mutableGame.id)
+//                                            }
+//                                        }, label: {
+//                                            Text(isInCatlog ? "✅":"Add")
+//                                                .font(.headline)
+//                                                .foregroundColor(.black)
+//                                                .padding()
+//                                                .frame(maxWidth: 100,maxHeight: 30)
+//                                                .background(Color.gray)
+//                                                .cornerRadius(10)
+//                                        })
+//                                        .disabled(isInCatlog)
                                     }
                                 }
                             }

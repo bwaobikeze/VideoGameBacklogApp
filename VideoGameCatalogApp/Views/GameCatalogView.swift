@@ -38,9 +38,9 @@ struct GameCatalogView: View {
                 }
                 .listStyle(PlainListStyle())
                 
-            }.onAppear(perform: {
+            }.task {
                 fetchGamesForUserID(userID: userData.userId ?? "not id")
-            })
+            }
         }else{
             // landscape mode UI logic
             VStack{

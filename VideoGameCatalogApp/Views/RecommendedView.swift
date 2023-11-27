@@ -36,26 +36,23 @@ struct RecommendedView: View {
                                 Text(game.name).font(.title2)
                             }
                             Spacer()
-                            Button(action: {
-                                var mutableGame = game
-                                addGameToCatalog(gameObj: &mutableGame)
-                                Task{
-                                    await checkIfGameIsAlreadyInCatalog(selectGameid: mutableGame.id)
-                                }
-                            }, label: {
-                                Text("Add")
-                                    .font(.headline)
-                                    .foregroundColor(.black)
-                                    .padding()
-                                    .frame(maxWidth: 100,maxHeight: 30)
-                                    .background(Color.gray)
-                                    .cornerRadius(10)
-                            }).onAppear(perform: {
-                                Task{
-                                    await checkIfGameIsAlreadyInCatalog(selectGameid: game.id)
-                                }
-                            })
-                            .disabled(isInCatlog)
+//                            Button(action: {
+//                                var mutableGame = game
+//                                addGameToCatalog(gameObj: &mutableGame)
+//                                Task{
+//                                    await checkIfGameIsAlreadyInCatalog(selectGameid: mutableGame.id)
+//                                }
+//                            }, label: {
+//                                Text(isInCatlog ? "✅":"Add")
+//                                    .font(.headline)
+//                                    .foregroundColor(.black)
+//                                    .padding()
+//                                    .frame(maxWidth: 100,maxHeight: 30)
+//                                    .background(Color.gray)
+//                                    .cornerRadius(10)
+//                            })
+//                            .disabled(isInCatlog)
+                            
                             
                         }
                     })
@@ -86,28 +83,23 @@ struct RecommendedView: View {
                             Text(game.name).font(.title2)
                         }
                         Spacer()
-                        Button(action: {
-                            var mutableGame = game
-                            addGameToCatalog(gameObj: &mutableGame)
-                            Task{
-                                await checkIfGameIsAlreadyInCatalog(selectGameid: mutableGame.id)
-                            }
-                        }, label: {
-                            Text("Add")
-                                .font(.headline)
-                                .foregroundColor(.black)
-                                .padding()
-                                .frame(maxWidth: 100,maxHeight: 30)
-                                .background(Color.gray)
-                                .cornerRadius(10)
-                        })
-                        .onAppear(perform: {
-                            Task{
-                                await checkIfGameIsAlreadyInCatalog(selectGameid: game.id)
-                            }
-                        })
-                        .disabled(isInCatlog)
-                        
+                        // Want to add but to buggy
+//                        Button(action: {
+//                            var mutableGame = game
+//                            addGameToCatalog(gameObj: &mutableGame)
+//                            Task{
+//                                await checkIfGameIsAlreadyInCatalog(selectGameid: mutableGame.id)
+//                            }
+//                        }, label: {
+//                            Text(game.isInCatalog ? "✅":"Add")
+//                                .font(.headline)
+//                                .foregroundColor(.black)
+//                                .padding()
+//                                .frame(maxWidth: 100,maxHeight: 30)
+//                                .background(Color.gray)
+//                                .cornerRadius(10)
+//                        })
+//                        .disabled(isInCatlog)
                     }
                 }).sheet(item: $selectedGame) { game in
                     GameContentView(gameID: game.id)

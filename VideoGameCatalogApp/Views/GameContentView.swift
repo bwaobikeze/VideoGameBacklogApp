@@ -103,12 +103,12 @@ struct GameContentView: View {
                             await checkIfGameIsAlreadyInCatalog()
                         }
                     }) {
-                        Text("Add to catalog")
+                        Text(isInCatlog ? " in catalog ✅ ": "Add to catalog")
                             .font(.custom("Poppins-Medium", size: 20))
                             .foregroundColor(.white)
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(color.DarkOrange)
+                            .background(isInCatlog ? Color.gray: color.DarkOrange)
                             .cornerRadius(30)
                     }
                     .padding()
@@ -123,7 +123,7 @@ struct GameContentView: View {
                 }
             }.onAppear(perform: {
                 Task{
-                    //await checkIfGameIsAlreadyInCatalog()
+                    await checkIfGameIsAlreadyInCatalog()
                 }
             })
         }else{
@@ -178,16 +178,20 @@ struct GameContentView: View {
                             
                             Button(action: {
                                 addGameToCatalog(gameObj: &Gamed)
+                                Task{
+                                    await checkIfGameIsAlreadyInCatalog()
+                                }
                             }) {
-                                Text("Add to catalog")
+                                Text(isInCatlog ? " in catalog ✅ ": "Add to catalog")
                                     .font(.custom("Poppins-Medium", size: 20))
                                     .foregroundColor(.white)
                                     .padding()
                                     .frame(maxWidth: .infinity)
-                                    .background(color.DarkOrange)
+                                    .background(isInCatlog ? Color.gray: color.DarkOrange)
                                     .cornerRadius(30)
                             }
                             .padding()
+                            .disabled(isInCatlog)
                             Spacer()
                         }.padding()
                         
@@ -196,7 +200,11 @@ struct GameContentView: View {
                         await loadDataDetailGame()
                         await loadDataDetailGameScreenshot()
                     }
-                }
+                }.onAppear(perform: {
+                    Task{
+                        await checkIfGameIsAlreadyInCatalog()
+                    }
+                })
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
