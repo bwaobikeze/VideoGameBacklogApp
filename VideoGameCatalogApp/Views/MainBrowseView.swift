@@ -345,7 +345,7 @@ struct MainBrowseView: View {
                     await laodingMostPopularGames()
                 }
             }
-        }
+        }.navigationViewStyle(.stack)
     }
     /*
      addtogridArray():

@@ -38,7 +38,8 @@ struct GameCatalogView: View {
                 }
                 .listStyle(PlainListStyle())
                 
-            }.task {
+            }.navigationViewStyle(.stack)
+            .task {
                 fetchGamesForUserID(userID: userData.userId ?? "not id")
             }
         }else{
@@ -64,7 +65,8 @@ struct GameCatalogView: View {
                 }
                 .listStyle(PlainListStyle())
                 
-            }.onAppear(perform: {
+            }.navigationViewStyle(.stack)
+            .onAppear(perform: {
                 if games.isEmpty{
                     fetchGamesForUserID(userID: userData.userId ?? "not id")
                 }

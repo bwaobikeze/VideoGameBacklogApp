@@ -71,7 +71,7 @@ struct MainProfileView: View {
                         await loadGamePlatforms()
                     }
                 })
-            }
+            }.navigationViewStyle(.stack)
         }else{
             // landscape mode UI logic
             NavigationView {
@@ -125,7 +125,7 @@ struct MainProfileView: View {
                         await loadGamePlatforms()
                     }
                 })
-            }
+            }.navigationViewStyle(.stack)
         }
     }
     /*

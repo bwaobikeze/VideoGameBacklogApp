@@ -98,7 +98,7 @@ struct BrowseSearchView: View {
                         }
                     }
                 }
-            }
+            }.navigationViewStyle(.stack)
         }else{
             // landscape mode UI logic
             NavigationView{
@@ -178,7 +178,7 @@ struct BrowseSearchView: View {
                         }
                     }
                 }
-            }
+            }.navigationViewStyle(.stack)
         }
     }
     /*

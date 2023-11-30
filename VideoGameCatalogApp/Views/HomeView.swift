@@ -41,7 +41,8 @@ struct HomeView: View {
                     .onChange(of: selectedTab) { newTab in
                         selectedTab = newTab
                     }
-            }.navigationBarBackButtonHidden(true)
+            }.navigationViewStyle(.stack)
+            .navigationBarBackButtonHidden(true)
     }
     
     

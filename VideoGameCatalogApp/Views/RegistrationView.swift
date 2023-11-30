@@ -122,7 +122,7 @@ struct RegistrationView: View {
                         Spacer()
                     }
                 }
-            }
+            }.navigationViewStyle(.stack)
         }else{
             // Landscape mode code
             NavigationView{
@@ -215,7 +215,7 @@ struct RegistrationView: View {
                         Spacer()
                     }
                 }
-            }
+            }.navigationViewStyle(.stack)
         }
         
     }

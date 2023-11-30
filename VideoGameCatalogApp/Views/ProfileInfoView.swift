@@ -118,7 +118,7 @@ struct ProfileInfoView: View {
                     grabingProfiledetailes()
                 })
                 
-            }
+            }.navigationViewStyle(.stack)
         }else{
             // Landscape mode UI logic
             NavigationView{
@@ -218,7 +218,7 @@ struct ProfileInfoView: View {
                     grabingProfiledetailes()
                 })
                 
-            }
+            }.navigationViewStyle(.stack)
         }
         
         

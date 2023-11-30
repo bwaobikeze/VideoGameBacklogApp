@@ -84,7 +84,8 @@ struct LoginView: View {
                         Spacer()
                     }
                 }
-            }.navigationBarBackButtonHidden(true)
+            }.navigationViewStyle(.stack)
+            .navigationBarBackButtonHidden(true)
         }else{
             // landscape mode UI logic
             NavigationView{
@@ -145,7 +146,8 @@ struct LoginView: View {
                         }
                     }
                 }
-            }.navigationBarBackButtonHidden(true)
+            }.navigationViewStyle(.stack)
+            .navigationBarBackButtonHidden(true)
         }
         
     }
