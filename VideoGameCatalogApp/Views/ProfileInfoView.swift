@@ -46,10 +46,6 @@ struct ProfileInfoView: View {
                             TextField("Last Name", text: $lastName)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                 .padding()
-                            
-                            TextField("Email", text: $email)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .padding()
                             Picker(selection: $platform) {
                                 ForEach(GamePlatformsSelction, id: \.id){
                                     platform in
@@ -142,10 +138,6 @@ struct ProfileInfoView: View {
                                         .padding()
                                     
                                     TextField("Last Name", text: $lastName)
-                                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                                        .padding()
-                                    
-                                    TextField("Email", text: $email)
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
                                         .padding()
                                     Picker(selection: $platform) {
@@ -280,9 +272,10 @@ struct ProfileInfoView: View {
                 print("Document does not exist")
             }
         }
-        if let user = Auth.auth().currentUser{
-            self.email = user.email ?? "not email"
-        }
+        // A feature I will work on after the semester is over
+//        if let user = Auth.auth().currentUser{
+//            self.email = user.email ?? "not email"
+//        }
     }
     /*
      logout():
