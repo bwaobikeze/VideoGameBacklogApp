@@ -14,23 +14,31 @@ struct GameCatalogView: View {
     let db = Firestore.firestore()
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var widthSize: UserInterfaceSizeClass?
+    @State private var selectedGame: GameDetailResponse?
     var body: some View {
         if heightSize == .regular{
             // portrait mode UI logic
             VStack{
                 List{
                     ForEach(games, id: \.name){game in
-                        HStack{
-                            AsyncImage(url: game.background_image) { image in
-                                image.resizable()
-                                    .aspectRatio(67/91,contentMode: .fit)
-                                    .frame(maxWidth: 67, maxHeight:91)
-                            } placeholder: {
-                                ProgressView()
+                        Button(action: {
+                            selectedGame = game
+                        }) {
+                            
+                            HStack{
+                                AsyncImage(url: game.background_image) { image in
+                                    image.resizable()
+                                        .aspectRatio(67/91,contentMode: .fit)
+                                        .frame(maxWidth: 67, maxHeight:91)
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                VStack{
+                                    Text(game.name).font(.title2).font(.custom("Poppins-Medium", size: 16))
+                                }
                             }
-                            VStack{
-                                Text(game.name).font(.title2).font(.custom("Poppins-Medium", size: 16))
-                            }
+                        }.sheet(item: $selectedGame) { game in
+                            GameContentView(gameID: game.id ?? 0)
                         }
                     }
                     .onDelete(perform: deleteGame)
@@ -47,17 +55,24 @@ struct GameCatalogView: View {
             VStack{
                 List{
                     ForEach(games, id: \.name){game in
-                        HStack{
-                            AsyncImage(url: game.background_image) { image in
-                                image.resizable()
-                                    .aspectRatio(67/91,contentMode: .fit)
-                                    .frame(maxWidth: 67, maxHeight:91)
-                            } placeholder: {
-                                ProgressView()
+                        Button(action: {
+                            selectedGame = game
+                        }) {
+                            
+                            HStack{
+                                AsyncImage(url: game.background_image) { image in
+                                    image.resizable()
+                                        .aspectRatio(67/91,contentMode: .fit)
+                                        .frame(maxWidth: 67, maxHeight:91)
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                VStack{
+                                    Text(game.name).font(.title2).font(.custom("Poppins-Medium", size: 16))
+                                }
                             }
-                            VStack{
-                                Text(game.name).font(.title2).font(.custom("Poppins-Medium", size: 16))
-                            }
+                        }.sheet(item: $selectedGame) { game in
+                            GameContentView(gameID: game.id ?? 0)
                         }
                     }
                     .onDelete(perform: deleteGame)

@@ -57,19 +57,19 @@ struct GameContentView: View {
                                     ProgressView()
                                 }
                                 
-                            }.offset(y:-25)
-                            Text(Gamed.name).font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: 271, maxHeight: 59)
+                            }.offset(y:-60)
+                            Text(Gamed.name).font(.custom("Poppins-Medium", size: 15)).frame(maxWidth: 271, maxHeight: 59).bold()
                             
                         }.offset(y:-60)
                         
                         
                     }
-                    ScrollView(.vertical){
+                    ScrollView(){
                         Text(Gamed.description_raw).font(.custom("Poppins-Regular", size: 13)).multilineTextAlignment(.leading)
                         
                         Text("Screenshots").font(.custom("Poppins-Medium", size: 32))
                             .foregroundColor(.black)
-                            .frame(maxWidth: .infinity, alignment: .leading ).padding().offset(y:40)
+                            .frame(maxWidth: .infinity, alignment: .leading ).padding().offset(y:-38)
                         
                         ScrollView(.horizontal){
                             HStack{
@@ -93,8 +93,9 @@ struct GameContentView: View {
                                     
                                 }
                             }
-                        }.padding()
-                    }.offset(y:-95).frame(height:250)
+                        }.offset(y:-70)
+                        .padding()
+                    
                     
                     
                     Button(action: {
@@ -112,10 +113,12 @@ struct GameContentView: View {
                             .cornerRadius(30)
                     }
                     .padding()
-                    .offset(y: -110)
+                    .offset(y:-80)
                     .disabled(isInCatlog)
                     Spacer()
-                    
+                    }
+                    //.ignoresSafeArea()
+                    .offset(y:-120).frame(height:400)
                     
                 }.background(.lightGrey).ignoresSafeArea().task {
                     await loadDataDetailGame()

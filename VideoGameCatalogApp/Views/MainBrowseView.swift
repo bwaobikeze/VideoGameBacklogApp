@@ -43,13 +43,19 @@ struct MainBrowseView: View {
                         ScrollView(.horizontal) {
                             HStack {
                                 ForEach(popularGames, id: \.id) { popgames in
-                                    AsyncImage(url: popgames.background_image) { image in
-                                        image.resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(maxWidth: 350, maxHeight: 200)
-                                            .cornerRadius(15)
-                                    } placeholder: {
-                                        ProgressView()
+                                    Button(action: {
+                                        selectedGame = popgames
+                                    }) {
+                                        AsyncImage(url: popgames.background_image) { image in
+                                            image.resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(maxWidth: 350, maxHeight: 200)
+                                                .cornerRadius(15)
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+                                    }.sheet(item: $selectedGame) { gameID in
+                                        GameContentView(gameID: gameID.id)
                                     }
                                 }
                             }
@@ -203,13 +209,19 @@ struct MainBrowseView: View {
                         ScrollView(.horizontal) {
                             HStack {
                                 ForEach(popularGames, id: \.id) { popgames in
-                                    AsyncImage(url: popgames.background_image) { image in
-                                        image.resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(maxWidth: 350, maxHeight: 200)
-                                            .cornerRadius(15)
-                                    } placeholder: {
-                                        ProgressView()
+                                    Button(action: {
+                                        selectedGame = popgames
+                                    }) {
+                                        AsyncImage(url: popgames.background_image) { image in
+                                            image.resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(maxWidth: 350, maxHeight: 200)
+                                                .cornerRadius(15)
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+                                    }.sheet(item: $selectedGame) { gameID in
+                                        GameContentView(gameID: gameID.id)
                                     }
                                 }
                             }
