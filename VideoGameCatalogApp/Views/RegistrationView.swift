@@ -103,7 +103,6 @@ struct RegistrationView: View {
                                     .frame(width: 100, height: 100)
                                     .background(.white)
                                     .clipShape(.circle)
-                                Text("Add").font(.custom("Poppins-SemiBold", size: 13)).offset(y:-6)
                             }
                         }.onChange(of: SelectedPhotoItem) { _ , _ in
                             Task{
@@ -199,7 +198,6 @@ struct RegistrationView: View {
                                     .frame(width: 100, height: 100)
                                     .background(.white)
                                     .clipShape(.circle)
-                                Text("Add Photo").font(.custom("Poppins-SemiBold", size: 13)).offset(y:-6)
                             }
                         }.onChange(of: SelectedPhotoItem) { _ , _ in
                             Task{

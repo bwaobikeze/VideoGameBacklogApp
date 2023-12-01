@@ -22,6 +22,7 @@ struct MainBrowseView: View {
         GridItem(.flexible(), spacing: 8, alignment: nil),
         GridItem(.flexible(), spacing: 8, alignment: nil)
     ]
+    @State private var hasPerformedOnAppear = false
     
     var body: some View {
         NavigationView {
@@ -33,9 +34,9 @@ struct MainBrowseView: View {
                             .bold()
                             .padding(.horizontal)
                             .navigationBarItems(trailing:
-                                NavigationLink(destination: BrowseSearchView()) {
-                                    Image("zoom").frame(maxWidth: .infinity, alignment: .trailing).padding()
-                                }
+                                                    NavigationLink(destination: BrowseSearchView()) {
+                                Image("zoom").frame(maxWidth: .infinity, alignment: .trailing).padding()
+                            }
                             )
                         /*
                          Most popular games view logic
@@ -60,12 +61,12 @@ struct MainBrowseView: View {
                                 }
                             }
                         }
-
+                        
                         Spacer()
                         /*
                          Playstation 5 popular games view logic
                          */
-
+                        
                         VStack(spacing: 0) {
                             Text("Playstation 5").font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: .infinity, alignment: .leading).bold().padding()
                             ScrollView(.horizontal) {
@@ -183,6 +184,11 @@ struct MainBrowseView: View {
                                 }
                             }
                         }
+                    }.onAppear {
+                        if hasPerformedOnAppear {
+                            deletefromgridArray()
+                            hasPerformedOnAppear = false
+                        }
                     }
                 }
                 .task {
@@ -199,9 +205,9 @@ struct MainBrowseView: View {
                             .bold()
                             .padding(.horizontal)
                             .navigationBarItems(trailing:
-                                NavigationLink(destination: BrowseSearchView()) {
-                                    Image("zoom").frame(maxWidth: .infinity, alignment: .trailing).padding()
-                                }
+                                                    NavigationLink(destination: BrowseSearchView()) {
+                                Image("zoom").frame(maxWidth: .infinity, alignment: .trailing).padding()
+                            }
                             )
                         /*
                          Most popular games view logic
@@ -226,7 +232,7 @@ struct MainBrowseView: View {
                                 }
                             }
                         }
-
+                        
                         Spacer()
                         /*
                          Playstation 5 popular games view logic(Landscape)
@@ -349,7 +355,10 @@ struct MainBrowseView: View {
                             }
                         }
                     }.onAppear {
-                        addtogridArray()
+                        if !hasPerformedOnAppear {
+                            addtogridArray()
+                            hasPerformedOnAppear = true
+                        }
                     }
                 }
                 .task {
@@ -367,6 +376,9 @@ struct MainBrowseView: View {
     func addtogridArray() {
         let addedgridItem: GridItem = GridItem(.flexible(), spacing: 8, alignment: nil)
         Columns.append(addedgridItem)
+    }
+    func deletefromgridArray() {
+        Columns.removeLast()
     }
     /*
      laodingThreeConsoleGames():
@@ -427,15 +439,15 @@ struct MainBrowseView: View {
             debugPrint(error)
         }
     }
+    
+}
+
+struct MainBrowseView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainBrowseView()
+        MainBrowseView()
+            .previewInterfaceOrientation(.landscapeLeft)
         
     }
-    
-    struct MainBrowseView_Previews: PreviewProvider {
-        static var previews: some View {
-            MainBrowseView()
-            MainBrowseView()
-                .previewInterfaceOrientation(.landscapeLeft)
-                
-        }
-    }
+}
 

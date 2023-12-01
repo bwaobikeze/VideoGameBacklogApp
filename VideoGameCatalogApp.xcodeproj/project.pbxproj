@@ -47,6 +47,7 @@
 		3C4DCC622AF0D892008E36AA /*  ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DCC612AF0D892008E36AA /*  ContentView.swift */; };
 		3C7198342B09D4DC00927536 /* ACarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 3C7198332B09D4DC00927536 /* ACarousel */; };
 		3C7198372B0E49C800927536 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3C7198362B0E49C800927536 /* FirebaseStorage */; };
+		3C9319F62B18DA4D00F657DE /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3C9319F52B18DA4D00F657DE /* ReadMe.txt */; };
 		3CC1E5222AF187E20065FBC3 /* YoutubeVideoFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC1E5212AF187E20065FBC3 /* YoutubeVideoFormat.swift */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +86,7 @@
 		3C4DCC5D2AF059F4008E36AA /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		3C4DCC5F2AF0D01D008E36AA /* loginLogout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginLogout.swift; sourceTree = "<group>"; };
 		3C4DCC612AF0D892008E36AA /*  ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " ContentView.swift"; sourceTree = "<group>"; };
+		3C9319F52B18DA4D00F657DE /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
 		3CC1E5212AF187E20065FBC3 /* YoutubeVideoFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeVideoFormat.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +112,7 @@
 		3C404E2E2AD5541700059C73 = {
 			isa = PBXGroup;
 			children = (
+				3C9319F52B18DA4D00F657DE /* ReadMe.txt */,
 				3C404E392AD5541700059C73 /* VideoGameCatalogApp */,
 				3C404E382AD5541700059C73 /* Products */,
 				3C7198352B0E49C800927536 /* Frameworks */,
@@ -284,6 +287,7 @@
 				3C404E492AD554EE00059C73 /* GoogleService-Info.plist in Resources */,
 				3C4DCC5B2AF05290008E36AA /* Poppins-SemiBold.ttf in Resources */,
 				3C404E3F2AD5541900059C73 /* Assets.xcassets in Resources */,
+				3C9319F62B18DA4D00F657DE /* ReadMe.txt in Resources */,
 				3C4DCC592AF05272008E36AA /* Poppins-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,7 +22,7 @@ struct HomeMainView: View {
     @State private var showContentScreen: Bool = false
     @State private var selectedGame: Game?
     @State var youtubeListPointer: Int = 0
-    @State private var youtubeVideosID: [String] = ["nq1M_Wc4FIc","IRNOoOYVn80","q0vNoRhuV_I", "k1kI09X8L9Y"]
+    @State private var youtubeVideosID: [String] = ["r3abJDzC8yk","Ye3st9z6jQY","nq1M_Wc4FIc","IRNOoOYVn80","q0vNoRhuV_I", "k1kI09X8L9Y"]
     @State private var showSafari: Bool = false
     @State private var urlArt: newsArticle?
     @Environment(\.verticalSizeClass) var heightSize: UserInterfaceSizeClass?
@@ -60,7 +60,7 @@ struct HomeMainView: View {
                                 }
                                 
                             }
-                            Text("Upcoming In: \(getCurrentMonth()) ").font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: .infinity, alignment: .leading).padding(.bottom, 15).padding(.leading, 16).offset(y:-10)
+                            Text("Upcoming").font(.custom("Poppins-Medium", size: 20)).frame(maxWidth: .infinity, alignment: .leading).padding(.bottom, 15).padding(.leading, 16).offset(y:-10)
                             
                             RoundedRectangle(cornerRadius: 15)
                                 .fill(Color.white)
@@ -218,7 +218,7 @@ struct HomeMainView: View {
                                 }
                                 
                             }
-                            Text("Upcoming In: \(getCurrentMonth()) ").font(.custom("Poppins-Medium", size: 40)).frame(maxWidth: .infinity, alignment: .leading).padding(.bottom, 15).padding(.leading, 16).offset(y:-10)
+                            Text("Upcoming").font(.custom("Poppins-Medium", size: 40)).frame(maxWidth: .infinity, alignment: .leading).padding(.bottom, 15).padding(.leading, 16).offset(y:-10)
                             
                             RoundedRectangle(cornerRadius: 15)
                                 .fill(Color.black)
@@ -449,18 +449,6 @@ struct HomeMainView: View {
             debugPrint(error)
         }
     }
-    /*
-     getCurrentMonth():
-     Gets the name of the current month.
-     */
-    func getCurrentMonth() -> String {
-        let currentDate = Date()
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateFormat = "MMMM"
-        let currentMonth = dateFormatter.string(from: currentDate)
-        return currentMonth
-    }
 }
 
 struct HomeMainView_Previews: PreviewProvider {
@@ -470,13 +458,5 @@ struct HomeMainView_Previews: PreviewProvider {
         HomeMainView()
             .environmentObject(UserData())
             .previewInterfaceOrientation(.landscapeLeft)
-        
-//        HomeMainView()
-//            .environmentObject(UserData())
-//            .previewDevice("iPad (10th generation)")
-//        HomeMainView()
-//            .environmentObject(UserData())
-//            .previewDevice("iPad (10th generation)")
-//            .previewInterfaceOrientation(.landscapeLeft)
     }
 }

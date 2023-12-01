@@ -98,7 +98,8 @@ struct BrowseSearchView: View {
                         }
                     }
                 }
-            }.navigationViewStyle(.stack)
+            }.accentColor(.black)
+            .navigationViewStyle(.stack)
         }else{
             // landscape mode UI logic
             NavigationView{

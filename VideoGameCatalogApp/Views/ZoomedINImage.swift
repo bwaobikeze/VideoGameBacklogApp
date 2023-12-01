@@ -36,15 +36,17 @@ struct ZoomedINImage: View {
                 } placeholder: {
                     ProgressView()
                 }
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }, label: {
-                    Image(systemName: "chevron.backward.circle.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(color.DarkOrange)
-                        .frame(width: 50, height: 100)
-                }).offset(x: -360, y: -150)
+                GeometryReader{geo in
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Image(systemName: "chevron.backward.circle.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundStyle(color.DarkOrange)
+                            .frame(width: 50, height: 50)
+                    }).offset(x: geo.safeAreaInsets.leading, y:  geo.safeAreaInsets.top)
+                }
                 
             }.ignoresSafeArea(.all)
         }

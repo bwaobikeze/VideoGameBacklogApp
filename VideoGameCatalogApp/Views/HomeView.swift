@@ -24,7 +24,7 @@ struct HomeView: View {
                             Text("Home")
                         }.toolbarBackground(.visible, for: .tabBar)
                         .tag(0)
-                    MainBrowseView()
+                    MainBrowseView().accentColor(.black)
                         .tabItem {
                             Image(systemName: "gamecontroller.fill")
                             

@@ -136,6 +136,7 @@ struct LoginView: View {
                                     }) {
                                         Text("Create Account").foregroundStyle(.black)
                                     }
+                                    .offset(y:-30)
                                     .padding()
                                     
                                 }
