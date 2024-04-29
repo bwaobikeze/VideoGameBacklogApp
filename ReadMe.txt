@@ -1,53 +1,34 @@
 
-Known issues:
-1. To view a screenshot in the game detail view, you need to click on the initial image first, navigate back to the game description screen, and then click on a different image for it to function properly.
+# -VideoGameBacklogApp
 
-2. Upon initially visiting the game catalog, navigating back to that tab triggers the regeneration of games, resulting in duplicates of the same game. To resolve this issue, simply click on the recommend tab and then return to the game catalog tab to rectify the duplication.
+## Description
+-The iOS Video Game Backlog App is a mobile application designed to help users manage their video game backlog, discover new games, and stay updated with the latest gaming news. The app is built using SwiftUI for the UI and front end, Firebase for the backend, Rawg API for the video game database, and News API for fetching the latest news in the video game industry.
 
+## Development
+- **Duration:** Sep 2023 - Dec 2023
 
-Usage
-instructions on how to run the app:
-1.	Open the project in Xcode.
-2.	Select the target device or simulator.
-3.	Press the "Run" button or use Cmd + R.
-4.	log in with these credentials: email: Testuser@gmail.com password: password
+## Features
+- Manage video game backlog
+- Discover new games
+- A Java object is created to represent distinct processes, each with its unique attributes.
+- Get the latest gaming news
 
+## Usage
+1. Clone the repository
+2. Open the project in Xcode
+3. Build and run the app on a simulator or device
 
-how to navigate through the app:
+## Implementation Details
+- SwiftUI for UI and front end
+- Firebase Firestore for database
+- Firebase Storage for storing media files
+- Firebase Auth for authentication
+- Makes REST API calls using News API for the latest gaming news and RAWG API for the game database
 
-1.you can navigate through the different tabs
-
-2. Clicking on a game title will open the corresponding video game content screen. Within this screen, each game is equipped with screenshots (click on an image to view an enlarged version), and users can add a game to their catalog by selecting the "Add to Catalog" option.
-
-3. to edit your profile information/logout click on your profile image to navigate to the  profile edit page
-
-4. To locate a particular game, navigate to the browser tab and select the search icon positioned in the top-right corner. This action will redirect you to the search page. For instance, if you want to search for the game "Beyblade," click on the game's result, and from there, you can proceed to add it to your collection.
-    5 example cases("naruto, Final fantasy 16, Final fantasy 15, Monster hunter, god eater")
-    
-5. you can also choose a game from the recommended tab under the profile to add to your catalog(5 games already preloaded just click to pull up the game content screen and hit add to catalog)
-
-home screen test cases:
-upcoming games: first 5 games in the horizontal scroll(pre-loaded)
-trailers: first 5 game trialers (pre-loaded)
-gaming news: first 5 gaming news articlas links in the horizontal scroll(pre-loaded)
-
-Browse Game view:
-upcoming games: first 5 games in the horizontal scroll(pre-loaded)
-popular games(top) click to add to catalog
-current generation platforms(PS5, XBOX Seres X etc)(middle)choose first 5 from any of the 3 to add to catalog
-games by platform(bottom)(click any 5) - > navigate to the games (choose first 5)
-
-
-User profile(Game catalog):
-Games: first 5 games in game catalog(pre-loaded)
-
-User profile(recommened games):
-Games: first 5 games in recommened games(pre-loaded)
-
-Test credittials(Making an account):
-First Name: First name
-Last name : Last name
-email: User2@gmail.com
-password: password2
-username: User2Test
-platform (scroll select): Playstation 5
+## Screenshots
+[![IMG-1845.png](https://i.postimg.cc/ZKvyQd8z/IMG-1845.png)](https://postimg.cc/6yw32TbM) | [![IMG-1901.png](https://i.postimg.cc/vH8VvZh5/IMG-1901.png)](https://postimg.cc/YjV0rkJS) | [![IMG-1902.png](https://i.postimg.cc/GtKzSg6K/IMG-1902.png)](https://postimg.cc/sGBpMmjG)
+--- | --- | ---
+[![IMG-1903.png](https://i.postimg.cc/FRM7X9Xs/IMG-1903.png)](https://postimg.cc/xJP0KVdW) |[![IMG-1904.png](https://i.postimg.cc/hvDNjmBC/IMG-1904.png)](https://postimg.cc/dkf5NLDd) |[![IMG-1906.png](https://i.postimg.cc/pdYJG1wS/IMG-1906.png)](https://postimg.cc/hJvmhMP8)
+## Known issues
+- To view a screenshot in the game detail view, you need to click on the initial image first, navigate back to the game description screen, and then click on a different image for it to function properly.
+- Upon initially visiting the game catalog, navigating back to that tab triggers the regeneration of games, resulting in duplicates of the same game. To resolve this issue, simply click on the recommended tab and then return to the game catalog tab to rectify the duplication.
