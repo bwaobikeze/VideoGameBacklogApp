@@ -9,8 +9,7 @@
 
 ## Features
 - Manage video game backlog
-- Discover new games
-- A Java object is created to represent distinct processes, each with its unique attributes.
+- Search & Discover new games to add to the backlog
 - Get the latest gaming news
 
 ## Usage
