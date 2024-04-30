@@ -23,7 +23,8 @@
 - Firebase Storage for storing media files
 - Firebase Auth for authentication
 - Makes REST API calls using News API for the latest gaming news and RAWG API for the game database
-
+## Example user
+-log in with these credentials: email: Testuser@gmail.com password: password
 ## Screenshots
 [![IMG-1845.png](https://i.postimg.cc/ZKvyQd8z/IMG-1845.png)](https://postimg.cc/6yw32TbM) | [![IMG-1901.png](https://i.postimg.cc/vH8VvZh5/IMG-1901.png)](https://postimg.cc/YjV0rkJS) | [![IMG-1902.png](https://i.postimg.cc/GtKzSg6K/IMG-1902.png)](https://postimg.cc/sGBpMmjG)
 --- | --- | ---
